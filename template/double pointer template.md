@@ -5,8 +5,9 @@
 4. 有子数组subarray， 子字符串substring的关键词 - 50%
 5. 有回文问题 palindrome 关键词 - 50% 
 
-#### time and space complexity
+### time complexity
 >> 时间复杂度与最内层循环主体的loop执行次数有关， 与有多少重循环无关
+### space complexity
 >> 只需要分配2个指针的额外内存，所以space 是O(1)
 
 
