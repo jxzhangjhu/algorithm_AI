@@ -1,1 +1,1 @@
-# leetcode_python
+# data structure and algortihms
