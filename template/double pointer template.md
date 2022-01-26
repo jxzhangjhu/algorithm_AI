@@ -1,7 +1,13 @@
-## 题目
+### 使用条件
+1. 滑动窗口 - 90% 的概率
+2. 时间复杂度要求 O(n) - 80%的概率
+3. 要求原地操作，只可以交换使用，不能使用额外空间，所以空间复杂度O(1) - 80% 
+4. 有子数组subarray， 子字符串substring的关键词 - 50%
+5. 有回文问题 palindrome 关键词 - 50% 
 
-https://leetcode.com/problems/minimum-size-subarray-sum/
-
+#### time and space complexity
+>> 时间复杂度与最内层循环主体的loop执行次数有关， 与有多少重循环无关
+>> 只需要分配2个指针的额外内存，所以space 是O(1)
 
 
 ## 相向双指针 - patition in quicksort 
