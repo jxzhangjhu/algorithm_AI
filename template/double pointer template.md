@@ -183,6 +183,92 @@ Explanation: Any substring whose length is not smaller than 3 contains a, b, c.
         # 时间复杂度 o(n)， 空间复杂度o(len(s)), s中不同的字符串个数，因为开了hash set 
 ```
 
+#### Example:  76. Minimum Window Substring
+https://leetcode.com/problems/minimum-window-substring/
+
+Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
+
+The testcases will be generated such that the answer is unique.
+
+A substring is a contiguous sequence of characters within the string.
+
+Example 1:
+```
+Input: s = "ADOBECODEBANC", t = "ABC"
+Output: "BANC"
+Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
+```
+Example 2:
+```
+Input: s = "a", t = "a"
+Output: "a"
+Explanation: The entire string s is the minimum window.
+```
+Example 3:
+```
+Input: s = "a", t = "aa"
+Output: ""
+Explanation: Both 'a's from t must be included in the window.
+Since the largest window of s only has one 'a', return empty string.
+```
+
+>Solution
+```python
+        # write your code here
+
+        ## leetcode 一个hard 题 - 仍然可以套模板，但是要注意几个点
+
+        # 1. 需要结合hash map来做，要用dict 
+        # 2. 注意判断条件，比之前多了一些，不是只要个数，而是返回string
+        # 3. 用matched char来记录，这个思路可以想到， 但是写的时候比较吃力
+        # 4. 实际上是三个指针，slow, fast and matched_char 
+
+        target, source = t, s
+
+        if len(target) == 0 or len(source) == 0:
+            return ''
+
+        m, n = len(target), len(source)
+        target_c, sub_c = {}, {}
+
+        for i in range(m):  # 提前做好hash map
+            target_c[target[i]] = target_c.get(target[i], 0) + 1
+
+        fast = 0 
+        matched_chars = 0
+        start, substring_len = 0, float('inf') 
+
+        for slow in range(n):
+
+            while fast < n and matched_chars < len(target_c): # 模板不成立条件
+                sub_c[source[fast]] = sub_c.get(source[fast], 0) + 1 
+
+                if sub_c[source[fast]] == target_c.get(source[fast], 0): #模板成立条件
+                    matched_chars += 1
+                fast += 1
+
+            # 记录数据，更新最短子串
+            if matched_chars == len(target_c):
+                if substring_len > fast - slow:
+                    substring_len = fast - slow 
+                    start = slow  # 这一步很重要，记录start，后面要输出整个string
+
+            # 这个是之前模板没有的，需要减去因为start在移动
+            sub_c[source[slow]] -= 1
+            if sub_c[source[slow]] == target_c.get(source[slow], 0) - 1:
+                matched_chars -= 1 # 因为移动，所以要update 
+
+        if substring_len == float('inf') :
+            return ''
+
+        return source[start : start + substring_len] # return也要care 
+```
+
+
+
+
+
+
 
 
 
