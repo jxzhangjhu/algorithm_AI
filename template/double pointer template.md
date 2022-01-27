@@ -11,7 +11,7 @@
 >> 只需要分配2个指针的额外内存，所以space 是O(1)
 
 ## 几种类型的双指针及相关题目
-1. 同向：特点是指针不回头，全0 子串数量 - slow，fast
+1. 同向：特点是指针不回头，全0 子串数量 - slow，fast， 基本等价于sliding window 
 2. 相向：two sum， three sum， left， right
 3. 背向：最长回文子串
 
@@ -179,6 +179,8 @@ Explanation: Any substring whose length is not smaller than 3 contains a, b, c.
                 res += length - fast + 1   # 计算res 的方法，要理解，fast后面的长度都可以
             
         return res 
+
+        # 时间复杂度 o(n)， 空间复杂度o(len(s)), s中不同的字符串个数，因为开了hash set 
 ```
 
 
