@@ -6,7 +6,7 @@
 5. 有回文问题 palindrome 关键词 - 50% 
 
 ## time complexity
->> 时间复杂度与最内层循环主体的loop执行次数有关， 与有多少重循环无关
+>> 时间复杂度与最内层循环主体的loop执行次数有关， 与有多少重循环无关，O(n) 
 ## space complexity
 >> 只需要分配2个指针的额外内存，所以space 是O(1)
 
@@ -126,13 +126,65 @@ class Solution:
         res = length # 注意这个用这个长度就可以
         
         for slow in range(length):
-            while fast < length and sum(nums[slow:fast]) < target: 
+            while fast < length and sum(nums[slow:fast]) < target:  # 这部分不是总是o(n)，这个time 是o(2n)
                 fast += 1
             if sum(nums[slow:fast]) >= target:
                 res = min(fast - slow, res)  # 不断迭代
                 
         return res
  ```
+
+#### Example: lintcode 1375 · Substring With At Least K Distinct Characters
+https://www.lintcode.com/problem/1375/description
+
+Description: Given a string S with only lowercase characters. Return the number of substrings that contains at least k distinct characters.
+
+Example
+Example 1:
+```
+Input: S = "abcabcabca", k = 4
+Output: 0
+Explanation: There are only three distinct characters in the string.
+```
+Example 2:
+```
+Input: S = "abcabcabcabc", k = 3
+Output: 55
+Explanation: Any substring whose length is not smaller than 3 contains a, b, c.
+    For example, there are 10 substrings whose length are 3, "abc", "bca", "cab" ... "abc"
+    There are 9 substrings whose length are 4, "abca", "bcab", "cabc" ... "cabc"
+    ...
+    There is 1 substring whose length is 12, "abcabcabcabc"
+    So the answer is 1 + 2 + ... + 10 = 55.
+```
+
+>Solution
+```python
+    def kDistinctCharacters(self, s, k):
+        # Write your code here
+        # 这个题要考虑几个点：
+            # 1. 如何设置slow and fast 指针的位置
+            # 2. 如何判断是否unique - hash 
+            # 3. 如何计数，res = res + n - fast + 1
+        if not s:
+            return -1 
+        fast = 0 
+        length = len(s)
+        res = 0 
+        for slow in range(length - k + 1): # 介绍loop 次数，不用走到头
+            fast = slow + k # j 也是从 slow + k 开始记录，否则没有一段k的，肯定不行
+            while fast < length and len(set(s[slow:fast])) < k: 
+                fast += 1
+            if len(set(s[slow:fast])) >= k:
+                res += length - fast + 1   # 计算res 的方法，要理解，fast后面的长度都可以
+            
+        return res 
+```
+
+
+
+
+--- 
 
 ## 合并双指针 
 
