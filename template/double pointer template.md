@@ -43,6 +43,11 @@ class Solution:
                 right -= 1
 ```
 
+
+
+
+
+---
 ## 背向双指针 
 
 ```python
@@ -61,6 +66,12 @@ class Solution:
 
 ```
 
+
+
+
+
+
+---
 ## 同向双指针 - 快慢指针 
 
 ```python
@@ -304,6 +315,96 @@ class Solution:
 
             return new_list 
 
-
-
 ```
+
+## Example 
+https://leetcode.com/problems/heaters/
+
+Winter is coming! During the contest, your first job is to design a standard heater with a fixed warm radius to warm all the houses.
+
+Every house can be warmed, as long as the house is within the heater's warm radius range. 
+
+Given the positions of houses and heaters on a horizontal line, return the minimum radius standard of heaters so that those heaters could cover all houses.
+
+Notice that all the heaters follow your radius standard, and the warm radius will the same.
+
+Example 1:
+```
+Input: houses = [1,2,3], heaters = [2]
+Output: 1
+Explanation: The only heater was placed in the position 2, and if we use the radius 1 standard, then all the houses can be warmed.
+```
+Example 2:
+```
+Input: houses = [1,2,3,4], heaters = [1,4]
+Output: 1
+Explanation: The two heater was placed in the position 1 and 4. We need to use radius 1 standard, then all the houses can be warmed.
+```
+Example 3:
+```
+Input: houses = [1,5], heaters = [2]
+Output: 3
+```
+
+>Solution
+```python
+class Solution:
+    def findRadius(self, houses: List[int], heaters: List[int]) -> int:
+        
+#         # 二分法，模板今晚弄好！ 
+#         # 二分插入位置需要数组有序
+#         heaters.sort()
+#         # 最近距离的最大值为最小的加热半径
+#         heat_radius = 0
+#         # 遍历房屋找到最近的加热器距离
+#         for house in houses:
+#             raius = self.get_minimum_radius(house, heaters)
+#             heat_radius = max(heat_radius, raius)
+        
+#         return heat_radius
+    
+    
+#     def get_minimum_radius(self, house, heaters):
+#         left, right = 0, len(heaters) - 1
+#         while left + 1 < right:
+#             mid = left + (right - left) // 2
+#             if heaters[mid] <= house:
+#                 left = mid
+#             else:
+#                 right = mid
+#         # 在left 和right 中找到答案
+#         left_distance = abs(heaters[left] - house)
+#         right_distance = abs(heaters[right] - house)
+        
+#         return min(left_distance, right_distance)
+        
+#     # 二分法复杂度分析
+#     # 排序heaters, o(m*logm)
+#     # 遍历每一个房屋hosue， o(n)
+#     # 二分house 在heater 中的插入位置 o(logm)
+#     # 总时间复杂度 o((n+m)*logm) 
+    
+    
+    # 双数组型同向双指针
+        houses.sort()
+        heaters.sort()
+        n, m = len(houses), len(heaters)
+        i, j = 0, 0 
+        heat_radius = 0 
+        while i < n and j < m:
+            now_radius = abs(heaters[j] - houses[i])
+            next_radius = float('inf')
+            if j < m - 1:
+                next_radius = abs(heaters[j + 1] - houses[i])
+            if now_radius < next_radius:
+                heat_radius = max(heat_radius, now_radius)
+                i += 1
+            else:
+                j += 1
+        return heat_radius 
+
+    # 两个数组最多被分别遍历一次o(n+m)
+    # 数组需要排序o(n*logn + m*logm)
+    # 总时间复杂度为 o(n*logn + m*logm)
+    # 空间复杂度o(1)
+```      
