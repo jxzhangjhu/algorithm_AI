@@ -68,7 +68,7 @@ class Heap:
 
 ## 几种类型的双指针及相关题目
 
-## Example 264. Ugly Number II 
+### Example 264. Ugly Number II 
 https://leetcode.com/problems/ugly-number-ii/ 
 
 An ugly number is a positive integer whose prime factors are limited to 2, 3, and 5.
@@ -89,7 +89,7 @@ Explanation: 1 has no prime factors, therefore all of its prime factors are limi
 ```
 >solution 
 ```python
-        # 用heap来做，不断的找最小值，然后push回去
+        # 用heap来做，不断的找最小值，然后push回去, 时间复杂度 o(nlogn)
     
         import heapq
         
@@ -107,4 +107,69 @@ Explanation: 1 has no prime factors, therefore all of its prime factors are limi
         return min_val
 ```
 
+### 973. K Closest Points to Origin
+https://leetcode.com/problems/k-closest-points-to-origin/
 
+Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane and an integer k, return the k closest points to the origin (0, 0).
+
+The distance between two points on the X-Y plane is the Euclidean distance (i.e., √(x1 - x2)2 + (y1 - y2)2).
+
+You may return the answer in any order. The answer is guaranteed to be unique (except for the order that it is in).
+
+Example 1:
+```
+Input: points = [[1,3],[-2,2]], k = 1
+Output: [[-2,2]]
+Explanation:
+The distance between (1, 3) and the origin is sqrt(10).
+The distance between (-2, 2) and the origin is sqrt(8).
+Since sqrt(8) < sqrt(10), (-2, 2) is closer to the origin.
+We only want the closest k = 1 points from the origin, so the answer is just [[-2,2]].
+```
+Example 2:
+```
+Input: points = [[3,3],[5,-1],[-2,4]], k = 2
+Output: [[3,3],[-2,4]]
+Explanation: The answer [[-2,4],[3,3]] would also be accepted.
+```
+
+>solution
+
+```python
+#         # heap  最小堆 - 把所有点都放入最小堆，然后用最小堆取出k个，时间o(nlogn) 空间o(n) + o(k)
+#         # 遍历堆 o(nlogn) 所以时间是这个level， 空间是因为开了heap + res的部分，单独储存res
+        
+        
+#         import heapq
+#         heap = []
+        
+#         for point in points:
+#             cur_dis = point[0] ** 2 + point[1] ** 2
+#             heapq.heappush(heap, (cur_dis, point)) # 注意加进去的时候还是看cur_dis 自动排序好了
+            
+#         res = []
+#         i = 0 
+#         while i < k: 
+#             _, point = heapq.heappop(heap)
+#             res.append(point)
+#             i += 1
+        
+        # return res
+    
+        # 最大堆 更优一些， 因为不需要重新开整个heap - 时间 o(nlogk), 空间o(k) 
+        heap = []
+        for point in points:
+            cur_dis = point[0] ** 2 + point[1] ** 2
+            heapq.heappush(heap, (-cur_dis, point)) # 注意加进去的时候还是看cur_dis 自动排序好了
+            if len(heap) > k:
+                heapq.heappop(heap)
+        
+        res = []
+        i = 0 
+        while i < k: 
+            _, point = heapq.heappop(heap)
+            res.append(point)
+            i += 1
+        
+        return res
+```
