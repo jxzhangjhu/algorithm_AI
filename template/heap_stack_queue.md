@@ -10,9 +10,9 @@
 ## 基本操作 - 高度是logn 
 1. 构建堆 heapify - o(n)
 2. 遍历堆 o(nlogn)
-3. add - o(n)
+3. add - o(n) 
 4. remove - 理论上是o(logn) 但实际上python的库函数是for loop遍历的，所以是o(n)
-5. pop - o(logn)
+5. pop - o(logn)， push 也是o(logn)
 6. min or max - o(1) 
 7. 由于是数组操作，选定k，父亲是k/2，左孩子kx2, 右孩子kx2+1
 8. 可以结合hashmap 去查询或者remove 指定值 
@@ -54,7 +54,7 @@ class Heap:
         self._lazy_deletion()
         return self.minheap[0]
 
-    def pop(self):
+    def pop(self): # 移除顶端元素
         self._lazy_deletion()
         heappop(self.minheap)
 
@@ -172,4 +172,44 @@ Explanation: The answer [[-2,4],[3,3]] would also be accepted.
             i += 1
         
         return res
+```
+
+### Example: Lintcode 545 · Top k Largest Numbers II
+https://www.lintcode.com/problem/545/ 
+
+Description
+Implement a data structure, provide two interfaces:
+
+add(number). Add a new number in the data structure.
+topk(). Return the top k largest numbers in this data structure. k is given when we create the data structure.
+
+>solution
+```python
+import heapq
+class Solution:
+    """
+    @param: k: An integer
+    """
+    def __init__(self, k):
+        # do intialization if necessary
+        self.k = k
+        self.heap = []
+
+    """
+    @param: num: Number to be added
+    @return: nothing
+    """
+    def add(self, num):
+        # write your code here
+        heapq.heappush(self.heap, num)
+        if len(self.heap) > self.k:
+            heapq.heappop(self.heap)
+
+
+    """
+    @return: Top k element
+    """
+    def topk(self):
+        # write your code here
+        return sorted(self.heap, reverse=True)
 ```
