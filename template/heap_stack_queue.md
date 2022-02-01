@@ -388,7 +388,6 @@ class Solution:
     def topKFrequent(self, words: List[str], k: int) -> List[str]:
         
         # heap 很显然的解法，但不想用这么多额外的开销
-        
         counts = defaultdict(lambda: 0)
         for word in words:
             counts[word] += 1
@@ -403,4 +402,55 @@ class Solution:
             res.append(heappop(inverse[count]))
             
         return res     
+```
+
+
+### Example: 658. Find K Closest Elements
+https://leetcode.com/problems/find-k-closest-elements/ 
+
+Given a sorted integer array arr, two integers k and x, return the k closest integers to x in the array. The result should also be sorted in ascending order.
+
+An integer a is closer to x than an integer b if:
+```
+|a - x| < |b - x|, or
+|a - x| == |b - x| and a < b
+ ```
+
+Example 1:
+```
+Input: arr = [1,2,3,4,5], k = 4, x = 3
+Output: [1,2,3,4]
+```
+Example 2:
+```
+Input: arr = [1,2,3,4,5], k = 4, x = -1
+Output: [1,2,3,4]
+```
+
+>Solution 
+```python
+class Solution:
+    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        # way 1 - double pointer 
+        # way 2 - binary search 
+        
+        # way 3 - heap 
+        import heapq 
+        heap = [] 
+        
+        for num in arr:
+            dis = abs(num - x)
+            heapq.heappush(heap, (dis, num))
+            # if len(heap) > k: # 用最大堆有问题，就是会忽视这个条件 |a - x| == |b - x| and a < b
+            #     heapq.heappop(heap)
+            
+        res = []
+        i = 0
+        while i < k:
+            _, num = heapq.heappop(heap)
+            res.append(num)
+            i += 1
+            
+        return sorted(res) # 别忘了最后要sorted()  如果是res.sort() 会返回[]
+
 ```
