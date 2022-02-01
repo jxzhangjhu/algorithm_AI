@@ -324,3 +324,83 @@ Explanation: All possible pairs are returned from the sequence: [1,3],[2,3]
         # time - klogk? 不太确定
         # space - o(k)
 ```
+
+### Example: 215. Kth Largest Element in an Array
+https://leetcode.com/problems/kth-largest-element-in-an-array/
+Given an integer array nums and an integer k, return the kth largest element in the array.
+
+Note that it is the kth largest element in the sorted order, not the kth distinct element.
+
+Example 1:
+```
+Input: nums = [3,2,1,5,6,4], k = 2
+Output: 5
+```
+Example 2:
+```
+Input: nums = [3,2,3,1,2,4,5,5,6], k = 4
+Output: 4
+```
+
+>solution
+```python
+        # 暴力干 - 但没有什么意思， python 的sort 时间复杂度是多少？ 不清楚 
+        # nums.sort()
+        # return nums[-k]
+    
+# That would be an algorithm of O(NlogN) time complexity and 
+# O(1) space complexity.
+    
+        # heap 
+        import heapq 
+        return heapq.nlargest(k, nums)[-1]
+    
+# Time complexity : O(Nlogk).
+# Space complexity : O(k) to store the heap elements.
+```
+
+
+### Example : 692. Top K Frequent Words 
+https://leetcode.com/problems/top-k-frequent-words/ 
+
+Given an array of strings words and an integer k, return the k most frequent strings.
+
+Return the answer sorted by the frequency from highest to lowest. Sort the words with the same frequency by their lexicographical order.
+
+ 
+Example 1:
+```
+Input: words = ["i","love","leetcode","i","love","coding"], k = 2
+Output: ["i","love"]
+Explanation: "i" and "love" are the two most frequent words.
+Note that "i" comes before "love" due to a lower alphabetical order.
+```
+Example 2:
+```
+Input: words = ["the","day","is","sunny","the","the","the","sunny","is","is"], k = 4
+Output: ["the","is","sunny","day"]
+Explanation: "the", "is", "sunny" and "day" are the four most frequent words, with the number of occurrence being 4, 3, 2 and 1 respectively.
+```
+
+>Solution
+```python
+class Solution:
+    def topKFrequent(self, words: List[str], k: int) -> List[str]:
+        
+        # heap 很显然的解法，但不想用这么多额外的开销
+        
+        counts = defaultdict(lambda: 0)
+        for word in words:
+            counts[word] += 1
+            
+        inverse = defaultdict(lambda: [])
+        for word, count in counts.items():
+            heappush(inverse[count], word)
+        
+        res = []
+        
+        for count in nlargest(k, counts.values()):
+            res.append(heappop(inverse[count]))
+            
+        return res     
+```
