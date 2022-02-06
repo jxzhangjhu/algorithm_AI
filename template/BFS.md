@@ -286,7 +286,65 @@ class Solution:
 
 # Space Complexity : O(N). This space is occupied by the visited dictionary and in addition to that, space would also be occupied by the queue since we are adopting the BFS approach here. The space occupied by the queue would be equal to O(W) where W is the width of the graph. Overall, the space complexity would be O(N).
 ```
-        
+   
+
+### Example: 490. The Maze
+https://leetcode.com/problems/the-maze/
+
+
+There is a ball in a maze with empty spaces (represented as 0) and walls (represented as 1). The ball can go through the empty spaces by rolling up, down, left or right, but it won't stop rolling until hitting a wall. When the ball stops, it could choose the next direction.
+
+Given the m x n maze, the ball's start position and the destination, where start = [startrow, startcol] and destination = [destinationrow, destinationcol], return true if the ball can stop at the destination, otherwise return false.
+
+You may assume that the borders of the maze are all walls (see examples).     
+
+```
+Input: maze = [[0,0,1,0,0],[0,0,0,0,0],[0,0,0,1,0],[1,1,0,1,1],[0,0,0,0,0]], start = [0,4], destination = [4,4]
+Output: true
+Explanation: One possible way is : left -> down -> left -> down -> right -> down -> right.
+```
+
+>Solution
+```python
+
+from collections import deque
+# define the global direction 
+dirct = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+class Solution:
+    def hasPath(self, maze: List[List[int]], start: List[int], destination: List[int]) -> bool:
+        queue = deque([(start[0], start[1])]) 
+        visited = set()
+        while queue:
+            curr = queue.popleft()
+            if curr in visited:
+                continue 
+            if curr == (destination[0], destination[1]):
+                return True
+            visited.add(curr)
+            for neigh in self.neighbor_count(curr[0],curr[1], maze):
+                queue.append(neigh)
+                # print(queue)
+        return False 
+
+    def neighbor_count(self, x, y, maze):
+        len_x = len(maze)
+        len_y = len(maze[0])
+        # return neighbors
+        neighbors = [] 
+        visited = set()
+        visited.add((x,y)) # add the current (x,y)， 防止当前的被加进去？
+        for dx, dy in dirct:
+            curr_x, curr_y = x, y
+            # 判断条件 1) 不超过边界，2） 不是wall，也就是值是0
+            while 0 <= curr_x + dx < len_x and 0 <= curr_y + dy < len_y and maze[curr_x + dx][curr_y + dy] == 0: 
+                curr_x += dx  # 直接走到头
+                curr_y += dy  # 不是走一步
+            if (curr_x, curr_y) not in visited:
+                neighbors.append((curr_x, curr_y))
+        return neighbors 
+
+```
+
                     
         
         
