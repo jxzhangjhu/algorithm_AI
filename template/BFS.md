@@ -186,9 +186,106 @@ class Solution:
             return False 
         
         # 注意和九章那个区别，这里是‘1’ and ‘0’, 字符串不能直接return true or false 
+
+#  Complexity Analysis
+
+# Time complexity : O(M \times N)O(M×N) where MM is the number of rows and NN is the number of columns.
+
+# Space complexity : O(min(M, N))O(min(M,N)) because in worst case where the grid is filled with lands, the size of queue can grow up to min(M,NM,N).
          
 ``` 
 
+### 133. Clone Graph
+https://leetcode.com/problems/clone-graph/
+
+Given a reference of a node in a connected undirected graph.
+
+Return a deep copy (clone) of the graph.
+
+Each node in the graph contains a value (int) and a list (List[Node]) of its neighbors.
+```
+class Node {
+    public int val;
+    public List<Node> neighbors;
+}
+```
+Test case format:
+
+For simplicity, each node's value is the same as the node's index (1-indexed). For example, the first node with val == 1, the second node with val == 2, and so on. The graph is represented in the test case using an adjacency list.
+
+An adjacency list is a collection of unordered lists used to represent a finite graph. Each list describes the set of neighbors of a node in the graph.
+
+The given node will always be the first node with val = 1. You must return the copy of the given node as a reference to the cloned graph.
+
+```
+Input: adjList = [[2,4],[1,3],[2,4],[1,3]]
+Output: [[2,4],[1,3],[2,4],[1,3]]
+Explanation: There are 4 nodes in the graph.
+1st node (val = 1)'s neighbors are 2nd node (val = 2) and 4th node (val = 4).
+2nd node (val = 2)'s neighbors are 1st node (val = 1) and 3rd node (val = 3).
+3rd node (val = 3)'s neighbors are 2nd node (val = 2) and 4th node (val = 4).
+4th node (val = 4)'s neighbors are 1st node (val = 1) and 3rd node (val = 3).
+```
+
+>Solution 
+```python
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val = 0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+"""
+
+class Solution:
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        
+        """
+        :type node: Node
+        :rtype: Node
+        """
+        # 有一些操作不熟悉，但是思路是类似层级遍历！ 
+        if not node:
+            return node
+
+        # Dictionary to save the visited node and it's respective clone
+        # as key and value respectively. This helps to avoid cycles.
+        visited = {}
+
+        # Put the first node in the 
+        print(node.val) # 1
+        print(node.neighbors[0].val) # 2
+        print(node.neighbors[1].val) # 4
+        
+        queue = deque([node])
+        # Clone the node and put it in the visited dictionary.
+        visited[node] = Node(node.val, []) # 这个很重要，记录各种想要的results
+
+        # Start BFS traversal
+        while queue:
+            # Pop a node say "n" from the from the front of the queue.
+            n = queue.popleft()
+            print(n.val)
+            # Iterate through all the neighbors of the node
+            for neighbor in n.neighbors: # 宽度优先，就是有几个，这里是2个neighbors
+                # print(neighbor) 
+                if neighbor not in visited:
+                    # Clone the neighbor and put in the visited, if not present already
+                    visited[neighbor] = Node(neighbor.val, [])
+                    # Add the newly encountered node to the queue.
+                    queue.append(neighbor)
+                # Add the clone of the neighbor to the neighbors of the clone node "n".
+                visited[n].neighbors.append(visited[neighbor])
+
+        # Return the clone of the node from visited.
+        return visited[node]
+        
+# Complexity Analysis
+
+# Time Complexity : O(N + M), where N is a number of nodes (vertices) and M is a number of edges. 注意不是NxM
+
+# Space Complexity : O(N). This space is occupied by the visited dictionary and in addition to that, space would also be occupied by the queue since we are adopting the BFS approach here. The space occupied by the queue would be equal to O(W) where W is the width of the graph. Overall, the space complexity would be O(N).
+```
         
                     
         
