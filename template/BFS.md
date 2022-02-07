@@ -568,13 +568,12 @@ If two nodes are in the same row and column, the order should be from left to ri
 <!-- Approach 1. Breadth-first search / level-order traversal with sorting
 Time complexity: O(n*logn)
 Space complexity: O(n)
-The requirement is that we traverse the tree from top to bottom and left to right. Right away, this should make one think of breadth-first search / level order traversal because that has the same traversal order. Because we need each column slice of nodes to be its own list in the return output/list, we need to keep track of each node's offset from the root node. Since the root node is the center of our tree, we assign it an offset of zero. Thus, the left child has an offset of -1 and each left child will have an offset one less than its parent. Similarly, the right child has an offset of +1 and each right child will have an offset one more than its parent. See the following image:
-![Binary Tree Vertical Order Traversal.png](C:\Users\tasloach.wol\Desktop\LeetCode posts\Binary Tree Vertical Order Traversal.png).
- -->
+The requirement is that we traverse the tree from top to bottom and left to right. Right away, this should make one think of breadth-first search / level order traversal because that has the same traversal order. Because we need each column slice of nodes to be its own list in the return output/list, we need to keep track of each node's offset from the root node. Since the root node is the center of our tree, we assign it an offset of zero. Thus, the left child has an offset of -1 and each left child will have an offset one less than its parent. Similarly, the right child has an offset of +1 and each right child will have an offset one more than its parent. See the following image: -->
+
 ```python
 class Solution:
     def verticalOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        offset_map = {}
+        offset_map = {} # 用dict map
         queue = deque([(root, 0)] if root else [])
 
         while queue:
@@ -586,10 +585,10 @@ class Solution:
                 offset_map[offset].append(node.val)
 
             if node.left:
-                queue.append((node.left, offset - 1))
+                queue.append((node.left, offset - 1)) # left 就减一层
 
             if node.right:
-                queue.append((node.right, offset + 1))
+                queue.append((node.right, offset + 1)) # 加一层
 
         return [v for k, v in sorted(offset_map.items())]
 
