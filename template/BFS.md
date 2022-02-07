@@ -464,6 +464,57 @@ class Solution:
 
 ```
 
+### Example: 1091. Shortest Path in Binary Matrix 最短路径问题
+https://leetcode.com/problems/shortest-path-in-binary-matrix/ 
+
+
+Given an n x n binary matrix grid, return the length of the shortest clear path in the matrix. If there is no clear path, return -1.
+
+A clear path in a binary matrix is a path from the top-left cell (i.e., (0, 0)) to the bottom-right cell (i.e., (n - 1, n - 1)) such that:
+
+All the visited cells of the path are 0.
+All the adjacent cells of the path are 8-directionally connected (i.e., they are different and they share an edge or a corner).
+The length of a clear path is the number of visited cells of this path.
+
+>Solution 
+
+```python 
+class Solution:
+    def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
+
+        # 如何处理这种最短路径的问题？ 
+        # 初始化queue的问题中，很多是把distance 加到queue里面
+        
+        n = len(grid)
+        res = float('inf')
+        directions = [(-1,-1),(-1,0),(-1,1),(0,-1),(0,1),(1,-1),(1,0),(1,1)] # 8个方向的
+        queue = deque([(0 , 0, 1)]) # 这里加个1是distance 的起始点
+        
+        # 加 # 就是为了避免重复，实际上是用visited 代替的很多case 
+        visited = set()
+        while queue:
+            row, col, step = queue.popleft()
+            
+            # if not (0 <= row < n) or not (0 <= col < n) or grid[row][col] == 1 or grid[row][col] == '#':
+            #     continue
+            # grid[row][col] = '#'
+            
+            if not (0 <= row < n) or not (0 <= col < n) or grid[row][col] == 1 or (row, col) in visited: 
+                continue
+            visited.add((row, col))
+
+            for x, y in directions:
+                newRow = row + x
+                newCol = col + y
+                queue.append((newRow, newCol, step + 1))
+                
+            if row == n - 1 and col == n - 1:
+                res = min(res, step)
+                continue
+        
+        return res if res != float('inf') else -1 # 这个output也要注意，判断一下 res 是不是动了，否则就是inf，那么就是-1 
+
+```
         
         
         
