@@ -631,3 +631,91 @@ class Solution:
         return [offset_map[offset] for offset in range(min_offset, max_offset + 1)]
         
 ```        
+
+
+### Example: 207. Course Schedule 拓扑排序
+
+There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
+
+For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
+Return true if you can finish all courses. Otherwise, return false.
+
+
+Example 1:
+```
+Input: numCourses = 2, prerequisites = [[1,0]]
+Output: true
+Explanation: There are a total of 2 courses to take. 
+To take course 1 you should have finished course 0. So it is possible.
+```
+Example 2:
+```
+Input: numCourses = 2, prerequisites = [[1,0],[0,1]]
+Output: false
+Explanation: There are a total of 2 courses to take. 
+To take course 1 you should have finished course 0, and to take course 0 you should also have finished course 1. So it is impossible.
+```
+
+>Solution
+```python 
+# class Solution:
+#     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        
+#         # 新建一个字典，存储有向图
+#         edges = collections.defaultdict(list)
+#         print(edges)
+#         # 存储每个节点的入度
+#         indeg = [0] * numCourses
+#         # 字典值的填充和入度的统计
+#         for info in prerequisites:
+#             edges[info[1]].append(info[0])
+#             print(edges)
+#             indeg[info[0]] += 1
+#         # 把入度为0的课程放入到队列
+#         queue = collections.deque([u for u in range(numCourses) if indeg[u] == 0])
+#         result = 0
+
+#         while queue:
+#             result += 1
+#             u = queue.popleft()
+#             for v in edges[u]:
+#                 indeg[v] -= 1
+#                 if indeg[v] == 0:
+#                     queue.append(v)
+
+#         return result == numCourses # 已学习课程的数量和input课程数量
+
+
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        from collections import defaultdict
+        from collections import deque
+        # 入度数组(列表，保存所有课程的依赖课程总数)
+        in_degree_list = [0] * numCourses
+        # 关系表(字典，保存所有课程与依赖课程的关系)
+        relation_dict = defaultdict(list)
+        for i in prerequisites:
+            # 保存课程初始入度值
+            in_degree_list[i[0]] += 1
+            # 添加依赖它的后续课程
+            relation_dict[i[1]].append(i[0])
+        queue = deque()
+        for i in range(len(in_degree_list)):
+            # 入度为0的课程入列
+            if in_degree_list[i] == 0:
+                queue.append(i)
+        # 队列只存储入度为0的课程，也就是可以直接选修的课程
+        while queue:
+            current = queue.popleft()
+            # 选修课程-1
+            numCourses -= 1
+            relation_list = relation_dict[current]
+            # 如果有依赖此课程的后续课程则更新入度
+            if relation_list:
+                for i in relation_list:
+                    in_degree_list[i] -= 1
+                    # 后续课程除去当前课程无其他依赖课程则丢入队列
+                    if in_degree_list[i] == 0:
+                        queue.append(i)
+        return numCourses == 0
+```
