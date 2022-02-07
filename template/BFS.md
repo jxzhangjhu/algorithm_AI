@@ -515,6 +515,46 @@ class Solution:
         return res if res != float('inf') else -1 # 这个output也要注意，判断一下 res 是不是动了，否则就是inf，那么就是-1 
 
 ```
+
+### Example: 542. 01 Matrix 
+https://leetcode.com/problems/01-matrix/ 
+
+Given an m x n binary matrix mat, return the distance of the nearest 0 for each cell.
+
+The distance between two adjacent cells is 1 
+
+>Solution 
+
+```python
+class Solution:
+    def updateMatrix(self, matrix: List[List[int]]) -> List[List[int]]:
+        m, n = len(matrix), len(matrix[0])
+        dist = [[0] * n for _ in range(m)]
+        print(dist)
+        zeroes_pos = [(i, j) for i in range(m) for j in range(n) if matrix[i][j] == 0]
+        print(zeroes_pos)
+        # 将所有的 0 添加进初始队列中
+        q = collections.deque(zeroes_pos)
+        seen = set(zeroes_pos) # 这步很关键，所有的0都进去了，只需要扫其他的1， 即便是最短path，但不需要用min来判断
         
+        # 广度优先搜索
+        while q:
+            i, j = q.popleft()
+            for ni, nj in [(i - 1, j), (i + 1, j), (i, j - 1), (i, j + 1)]:
+                if 0 <= ni < m and 0 <= nj < n and (ni, nj) not in seen:
+                    dist[ni][nj] = dist[i][j] + 1
+                    q.append((ni, nj))
+                    seen.add((ni, nj))
+        
+        return dist
+
+# 复杂度分析
+
+# 时间复杂度：O(rc)O(rc)，其中 rr 为矩阵行数，cc 为矩阵列数，即矩阵元素个数。广度优先搜索中每个位置最多只会被加入队列一次，因此只需要 O(rc)O(rc) 的时间复杂度。
+
+# 空间复杂度：O(rc)O(rc)，其中 rr 为矩阵行数，cc 为矩阵列数，即矩阵元素个数。除答案数组外，最坏情况下矩阵里所有元素都为 00，全部被加入队列中，此时需要 O(rc)O(rc) 的空间复杂度。
+
+
+``` 
         
         
