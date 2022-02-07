@@ -406,7 +406,62 @@ class Solution(object):
     # 时间和空间都是o(n)
  
 ```
-                    
+      
+### Example: 286. Walls and Gates 
+https://leetcode.com/problems/walls-and-gates/ 
+
+You are given an m x n grid rooms initialized with these three possible values.
+
+-1 A wall or an obstacle.
+0 A gate.
+INF Infinity means an empty room. We use the value 231 - 1 = 2147483647 to represent INF as you may assume that the distance to a gate is less than 2147483647.
+Fill each empty room with the distance to its nearest gate. If it is impossible to reach a gate, it should be filled with INF.
+> Solution
+
+```python 
+### 这个题思路比较另类，实际上用gate去遍历所有的空， 
+from collections import deque
+class Solution:
+    def wallsAndGates(self, rooms: List[List[int]]) -> None:
+        # initialization 
+        m, n = len(rooms), len(rooms[0])
+
+        # 遇到2D matrix 就用这个neighbor，明确哪些neighbor要记录
+        def neighbor(x,y):
+            neighbors = []
+            direct = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+            for dx, dy in direct: 
+                new_x = x + dx 
+                new_y = y + dy
+                if 0 <= new_x < m and 0 <= new_y < n and rooms[new_x][new_y] == 2147483647: # 加这个判断条件
+                    neighbors.append((new_x, new_y))
+            return neighbors
+
+        #  build a queue and add all gate 
+        gate = [] 
+        for i in range(m):
+            for j in range(n):
+                if rooms[i][j] == 0:
+                    gate.append((i,j))
+
+        # bfs 
+        queue = deque(gate)
+        distance = 0
+        visited = set(gate) # 需要记录，否则不对，会走重复的
+        while queue:
+            for _ in range(len(queue)):
+                x, y = queue.popleft()
+                rooms[x][y] = distance
+                for i, j in neighbor(x, y):
+                    if rooms[i][j] == -1 or (i, j) in visited:
+                        continue 
+                    queue.append((i,j))
+                    visited.add((i,j))
+
+            distance += 1
+
+```
+
         
         
         
