@@ -449,7 +449,7 @@ class Solution:
         distance = 0
         visited = set(gate) # 需要记录，否则不对，会走重复的
         while queue:
-            for _ in range(len(queue)):
+            for _ in range(len(queue)): # 需要遍历这个，因为所有的门一起开始移动，one by one 而不是在一个点的滑动 
                 x, y = queue.popleft()
                 rooms[x][y] = distance
                 for i, j in neighbor(x, y):
@@ -459,6 +459,8 @@ class Solution:
                     visited.add((i,j))
 
             distance += 1
+
+        # time o(mxn), space o(mxn) 就是遍历所有的点
 
 ```
 
