@@ -122,8 +122,142 @@ class Solution:
         return result 
 ```
 
+
+## 二叉树的迭代统一模板
+
+### 前序遍历 preorder - 中左右
+```python 
+class Solution:
+    def preorderTraversal(self, root: TreeNode) -> List[int]:
+        result = []
+        st= []
+        if root:
+            st.append(root)
+        while st:
+            node = st.pop()
+            if node != None:
+                if node.right: #右
+                    st.append(node.right)
+                if node.left: #左
+                    st.append(node.left)
+                st.append(node) #中
+                st.append(None)
+            else:
+                node = st.pop()
+                result.append(node.val)
+        return result
+```
+
+### 中序遍历 inorder - 左中右
+```python 
+class Solution:
+    def inorderTraversal(self, root: TreeNode) -> List[int]:
+        result = []
+        st = []
+        if root:
+            st.append(root)
+        while st:
+            node = st.pop()
+            if node != None:
+                if node.right: #添加右节点（空节点不入栈）
+                    st.append(node.right)
+                
+                st.append(node) #添加中节点
+                st.append(None) #中节点访问过，但是还没有处理，加入空节点做为标记。
+                
+                if node.left: #添加左节点（空节点不入栈）
+                    st.append(node.left)
+            else: #只有遇到空节点的时候，才将下一个节点放进结果集
+                node = st.pop() #重新取出栈中元素
+                result.append(node.val) #加入到结果集
+        return result
+```
+
+### 后序遍历 postorder - 左右中
+```python
+class Solution:
+    def postorderTraversal(self, root: TreeNode) -> List[int]:
+        result = []
+        st = []
+        if root:
+            st.append(root)
+        while st:
+            node = st.pop()
+            if node != None:
+                st.append(node) #中
+                st.append(None)
+                
+                if node.right: #右
+                    st.append(node.right)
+                if node.left: #左
+                    st.append(node.left)
+            else:
+                node = st.pop()
+                result.append(node.val)
+        return result
+```
+
+
+--- 
+
 ## 基于tree的DFS 
 
-## Examples 
+## Examples：  863. All Nodes Distance K in Binary Tree
 
+Given the root of a binary tree, the value of a target node target, and an integer k, return an array of the values of all nodes that have a distance k from the target node.
+
+You can return the answer in any order.
+```
+Input: root = [3,5,1,6,2,0,8,null,null,7,4], target = 5, k = 2
+Output: [7,4,1]
+Explanation: The nodes that are a distance 2 from the target node (with value 5) have values 7, 4, and 1.
+```
+
+>Solution 
+```python  
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
+
+# idea - using dfs to know the par node 
+
+        def dfs(node, par=None):
+            if node:
+                node.par = par 
+                dfs(node.left, node)
+                dfs(node.right, node)
+
+        dfs(root)
+
+        # bfs 
+        from collections import deque
+        queue = deque()
+        queue.append((target, 0)) # 从target node开始bfs 这个要记住，不是root
+        visited = {target}
+
+        res = []
+        while queue:
+            if queue[0][1] == k: # distacne == k, 那么是遍历现在queue中所有的node.val
+                for node, d in queue:
+                    res.append(node.val)
+                return res # 别忘了返回值！！！！！
+
+            # 之后pop
+            node,dis = queue.popleft()
+            for neighbor in (node.left, node.right, node.par): # 比图简单多了
+                if not neighbor or neighbor in visited: # 模板写法
+                    continue 
+                queue.append((neighbor, dis + 1))
+                visited.add(neighbor) # 要用add，而不是append
+
+        return []
+
+
+```
 
