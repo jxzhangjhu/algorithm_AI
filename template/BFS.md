@@ -657,7 +657,9 @@ To take course 1 you should have finished course 0, and to take course 0 you sho
 ```
 
 >Solution
-```python 
+```python
+
+# https://leetcode-cn.com/problems/course-schedule/solution/bao-mu-shi-ti-jie-shou-ba-shou-da-tong-tuo-bu-pai-/ 这个link讲的特别好！  
 # class Solution:
 #     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         
