@@ -1,3 +1,152 @@
+# linkedlist 
+
+## 常规操作
+1. head = head.next 这是指针后移，把当前node往后挪 
+2. head.next = anothernode or curr.next 都是改变node的指针，重新指向新的node，一旦发生，不可改变
+
+### Example - 219 · Insert Node in Sorted Linked List 
+Example
+Example 1:
+```
+Input: head = 1->4->6->8->null, val = 5
+Output: 1->4->5->6->8->null
+```
+Example 2:
+```
+Input: head = 1->null, val = 2
+Output: 1->2->null
+```
+
+>Solution
+```python
+"""
+Definition of ListNode
+class ListNode(object):
+    def __init__(self, val, next=None):
+        self.val = val
+        self.next = next
+"""
+
+class Solution:
+    """
+    @param head: The head of linked list.
+    @param val: An integer.
+    @return: The head of new linked list.
+    """
+    def insertNode(self, head, val):
+        # write your code here
+
+        dummy = ListNode(next=head,val=None)
+        curr_node = dummy
+        while curr_node.next and curr_node.next.val <= val:
+            curr_node = curr_node.next # node 指针后移
+
+        # add new node 
+        new_node = ListNode(val)
+        # 左右链接
+        # left 
+        # curr_node.next = new_node #先把前面连上
+        # new_node.next = curr_node.next # 再把后面连上，这样就成环了！
+
+        new_node.next = curr_node.next # 先把后面连上 ,next -> node
+        curr_node.next = new_node # 再把前面连上 
+
+        return dummy.next
+```
+
+### Example - 452 · Remove Linked List Elements 
+Example
+Example 1:
+```
+Input: head = 1->2->3->3->4->5->3->null, val = 3
+Output: 1->2->4->5->null
+```
+Example 2:
+```
+Input: head = 1->1->null, val = 1
+Output: null
+```
+
+>Solution
+```python
+"""
+Definition of ListNode
+class ListNode(object):
+    def __init__(self, val, next=None):
+        self.val = val
+        self.next = next
+"""
+
+class Solution:
+    """
+    @param head: a ListNode
+    @param val: An integer
+    @return: a ListNode
+    """
+    def removeElements(self, head, val):
+        # write your code here
+
+        dummy = ListNode(next=head,val=None)
+        curr_node = dummy
+        while curr_node.next:
+            if curr_node.next.val == val:
+                curr_node.next = curr_node.next.next
+            else:
+                curr_node = curr_node.next
+
+        return dummy.next 
+```
+
+### Example - 228 · Middle of Linked List
+
+Description
+Find the middle node of a linked list and return it.
+
+Example
+Example 1:
+```
+Input:  1->2->3
+Output: 2   
+Explanation: return the middle node.
+```
+Example 2:
+```
+Input:  1->2
+Output: 1   
+Explanation: If the length of list is even return the center left one.
+```
+
+>Solution
+```python
+"""
+Definition of ListNode
+class ListNode(object):
+    def __init__(self, val, next=None):
+        self.val = val
+        self.next = next
+"""
+
+class Solution:
+    """
+    @param head: the head of linked list.
+    @return: a middle node of the linked list
+    """
+    def middleNode(self, head):
+        # write your code here
+        
+        if not head:
+            return 
+        slow = head
+        fast = head
+
+        while fast.next and fast.next.next:
+             slow = slow.next
+             fast = fast.next.next 
+
+        return slow
+```
+---
+
 # heap 
 
 ## 定义
