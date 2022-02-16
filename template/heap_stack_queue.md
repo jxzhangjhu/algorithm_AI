@@ -145,6 +145,113 @@ class Solution:
 
         return slow
 ```
+
+
+### Example - 61. Rotate List 
+Given the head of a linked list, rotate the list to the right by k places. 
+```
+Input: head = [1,2,3,4,5], k = 2
+Output: [4,5,1,2,3]
+```
+>Solution 
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        if not head:
+            return 
+        dummy = ListNode(next=head,val=None)
+        
+        # 计算长度
+        def get_length(head):
+            length = 0
+            while head:
+                length += 1
+                head = head.next 
+            return length 
+        
+        # 避免重复计算
+        length = get_length(head)
+        k = k % length
+        
+        # 先copy过来从dummy
+        ahead = dummy
+        behind = dummy
+        
+        # 先move k 步，把ahead 挪过来，现在ahead 是3，4，5
+        for i in range(k):
+            ahead = ahead.next
+    
+        # 调整ahead 和 behind的头位置
+        while ahead.next: # 往前move，就是把前面的都cut掉了？ 都是从dummy copy过来的！
+            behind = behind.next
+            ahead = ahead.next
+        
+        # dummy 永远是0， dummy.next 就是1 
+        # 右侧的永远是node，左侧如果是node，那么就是update node， 如果是next，那就是update新的指向， ahead 指向1
+        ahead.next = dummy.next # 5 -> 1
+        dummy.next = behind.next # dummy -> 4 - > 5 
+        behind.next = None # current behind is 3, cut 3 next # 没有这个肯定不行
+        print(dummy.next)
+        # 这些node 都在空间存在，实际上就是在找他们的之间的链接，可能有多个，但是就会报错！必须1对1，检查的时候也是看这些node，都在对应谁！
+        return dummy.next
+        
+```
+
+### Example - 19. Remove Nth Node From End of List 
+Given the head of a linked list, remove the nth node from the end of the list and return its head. could you finish it by one pass? 
+
+>Solution
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        
+#         # 暴力解  能够accept 但不是one pass - two pass 
+#         dummy = ListNode(next = head, val = None)
+#         curr = dummy 
+#         length = 0 
+#         while curr.next:
+#             curr = curr.next 
+#             length += 1
+            
+#         new = dummy
+#         for i in range(length - n):
+#             new = new.next 
+#         new.next = new.next.next 
+#         return dummy.next 
+    
+#     # time - o(L), space o(1)
+        
+        # one pass 类似middel那个题，就是两个node，然后第一个先跑，让两者间隔n，那么第二个到头了，第一个的位置就是倒数第n个
+        
+        dummy = ListNode(next = head, val = None)
+        
+        slow = dummy
+        fast = dummy 
+        
+        for i in range(n):
+            fast = fast.next 
+            
+        while fast.next:
+            slow = slow.next
+            fast = fast.next 
+            
+        slow.next = slow.next.next 
+        
+        return dummy.next 
+
+    # time - o(L), space - o(1)
+```
+
 ---
 
 # heap 
