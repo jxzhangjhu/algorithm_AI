@@ -252,6 +252,44 @@ class Solution:
     # time - o(L), space - o(1)
 ```
 
+### Example - 142. Linked List Cycle II 
+
+Given the head of a linked list, return the node where the cycle begins. If there is no cycle, return null.
+
+>Solution
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        
+        # 这个题还可以
+        dummy = ListNode(next = head, val = None)
+        slow = dummy.next
+        fast = dummy.next
+        
+        while fast and fast.next:
+            slow = slow.next 
+            fast = fast.next.next
+            
+            # slow 和 fast 相遇，还得看slow 和 head的情况
+            if slow == fast:
+                p = head
+                q = slow
+                while p != q:
+                    p = p.next
+                    q = q.next
+                    
+                return p
+            
+        return None
+```
+
+
 ---
 
 # heap 
