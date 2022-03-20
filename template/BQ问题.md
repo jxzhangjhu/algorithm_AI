@@ -1,3 +1,5 @@
+# Amazon BQ核心考点，经验和优秀答案
+
 来offer 亚麻BQ面试攻略: 是什么? 怎么答? 如何练习? 优秀答案长什么样? 
 https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%95%A5-%E6%98%AF%E4%BB%80%E4%B9%88-%E6%80%8E%E4%B9%88%E7%AD%94-%E5%A6%82%E4%BD%95%E7%BB%83%E4%B9%A0-%E4%BC%98%E7%A7%80%E7%AD%94%E6%A1%88%E9%95%BF%E4%BB%80%E4%B9%88%E6%A0%B7-e5af142d4a8 
 
@@ -8,53 +10,68 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 
 
 
-### Customer Obsession
+
+
+### 高频必考
+- introduce yourself 
+
+- Why Amazon? Why this team and this position? 
+
+- Why choose industry rather than academia? 
+
+- What's the most interesting project? 
+
+- What's the most challenging project? 
+
+
+
+
+
+### Customer Obsession 顾客至上， 全心全意为顾客服务
 >Leaders start with the customer and work backwards. They work vigorously to earn and keep customer trust. Although leaders pay attention to competitors, they obsess over customers.
 
+### Ownership 主人翁精神，不只顾着自己的一亩三分地，长期利益履行分外的职责，可以牺牲短期利益而实现长期目标
+>Leaders are owners. They think long term and don’t sacrifice long-term value for short-term results. They act on behalf of the entire company, beyond just their own team. They never say “that’s not my job."
 
+### Invent and Simplify 创新简化，多research借鉴别人的方法来提高效率
+>Leaders expect and require innovation and invention from their teams and always find ways to simplify. They are externally aware, look for new ideas from everywhere, and are not limited by “not invented here." As we do new things, we accept that we may be misunderstood for long periods of time.
 
-### Ownership
-    >Leaders are owners. They think long term and don’t sacrifice long-term value for short-term results. They act on behalf of the entire company, beyond just their own team. They never say “that’s not my job."
+### Are Right, A Lot 大多数是正确的决策，努力证明自己正确，说服别人
+>Leaders are right a lot. They have strong judgment and good instincts. They seek diverse perspectives and work to disconfirm their beliefs.
 
-### Invent and Simplify
-    >Leaders expect and require innovation and invention from their teams and always find ways to simplify. They are externally aware, look for new ideas from everywhere, and are not limited by “not invented here." As we do new things, we accept that we may be misunderstood for long periods of time.
+### Learn and Be Curious 学习工作外的事情，积极学习
+>Leaders are never done learning and always seek to improve themselves. They are curious about new possibilities and act to explore them.
 
-### Are Right, A Lot
-    >Leaders are right a lot. They have strong judgment and good instincts. They seek diverse perspectives and work to disconfirm their beliefs.
+### Hire and Develop the Best 招人和晋升
+>Leaders raise the performance bar with every hire and promotion. They recognize exceptional talent, and willingly move them throughout the organization. Leaders develop leaders and take seriously their role in coaching others. We work on behalf of our people to invent mechanisms for development like Career Choice.
 
-### Learn and Be Curious
-    >Leaders are never done learning and always seek to improve themselves. They are curious about new possibilities and act to explore them.
+### Insist on the Highest Standards 坚持高标准，不妥协自己的高要求
+>Leaders have relentlessly high standards — many people may think these standards are unreasonably high. Leaders are continually raising the bar and drive their teams to deliver high quality products, services, and processes. Leaders ensure that defects do not get sent down the line and that problems are fixed so they stay fixed.
 
-### Hire and Develop the Best
-    >Leaders raise the performance bar with every hire and promotion. They recognize exceptional talent, and willingly move them throughout the organization. Leaders develop leaders and take seriously their role in coaching others. We work on behalf of our people to invent mechanisms for development like Career Choice.
+### Think Big 远见卓识
+>Thinking small is a self-fulfilling prophecy. Leaders create and communicate a bold direction that inspires results. They think differently and look around corners for ways to serve customers.
 
-### Insist on the Highest Standards
-    >Leaders have relentlessly high standards — many people may think these standards are unreasonably high. Leaders are continually raising the bar and drive their teams to deliver high quality products, services, and processes. Leaders ensure that defects do not get sent down the line and that problems are fixed so they stay fixed.
+### Bias for Action 崇尚行动，速度很重要，数据不足的时候，权衡利弊，想好backup plan，敢于冒险
+>Speed matters in business. Many decisions and actions are reversible and do not need extensive study. We value calculated risk taking. 
 
-### Think Big
-    >Thinking small is a self-fulfilling prophecy. Leaders create and communicate a bold direction that inspires results. They think differently and look around corners for ways to serve customers.
+### Frugality 勤俭节约
+>Accomplish more with less. Constraints breed resourcefulness, self-sufficiency, and invention. There are no extra points for growing headcount, budget size, or fixed expense.
 
-### Bias for Action
-    >Speed matters in business. Many decisions and actions are reversible and do not need extensive study. We value calculated risk taking. 
+### Earn Trust 不骄傲自满，要自我批判，敢于承认错误，赢得信任
+>Leaders listen attentively, speak candidly, and treat others respectfully. They are vocally self-critical, even when doing so is awkward or embarrassing. Leaders do not believe their or their team’s body odor smells of perfume. They benchmark themselves and their teams against the best.
 
-### Frugality
-    >Accomplish more with less. Constraints breed resourcefulness, self-sufficiency, and invention. There are no extra points for growing headcount, budget size, or fixed expense.
+### Dive Deep 刨根问底，有能力troubleshoot 到根本问题，解决根本问题
+>Leaders operate at all levels, stay connected to the details, audit frequently, and are skeptical when metrics and anecdote differ. No task is beneath them.
 
-### Earn Trust
-    >Leaders listen attentively, speak candidly, and treat others respectfully. They are vocally self-critical, even when doing so is awkward or embarrassing. Leaders do not believe their or their team’s body odor smells of perfume. They benchmark themselves and their teams against the best.
+### Have Backbone; Disagree and Commit 不趋附大众，敢于提出自己的意见
+>Leaders are obligated to respectfully challenge decisions when they disagree, even when doing so is uncomfortable or exhausting. Leaders have conviction and are tenacious. They do not compromise for the sake of social cohesion. Once a decision is determined, they commit wholly.
 
-### Dive Deep
-    >Leaders operate at all levels, stay connected to the details, audit frequently, and are skeptical when metrics and anecdote differ. No task is beneath them.
+### Deliver Results 达成业绩，排除万难，最后完成任务，或者最终从失败中学到了什么
+>Leaders focus on the key inputs for their business and deliver them with the right quality and in a timely fashion. Despite setbacks, they rise to the occasion and never settle.
 
-### Have Backbone; Disagree and Commit
-    >Leaders are obligated to respectfully challenge decisions when they disagree, even when doing so is uncomfortable or exhausting. Leaders have conviction and are tenacious. They do not compromise for the sake of social cohesion. Once a decision is determined, they commit wholly.
+### Strive to be Earth's Best Employer 新的准则，创造更好的环境
+>Leaders work every day to create a safer, more productive, higher performing, more diverse, and more just work environment. They lead with empathy, have fun at work, and make it easy for others to have fun. Leaders ask themselves: Are my fellow employees growing? Are they empowered? Are they ready for what's next? Leaders have a vision for and commitment to their employees' personal success, whether that be at Amazon or elsewhere.
 
-### Deliver Results
-    >Leaders focus on the key inputs for their business and deliver them with the right quality and in a timely fashion. Despite setbacks, they rise to the occasion and never settle.
-
-### Strive to be Earth's Best Employer
-    >Leaders work every day to create a safer, more productive, higher performing, more diverse, and more just work environment. They lead with empathy, have fun at work, and make it easy for others to have fun. Leaders ask themselves: Are my fellow employees growing? Are they empowered? Are they ready for what's next? Leaders have a vision for and commitment to their employees' personal success, whether that be at Amazon or elsewhere.
-
-### Success and Scale Bring Broad Responsibility
-    >We started in a garage, but we're not there anymore. We are big, we impact the world, and we are far from perfect. We must be humble and thoughtful about even the secondary effects of our actions. Our local communities, planet, and future generations need us to be better every day. We must begin each day with a determination to make better, do better, and be better for our customers, our employees, our partners, and the world at large. And we must end every day knowing we can do even more tomorrow. Leaders create more than they consume and always leave things better than how they found them.
+### Success and Scale Bring Broad Responsibility 新的准则，世界更美好？
+>We started in a garage, but we're not there anymore. We are big, we impact the world, and we are far from perfect. We must be humble and thoughtful about even the secondary effects of our actions. Our local communities, planet, and future generations need us to be better every day. We must begin each day with a determination to make better, do better, and be better for our customers, our employees, our partners, and the world at large. And we must end every day knowing we can do even more tomorrow. Leaders create more than they consume and always leave things better than how they found them.
 
