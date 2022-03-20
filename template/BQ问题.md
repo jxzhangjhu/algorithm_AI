@@ -12,20 +12,61 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 
 
 
-### 高频必考
+### 高频必考 - General BQ 
 - introduce yourself 
 
 - Why Amazon? Why this team and this position? 
 
 - Why choose industry rather than academia? 
 
-- What's the most interesting project? 
+- What's your strength and weakness? 
 
+
+### 分类整理 
+1. Failure：（Customer Obsession， Earn Trust ）******
+
+2. Most challenging （Insist on the Highest Standards， Ownership ， Learn and Be Curious ） ***
+- What's the most interesting project? 
 - What's the most challenging project? 
 
+3. Miss deadline （Customer Obsession，Deliver Results ，Ownership，Dive Deep）**
+
+4. Conflict （Customer Obsession， Earn Trust ）**
+
+5. Took a risk, or do not have much time to make a decision （Bias for Action， Ownership ）***
+
+6. Challenges from customers. （Customer Obsession， Earn Trust ）*
+
+7. Negative feedback （Earn Trust ）*
+
+8. Sacrifice short for long goal （Think Big）*
+
+9. Tough decision（Bias for Action ）*
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Leadership principles 
 
 ### Customer Obsession 顾客至上， 全心全意为顾客服务
 >Leaders start with the customer and work backwards. They work vigorously to earn and keep customer trust. Although leaders pay attention to competitors, they obsess over customers.
