@@ -89,6 +89,12 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 4. Result 结果描述 - 得到了什么结果，完成与否，有何影响，都要是正面积极地，以后可以借鉴的，不会再有类似情况发生的
 
 
+## 高频必考 - General BQ 
+- introduce yourself 
+- Why Amazon? Why this team and this position? 
+- Why choose industry rather than academia? 
+- What's your strength and weakness? 
+
 ## 22 Questions
 
 ### 1. Tell me about a time when you received negative feedback from your manager. How did you respond? [Earn Trust]
@@ -110,6 +116,62 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 
 
 
+### 4. **Failure/mistake** Tell me about a time you failed/the biggest mistake you made 
+> 最大的失误和失败
+
+- Story: 和mike准备ORN海军答辩的事
+- S/T: 准备答辩，周末，时间很紧张，我们要研究Bayesian inference，small data 的问题，我因为控制random seed 导致data变化， 结果不对，海军的data
+- A: 我仔细了check了code，并且和导师讨论了多次，然后重新跑所有的case，重新弄slides
+- R: 我们的结果非常好，尽管时间很晚，我们工作到晚上10点，但得到了program manager的认可，后续，我导师因为这个工作获得了YIR from Naval，support的PHD study 
+- L: 需要清楚原理，仔细，并且多和custom 沟通，通常我们认为没有问题，但这里是small data，我们需要真实的情况，海军需要根据他们的data来做！ 
+
+### 5. **Challenge** - Most challenging project [highest standards, think big]
+> 如何走出comfort zone，如何提升自己
+
+- Story: inverse design problem 用normalizing flows这个
+- S/T: why challenging 因为data比较少，DFT计算很贵，需要理解目标，之前都是forward problem，现在是inverse problem，如何利用AI ML去解决，这个方面的很少，我也缺乏这方面的经验
+- A: 和同事manager多讨论，理解他们的需求； 主动学习data 生成和metric定义；implement invertible neural networks, 后续optimization
+- R: 收到postive feedback from program manager，发表了nature，有github，highlights ornl
+- L: 主动学习，克服挑战，突破自己的comfort zone很重要，不会说 can not do that, 而是let's try first and I can do better 
+
+
+## 6. **Deadline** 
+
+### Missing deadline [customer obsession, deliver results]
+> 要突出如何让影响最小，让customer不受影响，为何会miss，最后结果是好的, 影响不是很大
+
+- Story: 用DGS做一个demo，topology optimization for MDF，manager 突然说customer 提前1周时间去看这个demo，没办法搞定，需要超算
+- S/T: deadline 提前，无法完成，由于算法需要大量的计算能力，没有access 需要排队
+- A: 估计计算时间，在已有的时间内，提供最优化的解决方案；牺牲自己的时间，保证高质量完成，客户体验是最重要的，给我们funding； 我和maanger讨论，request了额外的计算权限，在短时间，将优化效果提升了很多，
+- R: 最后结果不错，可能我们想要scale到1000 nodes，level，但是我们做到了500 nodes
+- L: working hard， sacrifice self time, keep the high standards, make sure the product delieved on time, try our best to finish as soon as possible 
+
+### Do you meet a task that you can not handle? why not finishing it? [Deliver Result] 
+> 你是否遇到无法完成任务的时候？为什么无法完成？ - 回答问题时注意说明无法按时完成任务的原因，并且做了哪些行动上的补救，以及阐述最后的结果和影响。 
+
+- Story: 刚来JHU选导师的事，Mike布置了一个task，一半的paper，补充完另一半，非常难，没有背景经验
+- S/T: 刚来9月，11月定导师，给了一个任务，非常难，stochastic field，sampling performance KL expansion 
+- A: 自学random field， stochastic process，Gaussian process，这些，写code，同时和导师沟通和请教，反复读paper
+- R: 最终在10月底，做出来了，结果很好，甚至超出了导师的预期，老板给与了理解和肯定，我们这个工作，后续发表了，现在cited more than 200次
+
+
+### 7. **Conflict** 分歧 - Disgree with teammate or manager [earn trust]  conflict 问题 
+
+
+### 8. **Decision** 决策 - took a risk or do not have much time to make a decision [bias for action, ownership] 
+
+
+
+
+
+
+
+### 4. Tell me about a time you had to quickly adjust your work priorities to meet changing demands 
+> 调整工作优先级去满足挑战的需求
+
+
+
+### . Tell me about a time when you were not able to meet a time commitment. What prevented you from meeting it? What was the outcome and what did you learn from it? 
 
 
 
