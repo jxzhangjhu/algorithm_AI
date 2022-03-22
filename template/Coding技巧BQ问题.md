@@ -77,7 +77,8 @@ key principle
 2. need many details and future do not have the similar issue
 3. not same example， 多准备一些例子
 4. I not we，强调我的贡献
-5. 解释重要性，强调其中的metho和techniques 
+5. 解释重要性，强调其中的method和techniques 
+6. 如果讲faliure, 要加上learning 你学到了什么？
 
 - 来offer 亚麻BQ面试攻略: 是什么? 怎么答? 如何练习? 优秀答案长什么样? 
 https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%95%A5-%E6%98%AF%E4%BB%80%E4%B9%88-%E6%80%8E%E4%B9%88%E7%AD%94-%E5%A6%82%E4%BD%95%E7%BB%83%E4%B9%A0-%E4%BC%98%E7%A7%80%E7%AD%94%E6%A1%88%E9%95%BF%E4%BB%80%E4%B9%88%E6%A0%B7-e5af142d4a8 
@@ -90,11 +91,17 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 
 ## 22 Questions
 
-### 1. Tell me about a time when you received negative feedback from your manager. How did you respond? 
+### 1. Tell me about a time when you received negative feedback from your manager. How did you respond? [Earn Trust]
+	> 你曾收到过来自同事或领导的负面反馈吗？你是如何改进的？ 
+
 - S/T : 来ORNL开始的时候，项目不太了解，ML for physics，review 时间比较紧，我开始独立做，但是缺少background，review结果不是很理解，其实我应该早点寻求LDRD project manager的帮助， 说我应该早点寻求帮助
-- A: 我意识到这个问题， 合理的评估自己的困难，找寻合适的domain expert，他来帮助我生成data，并且理解data，并且和project manager交流进度
+- A: 我意识到这个问题， 合理的评估自己的困难，找寻合适的domain expert，他来帮助我生成data，并且理解data，并且和project manager交流进度, domain knowledge is important 
 - R: 我学会了自我评估和及时沟通，最终这个project 效果很多，我们发表了2篇论文，program manager很满意，给与了肯定，
-```
+
+### 2. Your team/co-workder/collabroator does not perform well, have bad impact to your work, how to handle that? 
+	> 如果你的小组同事经常表现不好，甚至影响到你工作，您是如何处理的？
+
+- S/T: 
 
 
 
