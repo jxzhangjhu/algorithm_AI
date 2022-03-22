@@ -1,75 +1,11 @@
-# Coding interview 技巧
-
-Qiao Li shared tips 
-
-```
-Tips of the interivew:
- 
-Technical Questions:
- 
-For the technical questions, they will focus on your technical breadth & depth of knowledge, problem solving, and coding.
-Depth: They’ll want details about methods you’ve used in your projects and why, details about projects to see if they were creative and pragmatic, details about whether you’ve dived deep to check outliers/edge cases, details about how you evaluated your models, and details about the fundamentals in your field of expertise.
-Breadth: They’ll want to know in detail about other techniques and methodologies you’ve used that are outside your area of expertise. 
-Application/Problem Solving: The interviewer will ask an ambiguous problem solving question (case study). They’ll want to assess if you can productively discuss a problem which is slightly underspecified. They’ll want to see that you know to ask clarification questions, reason about the missing pieces of information, and progress towards a solution or model to the problem.
-
-Coding: For Applied Scientists, they’ll assess your ability to meet SDE Junior level coding write code in any language of your choice, your ability to think algorithmically, analyze algorithm performance (runtime + space complexity and tradeoffs.), know general data structures (e.g., trees, graphs), take hints and discuss code with a SDE. Coding at the level of being able to manipulate data understanding basic data structures (e.g., Hashes, Lists, Arrays), Standard general algorithms (e.g., searching, sorting). If you can write the code in one production language (Python, Java, C++, etc.) and broad knowledge of coding methods (e.g., recursion)
-Videos: In this section you’ll find videos of Amazonians describing the coding questions and ideal solutions/approaches in our on-site interviews.
-Amazon Coding Question Tips (Hyperlinked)
-Amazon Career Day (HackerRank) (Hyperlinked) Minute Marks 2:10-27:15
-Two practice website: https://leetcode.com/ https://www.hackerrank.com/                
- 
-Tips for the Technical Questions:
- 
-- MOST IMPORTANT: The interviewer wants to see that you can properly gather the right requirements and can break down the problem. They will ask these questions in a very vague or ambiguous way. Never make assumptions. You’ll want to make sure to ask good clarifying questions before you start to work on the technical questions that are asked.
-- ALWAYS try to think out loud as you solve the problem. This helps the interviewer understand your thought process. It’s also helpful in the case you steer away from the solution, they will give you hints to get back on track.
-- ALWAYS stop and check your work every few minutes.
-- Keep in mind that a problem can often be filed in several ways. Interviewers are often looking for whether the candidate chooses the simplest solution versus the complicated one. Choose the simplest one! But also, talk to the interviewer about the various possible solutions and why you chose the one you choose.
-```
-
-
-
-Amazon 官方tips 
-https://www.youtube.com/watch?v=mjZpZ_wcYFg
-
-1. CS 基础，data structure and algorithms
-2. 启发式的解决问题，而不是random的解决
-3. clean, logical maintainable code and people is easy to understand 
-
-key principle 
-1. 在没有看space之前，直接jump into的problem 立即 - 需要分析space？
-2. try and disambiguate the problem 使问题具体化，通过问问题，理解input and output， 有哪些edge cases 我们可以考虑
-3. talk this out loud, interacte not recitation 通过讲述，让别人理解what you are thinking and why and how you are trying to solve this problem
-
-
-```example
-1. 要写注释
-2. implementation
-3. testing  - edge cases， then optimization 考虑time， and space complexity 
-4. 优化的空间
-
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Amazon BQ核心考点，经验和优秀答案
+
+Amazon 面试核心 https://www.youtube.com/watch?v=70QX6Vkt2uY 
+1. Get into details, amazon is data-driven company 
+2. Donot downgrade your previous employment 
+3. do not show pride in ethically questionable decisions
+4. do not have inconsistent narratives between one interviewer and the next 讲故事要一致！
+5. do not overclaim your contribution 
 
 - 亚麻官方提供的视频 sample  https://www.youtube.com/watch?v=CpcxVE5JIX4&t=138s 
 1. STAR method, situation, task, action and result
@@ -94,10 +30,16 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 - Why Amazon? Why this team and this position? 
 - Why choose industry rather than academia? 
 - What's your strength and weakness? 
+> 整个interview都应该集中强调你的strength 
+1. hard working
+2. quick-learner and telented
+3. passionate 
 
 ## 22 Questions
 
-### 1. Tell me about a time when you received negative feedback from your manager. How did you respond? [Earn Trust]
+## 1. Negative feedback 不好的反馈 *Earn Trust*
+
+### Tell me about a time when you received negative feedback from your manager. How did you respond? [Earn Trust]
 >你曾收到过来自同事或领导的负面反馈吗？你是如何改进的？ - 个人都有犯错的时候，收到负面反馈并不是难以启齿的事情, 把为什么收到负面反馈的原因说清，并且总结从中学到的经验、重新得到他人的认可才是重点。
 
 - Stroy: LDRD project 开始和markus那个，缺少合作，和domain knowledge 最终实现好的效果
@@ -105,7 +47,14 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 - A: 我意识到这个问题， 合理的评估自己的困难，找寻合适的domain expert，他来帮助我生成data，并且理解data，并且和project manager交流进度, domain knowledge is important 
 - R: 我学会了自我评估和及时沟通，最终这个project 效果很多，我们发表了2篇论文，program manager很满意，给与了肯定，
 
-### 2. Your team/co-workder/collabroator does not perform well, have bad impact to your work, how to handle that? [Ownership]
+### 22 Questions Asked in 94% Amazon Interviews
+7. Tell me about a time when you received negative feedback from your manager. How did you respond?
+
+
+
+## 2. Collabration, teamwork, interpersonal skills 合作 
+
+### Your team/co-workder/collabroator does not perform well, have bad impact to your work, how to handle that? [Ownership]
 >如果你的小组同事经常表现不好，甚至影响到你工作，您是如何处理的？ - 因为团队是需要合作的。找到队友犯错的原因，帮助解决问题，完成工作任务才是重点。
 
 - Story: LDRD project, Anomly detection with MDF, 明确他们的困难，还有credit 分配的问题，实现共赢！
@@ -114,9 +63,19 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 - R: 效果很不错 - 我们的paper发表在neurips，已经一个dataset， 他们成功上线我们的方法，节约了大量人工标注的成本，提高了工作效率，5-10% performance 提升
 - L: 学习到了沟通的重要性，同时协同能力，如何实现win-win的principle
 
+### 22 Questions Asked in 94% Amazon Interviews
+2. What did you do when you needed to motivate a group of individuals?
+3. Give me an example of a time you faced a conflict while working on a team. How did you handle that?
+4. The last time you had to apologize to someone
+5. Describe a long-term project that you managed. How did you keep everything moving along in a timely manner?
+6. Describe a situation when you negotiated with others in your organization to reach an agreement.
 
 
-### 4. **Failure/mistake** Tell me about a time you failed/the biggest mistake you made 
+
+
+## 3. Failure/mistake 最大的失误和失败 [如果onsite多准备一些！准备five strong ones, 至少1-2个 for phone]
+
+### Tell me about a time you failed/the biggest mistake you made 
 > 最大的失误和失败
 
 - Story: 和mike准备ORN海军答辩的事
@@ -125,7 +84,16 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 - R: 我们的结果非常好，尽管时间很晚，我们工作到晚上10点，但得到了program manager的认可，后续，我导师因为这个工作获得了YIR from Naval，support的PHD study 
 - L: 需要清楚原理，仔细，并且多和custom 沟通，通常我们认为没有问题，但这里是small data，我们需要真实的情况，海军需要根据他们的data来做！ 
 
-### 5. **Challenge** - Most challenging project [highest standards, think big]
+### 22 Questions Asked in 94% Amazon Interviews
+18. Tell me about a time when you were not able to meet a time commitment. What prevented you from meeting it? What was the outcome and what did you learn from it?
+19. Tell me about a time you failed and what you learned from it
+
+
+
+
+## 4. Challenge 挑战 [Customer obsession] 最重要的
+
+### Most challenging project [highest standards, think big]
 > 如何走出comfort zone，如何提升自己
 
 - Story: inverse design problem 用normalizing flows这个
@@ -134,8 +102,14 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 - R: 收到postive feedback from program manager，发表了nature，有github，highlights ornl
 - L: 主动学习，克服挑战，突破自己的comfort zone很重要，不会说 can not do that, 而是let's try first and I can do better 
 
+### 22 Questions Asked in 94% Amazon Interviews
+17. We all deal with difficult customers from time to time. Tell me about a challenging client-facing situation and how you handled it.
 
-## 6. Deadline 
+
+
+
+
+## 5. Deadline 
 
 ### Missing deadline [customer obsession, deliver results]
 > 要突出如何让影响最小，让customer不受影响，为何会miss，最后结果是好的, 影响不是很大
@@ -155,29 +129,98 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 - R: 最终在10月底，做出来了，结果很好，甚至超出了导师的预期，老板给与了理解和肯定，我们这个工作，后续发表了，现在cited more than 200次
 
 
-### 7. **Conflict** 分歧 - Disgree with teammate or manager [earn trust]  conflict 问题 
-
-
-### 8. **Decision** 决策 - took a risk or do not have much time to make a decision [bias for action, ownership] 
 
 
 
 
 
 
+## 6. Conflict 分歧 
 
-### 4. Tell me about a time you had to quickly adjust your work priorities to meet changing demands 
-> 调整工作优先级去满足挑战的需求
+### Disgree with teammate or manager [earn trust]  conflict 问题 
+or when you did something without asking approval from your manager? 
+> 不是强行谁付别人或者什么没有理由顺应比人，而是为了customer或者更重要的目的所以不同意别人。介绍背景，说出分歧，然后说自己怎么做，可以是讨论trade off
+
+- Stroy: 对于材料设计的生成模型，和victor的分析，他觉得用VAEorGAN 更容易implement，但是效果不是很理想，但我坚持用flow-based model，因为能产生probabilistic information,这很重要尽管implement很难，没有人做，需要更长的时间，但值得去做，最后结果不错！
+- S/T: model selection的分歧，我不同意，存在时间，implement成本，performance的trade off
+- A: 我坚持追求高的标准，尽管时间可能要长一些，可能会错过一些deadline，但效果更好， 用到了并行的training 之类之类的
+- R: 证明我们的结果确实好，可能时间更长，错过了一些deadline，但是我们今年目标neurips 
 
 
 
-### . Tell me about a time when you were not able to meet a time commitment. What prevented you from meeting it? What was the outcome and what did you learn from it? 
+
+
+
+## 7. **Action, Decision and Responsibilities** 决策和责任 [*bias for action*]
+
+### Took a risk or do not have much time to make a decision [bias for action, ownership] 
+or tell me about a time when you had to work on a project with unclear responsibilities？
+or tell me a time when you took on something significant outside your area of responsibility 
+> 行动优先，当仁不让，有责任能顶上的意识，比如customer找不到人刚好你在，你能主动做些事
+
+- Story: Juan让我给一个AI HPC 的tutorial，不属于我的工作范围，但是客户很感兴趣，想知道有哪些应用，我虽然很忙，有很多deadline，但还是接了
+- S/T: 给一个one-hour 的talk，介绍 AI + HPC 的应用，我们这有专门的组，但他们知识做infrastructure，缺少scientific 应用，所以问我是否可以来，这不是我的工作范围
+- A: 我认为我有能力承担，因为对于客户很重要，虽然我有其他deadline，但我还是接受了，并且积极准备。
+- R: 客户很满意，manager很满意，他们对于how to use AI ML有了更深的理解，他们决定选择我们作为他们的支持！
+
+### 22 Questions Asked in 94% Amazon Interviews
+1. Tell me about a time you had to quickly adjust your work priorities to meet changing demands  
+10. Tell me about a time when you were 75% through a project, & you had to pivot strategy to ensure successful delivery
+11. Tell me about a time you had to deal with ambiguity
+12. Tell me about the toughest decision you've had to make in the past six months
+
+ 
 
 
 
 
 
-Qiao Li Tips
+## 8. Simplify 简化和创新 / learn and be curious 
+
+### Tell me about a time when you gave a simple solution to a complex problem/find a new way to do something 
+> 问题一定要让面试官信服你的例子，先说一般的方法很耗时，很难，自己找到一个方法很快就完成并且delever了，而且很稳定，没有过问题，结果要是好的
+
+- Story: intelligence prior in high dimensional optimization + INN的这个例子
+- S/T: 传统的优化容易掉入local minia，而且高维有问题，难度大，这个困扰了我们很久，很多问题需要optimization
+- A: 我想到了一个好的方法，如果可以优化prior information找到一个好的初始解就容易很多，于是提出来invertible neural network的方法来帮助寻找最优解
+- R: 效果很多，我们只需要50 iteration, 当逼近最优解，而且这个local 的optimization的，很多可以收敛到全局最优的，效果很快，paper in review 
+
+### 22 Questions Asked in 94% Amazon Interviews
+13. What’s the most innovative new idea that you have implemented?
+
+
+
+
+
+
+
+
+
+## 9. Dive Deep / Problem solving 
+
+### 22 Questions Asked in 94% Amazon Interviews
+8. Tell me about a time when you missed an obvious solution to a problem
+9. A time when you faced a problem that had multiple possible solutions
+
+
+## 10. Ownership 第二重要的！
+
+### 22 Questions Asked in 94% Amazon Interviews
+14. Tell me about a time you stepped up into a leadership role
+15. Describe a time when you sacrificed short term goals for long term success
+16. Tell me about a time when you had to push back to HQ or challenged a decision
+
+
+
+
+
+
+
+
+
+
+
+<!-- Qiao Li Tips
 ```
 Non-Technical Questions:
  
@@ -273,7 +316,7 @@ https://www.youtube.com/watch?v=ys7fLcH5gpg&t=0s
 
 8. Sacrifice short for long goal （Think Big）*
 
-9. Tough decision（Bias for Action ）*
+9. Tough decision（Bias for Action ）* -->
 
 
 
@@ -296,7 +339,7 @@ https://www.youtube.com/watch?v=ys7fLcH5gpg&t=0s
 
 
 
-
+--- 
 
 # Leadership principles 
 
