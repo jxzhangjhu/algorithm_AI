@@ -135,7 +135,7 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 - L: 主动学习，克服挑战，突破自己的comfort zone很重要，不会说 can not do that, 而是let's try first and I can do better 
 
 
-## 6. **Deadline** 
+## 6. Deadline 
 
 ### Missing deadline [customer obsession, deliver results]
 > 要突出如何让影响最小，让customer不受影响，为何会miss，最后结果是好的, 影响不是很大
