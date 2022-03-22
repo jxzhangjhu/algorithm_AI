@@ -92,14 +92,14 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 ## 22 Questions
 
 ### 1. Tell me about a time when you received negative feedback from your manager. How did you respond? [Earn Trust]
-	> 你曾收到过来自同事或领导的负面反馈吗？你是如何改进的？ 
+>你曾收到过来自同事或领导的负面反馈吗？你是如何改进的？ 
 
 - S/T : 来ORNL开始的时候，项目不太了解，ML for physics，review 时间比较紧，我开始独立做，但是缺少background，review结果不是很理解，其实我应该早点寻求LDRD project manager的帮助， 说我应该早点寻求帮助
 - A: 我意识到这个问题， 合理的评估自己的困难，找寻合适的domain expert，他来帮助我生成data，并且理解data，并且和project manager交流进度, domain knowledge is important 
 - R: 我学会了自我评估和及时沟通，最终这个project 效果很多，我们发表了2篇论文，program manager很满意，给与了肯定，
 
 ### 2. Your team/co-workder/collabroator does not perform well, have bad impact to your work, how to handle that? 
-	> 如果你的小组同事经常表现不好，甚至影响到你工作，您是如何处理的？
+>如果你的小组同事经常表现不好，甚至影响到你工作，您是如何处理的？
 
 - S/T: 
 
