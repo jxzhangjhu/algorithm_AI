@@ -92,16 +92,23 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 ## 22 Questions
 
 ### 1. Tell me about a time when you received negative feedback from your manager. How did you respond? [Earn Trust]
->你曾收到过来自同事或领导的负面反馈吗？你是如何改进的？ 
+>你曾收到过来自同事或领导的负面反馈吗？你是如何改进的？ - 个人都有犯错的时候，收到负面反馈并不是难以启齿的事情, 把为什么收到负面反馈的原因说清，并且总结从中学到的经验、重新得到他人的认可才是重点。
 
+- Stroy: LDRD project 开始和markus那个，缺少合作，和domain knowledge 最终实现好的效果
 - S/T : 来ORNL开始的时候，项目不太了解，ML for physics，review 时间比较紧，我开始独立做，但是缺少background，review结果不是很理解，其实我应该早点寻求LDRD project manager的帮助， 说我应该早点寻求帮助
 - A: 我意识到这个问题， 合理的评估自己的困难，找寻合适的domain expert，他来帮助我生成data，并且理解data，并且和project manager交流进度, domain knowledge is important 
 - R: 我学会了自我评估和及时沟通，最终这个project 效果很多，我们发表了2篇论文，program manager很满意，给与了肯定，
 
-### 2. Your team/co-workder/collabroator does not perform well, have bad impact to your work, how to handle that? 
->如果你的小组同事经常表现不好，甚至影响到你工作，您是如何处理的？
+### 2. Your team/co-workder/collabroator does not perform well, have bad impact to your work, how to handle that? [Ownership]
+>如果你的小组同事经常表现不好，甚至影响到你工作，您是如何处理的？ - 因为团队是需要合作的。找到队友犯错的原因，帮助解决问题，完成工作任务才是重点。
 
-- S/T: 
+- Story: LDRD project, Anomly detection with MDF, 明确他们的困难，还有credit 分配的问题，实现共赢！
+- S/T: 他们不来meeting，比较缓慢，积极性不高
+- A: 首先沟通了解困难和问题，发现他们是时间还有credit，他们想从应用方面体现，时间上和manager沟通调整我们的timeline，然后credit，我们从AI和计算方面证明，他们从manufacturing证明
+- R: 效果很不错 - 我们的paper发表在neurips，已经一个dataset， 他们成功上线我们的方法，节约了大量人工标注的成本，提高了工作效率，5-10% performance 提升
+- L: 学习到了沟通的重要性，同时协同能力，如何实现win-win的principle
+
+
 
 
 
