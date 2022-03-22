@@ -88,9 +88,9 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 4. Result 结果描述 - 得到了什么结果，完成与否，有何影响，都要是正面积极地，以后可以借鉴的，不会再有类似情况发生的
 
 
-### 22 Questions
+## 22 Questions
 
-1. Tell me about a time when you received negative feedback from your manager. How did you respond? 
+### 1. Tell me about a time when you received negative feedback from your manager. How did you respond? 
 - S/T : 来ORNL开始的时候，项目不太了解，ML for physics，review 时间比较紧，我开始独立做，但是缺少background，review结果不是很理解，其实我应该早点寻求LDRD project manager的帮助， 说我应该早点寻求帮助
 - A: 我意识到这个问题， 合理的评估自己的困难，找寻合适的domain expert，他来帮助我生成data，并且理解data，并且和project manager交流进度
 - R: 我学会了自我评估和及时沟通，最终这个project 效果很多，我们发表了2篇论文，program manager很满意，给与了肯定，
