@@ -333,7 +333,7 @@ or tell me a time when you took on something significant outside your area of re
 
 
 ---
-# Dan's 235 stories
+# Dan's 35 stories cover 95% amazon LP 
 The examples with cover 3 Leadership Principles at Amazon: Ownership, Customer Obsession and Bias for Action.
 
 35 behavioral questions asked in 95% of Amazon interviews with examples
