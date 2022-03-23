@@ -54,8 +54,7 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 
 
 
-
-
+---
 ## 22 Questions
 
 ## 1. Negative feedback 不好的反馈 *Earn Trust*
@@ -275,6 +274,129 @@ or tell me a time when you took on something significant outside your area of re
 
 
 
+
+
+
+
+
+--- 
+
+# Leadership principles 
+
+### Customer Obsession 顾客至上， 全心全意为顾客服务
+>Leaders start with the customer and work backwards. They work vigorously to earn and keep customer trust. Although leaders pay attention to competitors, they obsess over customers.
+
+### Ownership 主人翁精神，不只顾着自己的一亩三分地，长期利益履行分外的职责，可以牺牲短期利益而实现长期目标
+>Leaders are owners. They think long term and don’t sacrifice long-term value for short-term results. They act on behalf of the entire company, beyond just their own team. They never say “that’s not my job."
+
+### Invent and Simplify 创新简化，多research借鉴别人的方法来提高效率
+>Leaders expect and require innovation and invention from their teams and always find ways to simplify. They are externally aware, look for new ideas from everywhere, and are not limited by “not invented here." As we do new things, we accept that we may be misunderstood for long periods of time.
+
+### Are Right, A Lot 大多数是正确的决策，努力证明自己正确，说服别人
+>Leaders are right a lot. They have strong judgment and good instincts. They seek diverse perspectives and work to disconfirm their beliefs.
+
+### Learn and Be Curious 学习工作外的事情，积极学习
+>Leaders are never done learning and always seek to improve themselves. They are curious about new possibilities and act to explore them.
+
+### Hire and Develop the Best 招人和晋升
+>Leaders raise the performance bar with every hire and promotion. They recognize exceptional talent, and willingly move them throughout the organization. Leaders develop leaders and take seriously their role in coaching others. We work on behalf of our people to invent mechanisms for development like Career Choice.
+
+### Insist on the Highest Standards 坚持高标准，不妥协自己的高要求
+>Leaders have relentlessly high standards — many people may think these standards are unreasonably high. Leaders are continually raising the bar and drive their teams to deliver high quality products, services, and processes. Leaders ensure that defects do not get sent down the line and that problems are fixed so they stay fixed.
+
+### Think Big 远见卓识
+>Thinking small is a self-fulfilling prophecy. Leaders create and communicate a bold direction that inspires results. They think differently and look around corners for ways to serve customers.
+
+### Bias for Action 崇尚行动，速度很重要，数据不足的时候，权衡利弊，想好backup plan，敢于冒险
+>Speed matters in business. Many decisions and actions are reversible and do not need extensive study. We value calculated risk taking. 
+
+### Frugality 勤俭节约
+>Accomplish more with less. Constraints breed resourcefulness, self-sufficiency, and invention. There are no extra points for growing headcount, budget size, or fixed expense.
+
+### Earn Trust 不骄傲自满，要自我批判，敢于承认错误，赢得信任
+>Leaders listen attentively, speak candidly, and treat others respectfully. They are vocally self-critical, even when doing so is awkward or embarrassing. Leaders do not believe their or their team’s body odor smells of perfume. They benchmark themselves and their teams against the best.
+
+### Dive Deep 刨根问底，有能力troubleshoot 到根本问题，解决根本问题
+>Leaders operate at all levels, stay connected to the details, audit frequently, and are skeptical when metrics and anecdote differ. No task is beneath them.
+
+### Have Backbone; Disagree and Commit 不趋附大众，敢于提出自己的意见
+>Leaders are obligated to respectfully challenge decisions when they disagree, even when doing so is uncomfortable or exhausting. Leaders have conviction and are tenacious. They do not compromise for the sake of social cohesion. Once a decision is determined, they commit wholly.
+
+### Deliver Results 达成业绩，排除万难，最后完成任务，或者最终从失败中学到了什么
+>Leaders focus on the key inputs for their business and deliver them with the right quality and in a timely fashion. Despite setbacks, they rise to the occasion and never settle.
+
+### Strive to be Earth's Best Employer 新的准则，创造更好的环境
+>Leaders work every day to create a safer, more productive, higher performing, more diverse, and more just work environment. They lead with empathy, have fun at work, and make it easy for others to have fun. Leaders ask themselves: Are my fellow employees growing? Are they empowered? Are they ready for what's next? Leaders have a vision for and commitment to their employees' personal success, whether that be at Amazon or elsewhere.
+
+### Success and Scale Bring Broad Responsibility 新的准则，世界更美好？
+>We started in a garage, but we're not there anymore. We are big, we impact the world, and we are far from perfect. We must be humble and thoughtful about even the secondary effects of our actions. Our local communities, planet, and future generations need us to be better every day. We must begin each day with a determination to make better, do better, and be better for our customers, our employees, our partners, and the world at large. And we must end every day knowing we can do even more tomorrow. Leaders create more than they consume and always leave things better than how they found them.
+
+
+---
+# Dan's 235 stories
+The examples with cover 3 Leadership Principles at Amazon: Ownership, Customer Obsession and Bias for Action.
+
+35 behavioral questions asked in 95% of Amazon interviews with examples
+Team / time management (positive & negative) https://youtu.be/CQG4Ui0oAmk 
+1. Tell me about a time when you were not able to meet a time commitment. What prevented you from meeting it? What was the outcome and what did you learn from it?
+2. Describe a long-term project that you managed. How did you keep everything moving along in a timely manner?
+3. Give me an example of a time when you set a goal and were able to meet or achieve it
+Adaptation https://youtu.be/ys7fLcH5gpg 
+4. Tell me about a time you had to quickly adjust your work priorities to meet changing demands.
+Team / decision https://youtu.be/3NExTeMnobU
+5. an example when you had to push back to HQ or challenged a decision
+6. Tell me about the toughest decision you've had to make in the past six months
+7. Tell me about a decision that you regret.
+Team / leadership https://youtu.be/Tg6BVRTsuic 
+8. What did you do when you needed to motivate a group of individuals?
+9. Tell me about a time you stepped up into a leadership role
+Team / communication & negotiation https://youtu.be/UJXkaide9bU 
+10. Do you collaborate well?
+11. Describe a situation when you negotiated with others in your organization to reach agreement.
+Team / coworkers https://youtu.be/ZsxkoZdyEcw 
+12. We've all had to work with people that don't like us. How do you deal with someone that doesn't like you?
+13. We all make mistakes we wish we could take back. Tell me about a time you wish you’d handled a situation differently with a colleague.
+14. The last time you had to apologize to someone
+Team / conflict https://youtu.be/Zz8iQ852YMs 
+15. Give me an example of a time you faced a conflict while working on a team. How did you handle that?
+16. Tell me about a time when you received negative feedback from your manager. How did you respond?
+Problem solving https://youtu.be/2XxCUain1IU 
+17. Tell me about a time when you missed an obvious solution to a problem
+18. A time when you faced a problem that had multiple possible solutions
+19. Tell me about a time when you came up with a new approach to a problem.
+20. Describe a time when you anticipated potential problems and developed preventive measures.
+21. Describe a situation in which you found a creative way to overcome an obstacle.
+Strategy / data https://youtu.be/oRGKHTiM29E 
+22. How have you leveraged data to develop a strategy?
+23. a time when you were 75% through a project, & you had to pivot strategy
+24. Tell me about a time when you had to choose between technologies for a project
+25. Tell me about a time you had to deal with ambiguity
+Innovation https://youtu.be/774ovkE2y5I 
+26. What’s the most innovative new idea that you have implemented?
+Ownership principle https://youtu.be/Rn3EjvukTkI 
+27. Describe a time when you sacrificed short term goals for long term success
+28. Provide an example of when you personally demonstrate ownership.
+Strength / weakness https://youtu.be/q8fK73QjmbA 
+29. What's your greatest strength
+30. Biggest weakness
+Clients https://youtu.be/OFEUzyB12rE 
+31. We all deal with difficult customers from time to time. Tell me about a challenging client-facing situation and how you handled it.
+32. How do you show customer obsession?
+Failure https://youtu.be/eaUUeFoB9CQ 
+33. Tell me about a time you recovered from a difficult situation
+34. Tell me about a time you failed and what you learned from it
+35. Why Amazon https://youtu.be/H_KGM0i9jkA
+
+
+
+
+
+
+
+
+
+
+
 <!-- Qiao Li Tips
 ```
 Non-Technical Questions:
@@ -381,123 +503,3 @@ https://www.youtube.com/watch?v=ys7fLcH5gpg&t=0s
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
---- 
-
-# Leadership principles 
-
-### Customer Obsession 顾客至上， 全心全意为顾客服务
->Leaders start with the customer and work backwards. They work vigorously to earn and keep customer trust. Although leaders pay attention to competitors, they obsess over customers.
-
-### Ownership 主人翁精神，不只顾着自己的一亩三分地，长期利益履行分外的职责，可以牺牲短期利益而实现长期目标
->Leaders are owners. They think long term and don’t sacrifice long-term value for short-term results. They act on behalf of the entire company, beyond just their own team. They never say “that’s not my job."
-
-### Invent and Simplify 创新简化，多research借鉴别人的方法来提高效率
->Leaders expect and require innovation and invention from their teams and always find ways to simplify. They are externally aware, look for new ideas from everywhere, and are not limited by “not invented here." As we do new things, we accept that we may be misunderstood for long periods of time.
-
-### Are Right, A Lot 大多数是正确的决策，努力证明自己正确，说服别人
->Leaders are right a lot. They have strong judgment and good instincts. They seek diverse perspectives and work to disconfirm their beliefs.
-
-### Learn and Be Curious 学习工作外的事情，积极学习
->Leaders are never done learning and always seek to improve themselves. They are curious about new possibilities and act to explore them.
-
-### Hire and Develop the Best 招人和晋升
->Leaders raise the performance bar with every hire and promotion. They recognize exceptional talent, and willingly move them throughout the organization. Leaders develop leaders and take seriously their role in coaching others. We work on behalf of our people to invent mechanisms for development like Career Choice.
-
-### Insist on the Highest Standards 坚持高标准，不妥协自己的高要求
->Leaders have relentlessly high standards — many people may think these standards are unreasonably high. Leaders are continually raising the bar and drive their teams to deliver high quality products, services, and processes. Leaders ensure that defects do not get sent down the line and that problems are fixed so they stay fixed.
-
-### Think Big 远见卓识
->Thinking small is a self-fulfilling prophecy. Leaders create and communicate a bold direction that inspires results. They think differently and look around corners for ways to serve customers.
-
-### Bias for Action 崇尚行动，速度很重要，数据不足的时候，权衡利弊，想好backup plan，敢于冒险
->Speed matters in business. Many decisions and actions are reversible and do not need extensive study. We value calculated risk taking. 
-
-### Frugality 勤俭节约
->Accomplish more with less. Constraints breed resourcefulness, self-sufficiency, and invention. There are no extra points for growing headcount, budget size, or fixed expense.
-
-### Earn Trust 不骄傲自满，要自我批判，敢于承认错误，赢得信任
->Leaders listen attentively, speak candidly, and treat others respectfully. They are vocally self-critical, even when doing so is awkward or embarrassing. Leaders do not believe their or their team’s body odor smells of perfume. They benchmark themselves and their teams against the best.
-
-### Dive Deep 刨根问底，有能力troubleshoot 到根本问题，解决根本问题
->Leaders operate at all levels, stay connected to the details, audit frequently, and are skeptical when metrics and anecdote differ. No task is beneath them.
-
-### Have Backbone; Disagree and Commit 不趋附大众，敢于提出自己的意见
->Leaders are obligated to respectfully challenge decisions when they disagree, even when doing so is uncomfortable or exhausting. Leaders have conviction and are tenacious. They do not compromise for the sake of social cohesion. Once a decision is determined, they commit wholly.
-
-### Deliver Results 达成业绩，排除万难，最后完成任务，或者最终从失败中学到了什么
->Leaders focus on the key inputs for their business and deliver them with the right quality and in a timely fashion. Despite setbacks, they rise to the occasion and never settle.
-
-### Strive to be Earth's Best Employer 新的准则，创造更好的环境
->Leaders work every day to create a safer, more productive, higher performing, more diverse, and more just work environment. They lead with empathy, have fun at work, and make it easy for others to have fun. Leaders ask themselves: Are my fellow employees growing? Are they empowered? Are they ready for what's next? Leaders have a vision for and commitment to their employees' personal success, whether that be at Amazon or elsewhere.
-
-### Success and Scale Bring Broad Responsibility 新的准则，世界更美好？
->We started in a garage, but we're not there anymore. We are big, we impact the world, and we are far from perfect. We must be humble and thoughtful about even the secondary effects of our actions. Our local communities, planet, and future generations need us to be better every day. We must begin each day with a determination to make better, do better, and be better for our customers, our employees, our partners, and the world at large. And we must end every day knowing we can do even more tomorrow. Leaders create more than they consume and always leave things better than how they found them.
-
-
-
-# Dan's 235 stories
-The examples with cover 3 Leadership Principles at Amazon: Ownership, Customer Obsession and Bias for Action.
-
-35 behavioral questions asked in 95% of Amazon interviews with examples
-Team / time management (positive & negative) https://youtu.be/CQG4Ui0oAmk 
-1. Tell me about a time when you were not able to meet a time commitment. What prevented you from meeting it? What was the outcome and what did you learn from it?
-2. Describe a long-term project that you managed. How did you keep everything moving along in a timely manner?
-3. Give me an example of a time when you set a goal and were able to meet or achieve it
-Adaptation https://youtu.be/ys7fLcH5gpg 
-4. Tell me about a time you had to quickly adjust your work priorities to meet changing demands.
-Team / decision https://youtu.be/3NExTeMnobU
-5. an example when you had to push back to HQ or challenged a decision
-6. Tell me about the toughest decision you've had to make in the past six months
-7. Tell me about a decision that you regret.
-Team / leadership https://youtu.be/Tg6BVRTsuic 
-8. What did you do when you needed to motivate a group of individuals?
-9. Tell me about a time you stepped up into a leadership role
-Team / communication & negotiation https://youtu.be/UJXkaide9bU 
-10. Do you collaborate well?
-11. Describe a situation when you negotiated with others in your organization to reach agreement.
-Team / coworkers https://youtu.be/ZsxkoZdyEcw 
-12. We've all had to work with people that don't like us. How do you deal with someone that doesn't like you?
-13. We all make mistakes we wish we could take back. Tell me about a time you wish you’d handled a situation differently with a colleague.
-14. The last time you had to apologize to someone
-Team / conflict https://youtu.be/Zz8iQ852YMs 
-15. Give me an example of a time you faced a conflict while working on a team. How did you handle that?
-16. Tell me about a time when you received negative feedback from your manager. How did you respond?
-Problem solving https://youtu.be/2XxCUain1IU 
-17. Tell me about a time when you missed an obvious solution to a problem
-18. A time when you faced a problem that had multiple possible solutions
-19. Tell me about a time when you came up with a new approach to a problem.
-20. Describe a time when you anticipated potential problems and developed preventive measures.
-21. Describe a situation in which you found a creative way to overcome an obstacle.
-Strategy / data https://youtu.be/oRGKHTiM29E 
-22. How have you leveraged data to develop a strategy?
-23. a time when you were 75% through a project, & you had to pivot strategy
-24. Tell me about a time when you had to choose between technologies for a project
-25. Tell me about a time you had to deal with ambiguity
-Innovation https://youtu.be/774ovkE2y5I 
-26. What’s the most innovative new idea that you have implemented?
-Ownership principle https://youtu.be/Rn3EjvukTkI 
-27. Describe a time when you sacrificed short term goals for long term success
-28. Provide an example of when you personally demonstrate ownership.
-Strength / weakness https://youtu.be/q8fK73QjmbA 
-29. What's your greatest strength
-30. Biggest weakness
-Clients https://youtu.be/OFEUzyB12rE 
-31. We all deal with difficult customers from time to time. Tell me about a challenging client-facing situation and how you handled it.
-32. How do you show customer obsession?
-Failure https://youtu.be/eaUUeFoB9CQ 
-33. Tell me about a time you recovered from a difficult situation
-34. Tell me about a time you failed and what you learned from it
-35. Why Amazon https://youtu.be/H_KGM0i9jkA
