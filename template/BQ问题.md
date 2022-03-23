@@ -1,5 +1,12 @@
 # Amazon BQ核心考点，经验和优秀答案
 
+Amazon Dan's answer https://www.youtube.com/watch?v=8QfSnuL8Ny8
+1. Results are important 
+2. Be specific, don't be generic 
+3. 要适当的引用一些14 LP的关键字？
+4. Are you easy to work with ?
+
+
 Amazon 面试核心 https://www.youtube.com/watch?v=70QX6Vkt2uY 
 1. Get into details, amazon is data-driven company 
 2. Donot downgrade your previous employment 
@@ -26,7 +33,15 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 
 
 ## 高频必考 - General BQ 
-- introduce yourself 
+### introduce yourself 
+
+- 3.5 year 在ornl
+1. promote 2次
+2. 
+
+
+
+
 - Why Amazon? Why this team and this position? 
 - Why choose industry rather than academia? 
 - What's your strength and weakness? 
@@ -34,6 +49,12 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 1. hard working
 2. quick-learner and telented
 3. passionate 
+
+
+
+
+
+
 
 ## 22 Questions
 
@@ -48,7 +69,7 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 - R: 我学会了自我评估和及时沟通，最终这个project 效果很多，我们发表了2篇论文，program manager很满意，给与了肯定，
 
 ### 22 Questions Asked in 94% Amazon Interviews
-7. Tell me about a time when you received negative feedback from your manager. How did you respond?
+7. Tell me about a time when you received negative feedback from your manager. How did you respond? - done!
 
 
 
@@ -65,10 +86,21 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 
 ### 22 Questions Asked in 94% Amazon Interviews
 2. What did you do when you needed to motivate a group of individuals?
+> AD project，和不同domain的人合作，很重要是了解他们的expectation，比如从domain角度证明credit，来设定一个win-win的goal，这样我们更有motivation
+
 3. Give me an example of a time you faced a conflict while working on a team. How did you handle that?
+> 仍然是conflict 的问题，case 3 - SNS formulate AD problems，去做time series AD，他们非要定义成supervised classification，他们的label有错误，事实证明他们的机器label确实有问题
+
 4. The last time you had to apologize to someone
+> 和Mike 关于ONR project 答辩的事/ case 2 - victor一起冲ICLR的故事，实在来不及了，结果不是很理想, 直接做big data， 很难，后来仔细分析了拆解了几个小的data，效果不错，我们打算投今年的NeurIPS 
+
 5. Describe a long-term project that you managed. How did you keep everything moving along in a timely manner?
+> Anomaly detection project as PI. 1年半-2当年的project， 关键点 - 保持合作，定期check，制定规划
+
 6. Describe a situation when you negotiated with others in your organization to reach an agreement.
+> 属于conflcit 讲一下和victor那个讨论，关于generative model的东西，达成一致的
+> case 2 - imbalance regression的那个problem，和guannan zhang，我认为需要under sampling，他们认为不需要，作为regression， MDF那个项目
+
 
 
 
@@ -86,7 +118,18 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 
 ### 22 Questions Asked in 94% Amazon Interviews
 18. Tell me about a time when you were not able to meet a time commitment. What prevented you from meeting it? What was the outcome and what did you learn from it?
+> 本质就是missing deadline, 讲一下和victor 冲ICLR这个事
+- S/T：我们当时想到了一个很好的idea，graph learning and generative models for materials design, 当时还有3个月的时间，去年10.28，我觉得我们可以赶得上。 我的任务是利用graph来生成新的materials，我没能及时搞定一个baseline，而是一直对最复杂的case，来追求最好的效果，但事实证明framework有一些问题，问题太复杂，不知道那个地方出现了问题，所以最终没有赶上
+- A: 在这之后，我改变了方针，首先无论距离下一个deadline还有多久，我们要提前规划好timeline， step-by-step的move forward because time goes very fast; second，对于复杂的问题，我需要divide and conquer，先解决简单的问题，我们当时要同时生成node, connection and lattice paramters, 我们分别设计了3个case，来分别生成这些，当code works well，我们再去解决最复杂的case; third, a good lession 这只是一个conference 后面还有其他的，但是将来对于costomer，可能还有下一个costomer也可能没有，所以一定要避免再次发生. 
+
 19. Tell me about a time you failed and what you learned from it
+> 不能把自己说的太差了，关键是别人的问题导致了你的failure。 why then want to ask this questions? 是讲故事的能力，非常重要， 你是否容易相处，是否从中学习到了
+- story: PSU onsite的事，当时比较兴奋，没有更有针对性的准备，了解需求，job description非常宽泛
+- S/T: 2018年拿到之后，非常匆忙去准备， 给了很好的talk，everything looks great 但是和department chair 聊才发现他们希望和实际应用结合，而我过分强调了算法和统计上contribution，给出的application不够复杂，这可能不是他们期待的
+- A: 我之后调整了策略，都会充分了解和沟通他们的需求，比如umich dearborn他们希望能给teach reliability的课程，这样我在我的job description准备非常充分，他们很开心给了我offer，还有后续在lab的一样，他们缺少ML和AI的foundemental的贡献并且结合DOE application，所以我这两年发表了很多AI顶会的paper，同时结合scientific 应用发表了nature 的journal，所以我在ornl，很快转成staff，并且promote了2次
+- department chair 或者HM，可能是我当时的customer，我需要充分理解他们的expectation，这个非常重要！ 沟通和交流，提前做好homework也非常重要！ 
+
+
 
 
 
@@ -104,8 +147,10 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 
 ### 22 Questions Asked in 94% Amazon Interviews
 17. We all deal with difficult customers from time to time. Tell me about a challenging client-facing situation and how you handled it.
-
-
+- Story: 和SNS合作那个anomaly detection的事，把他们想象成customers
+- S/T: 要和他们合作，用我们的方法解决他们的任务，他们提供data，最重要上线，但是他们对问题的formulate和我们不一样，他们不想改变他们label data的方式
+- A: 我的做法是 1）明确他们的expectation，long-term foal，我们可以考虑更多的方法 2） 沟通很重要； 我给他们实现了他们的classification的方法，但是效果并不理想，同时我跟他们说这是个AD的problem，但需要他们更合理的label data，后来我们提出了一种semi-supervise learning 的手段就是用一部分data来learn，然后预测新的data，同时还能帮助他们label data
+- R: 现在的结果证明，我们的方法更有效，我们也实现了共赢的局面，他们发了domain的paper，我们发了ai的paper
 
 
 
@@ -164,10 +209,20 @@ or tell me a time when you took on something significant outside your area of re
 - R: 客户很满意，manager很满意，他们对于how to use AI ML有了更深的理解，他们决定选择我们作为他们的支持！
 
 ### 22 Questions Asked in 94% Amazon Interviews
-1. Tell me about a time you had to quickly adjust your work priorities to meet changing demands  
+1. Tell me about a time you had to quickly adjust your work priorities to meet changing demands 
+> 主要是考察抗压能力！
+- story: 从robust machine learning 转到high-dimensional blackbox optimization，因为project is funded，这个project很短，而我是co-pi，第一个很重要的project, 当时lab期望结合HPC去提高scalability，这种inverse problem也非常多
+- A: 我首先要working hard，如果不想放弃之前的工作，那么需要额外的时间去做；快速上手，比如blackbox optimization，比如MPI，如何调动大的machine，如何应用1000 cpu去training等等
+- R: 结果很好，我们发表了UAI，还有一个RL的demo，几个journal publication，有影响力，后来很多合作，包括制造的合作！
+
 10. Tell me about a time when you were 75% through a project, & you had to pivot strategy to ensure successful delivery
+> 类似上面的问题？ 
+
 11. Tell me about a time you had to deal with ambiguity
+> 
+
 12. Tell me about the toughest decision you've had to make in the past six months
+> 
 
  
 
@@ -186,7 +241,7 @@ or tell me a time when you took on something significant outside your area of re
 - R: 效果很多，我们只需要50 iteration, 当逼近最优解，而且这个local 的optimization的，很多可以收敛到全局最优的，效果很快，paper in review 
 
 ### 22 Questions Asked in 94% Amazon Interviews
-13. What’s the most innovative new idea that you have implemented?
+13. What’s the most innovative new idea that you have implemented? [就用上面的就行]
 
 
 
@@ -199,7 +254,7 @@ or tell me a time when you took on something significant outside your area of re
 ## 9. Dive Deep / Problem solving 
 
 ### 22 Questions Asked in 94% Amazon Interviews
-8. Tell me about a time when you missed an obvious solution to a problem
+8. Tell me about a time when you missed an obvious solution to a problem 
 9. A time when you faced a problem that had multiple possible solutions
 
 
@@ -391,3 +446,58 @@ https://www.youtube.com/watch?v=ys7fLcH5gpg&t=0s
 ### Success and Scale Bring Broad Responsibility 新的准则，世界更美好？
 >We started in a garage, but we're not there anymore. We are big, we impact the world, and we are far from perfect. We must be humble and thoughtful about even the secondary effects of our actions. Our local communities, planet, and future generations need us to be better every day. We must begin each day with a determination to make better, do better, and be better for our customers, our employees, our partners, and the world at large. And we must end every day knowing we can do even more tomorrow. Leaders create more than they consume and always leave things better than how they found them.
 
+
+
+# Dan's 235 stories
+The examples with cover 3 Leadership Principles at Amazon: Ownership, Customer Obsession and Bias for Action.
+
+35 behavioral questions asked in 95% of Amazon interviews with examples
+Team / time management (positive & negative) https://youtu.be/CQG4Ui0oAmk 
+1. Tell me about a time when you were not able to meet a time commitment. What prevented you from meeting it? What was the outcome and what did you learn from it?
+2. Describe a long-term project that you managed. How did you keep everything moving along in a timely manner?
+3. Give me an example of a time when you set a goal and were able to meet or achieve it
+Adaptation https://youtu.be/ys7fLcH5gpg 
+4. Tell me about a time you had to quickly adjust your work priorities to meet changing demands.
+Team / decision https://youtu.be/3NExTeMnobU
+5. an example when you had to push back to HQ or challenged a decision
+6. Tell me about the toughest decision you've had to make in the past six months
+7. Tell me about a decision that you regret.
+Team / leadership https://youtu.be/Tg6BVRTsuic 
+8. What did you do when you needed to motivate a group of individuals?
+9. Tell me about a time you stepped up into a leadership role
+Team / communication & negotiation https://youtu.be/UJXkaide9bU 
+10. Do you collaborate well?
+11. Describe a situation when you negotiated with others in your organization to reach agreement.
+Team / coworkers https://youtu.be/ZsxkoZdyEcw 
+12. We've all had to work with people that don't like us. How do you deal with someone that doesn't like you?
+13. We all make mistakes we wish we could take back. Tell me about a time you wish you’d handled a situation differently with a colleague.
+14. The last time you had to apologize to someone
+Team / conflict https://youtu.be/Zz8iQ852YMs 
+15. Give me an example of a time you faced a conflict while working on a team. How did you handle that?
+16. Tell me about a time when you received negative feedback from your manager. How did you respond?
+Problem solving https://youtu.be/2XxCUain1IU 
+17. Tell me about a time when you missed an obvious solution to a problem
+18. A time when you faced a problem that had multiple possible solutions
+19. Tell me about a time when you came up with a new approach to a problem.
+20. Describe a time when you anticipated potential problems and developed preventive measures.
+21. Describe a situation in which you found a creative way to overcome an obstacle.
+Strategy / data https://youtu.be/oRGKHTiM29E 
+22. How have you leveraged data to develop a strategy?
+23. a time when you were 75% through a project, & you had to pivot strategy
+24. Tell me about a time when you had to choose between technologies for a project
+25. Tell me about a time you had to deal with ambiguity
+Innovation https://youtu.be/774ovkE2y5I 
+26. What’s the most innovative new idea that you have implemented?
+Ownership principle https://youtu.be/Rn3EjvukTkI 
+27. Describe a time when you sacrificed short term goals for long term success
+28. Provide an example of when you personally demonstrate ownership.
+Strength / weakness https://youtu.be/q8fK73QjmbA 
+29. What's your greatest strength
+30. Biggest weakness
+Clients https://youtu.be/OFEUzyB12rE 
+31. We all deal with difficult customers from time to time. Tell me about a challenging client-facing situation and how you handled it.
+32. How do you show customer obsession?
+Failure https://youtu.be/eaUUeFoB9CQ 
+33. Tell me about a time you recovered from a difficult situation
+34. Tell me about a time you failed and what you learned from it
+35. Why Amazon https://youtu.be/H_KGM0i9jkA
