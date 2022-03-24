@@ -34,23 +34,57 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 
 ## 高频必考 - General BQ 
 ### introduce yourself 
+1. 想知道你的strength，why match this role? 
+2. 你的communication, efficienctly 有效的交流
+3. 不要enumeration，重复, 得到highlights, 不要列举，因为后面会问
+4. 30-1 min 长度
 
-- 3.5 year 在ornl
-1. promote 2次
-2. 
+Hi My name is Jaixin Zhang, I am now a staff research scientist in Computer Science and Mathematics Division at Oak Ridge National Laboratory. My research mainly focus on the development of foundamental machine learning algorithms, specifcially probablistic and robust AI methodology. In the past three and half years, as a PI/co-PI, I led several DOE projects, including anomaly detection, blackbox optimization and data-driven decision making in complex system. I also involved a joint faculty program with UTK and co-advise/mentor three phd students in computer science department. As a outcome, I published several papers in top AI conference, like NeurIPS, AAAI and CVPR. Prior to join ORNL, I got my PhD from Johns Hopkins University in 2018. My focus on uncertainty quantification， Monte Carlo simulations, statistical sampling. I also recevied a double master from Applied Math and Statistics at Johns Hopkins as well. I am so excited to see this position that I can contribute my expertise in machine learning, predictive modeling and optimization.  
 
+
+- Why choose industry rather than academia? 
+1. solve real-world applications that are more challenging, academic simulation and structured data， 很多假设和简化，距离真实的问题很遥远，AI for science is a good topic, but just begining  
+2. make a bigger impact - improve the life quality, for example, faster dilivery 
+3. I spent three/four years for training and improve myself, accumlate knowledge and it's a good time to try to apply these research to change the world 
 
 
 
 - Why Amazon? Why this team and this position? 
-- Why choose industry rather than academia? 
+
+1. Amazon is the top tech company in my mind, not only just a simple retail company. Like AWS, Amazon robotics, alexa, scout, and so on. Yesterday I just know that MGM video joined amazon, that's amazing. I can not life without amazon now. 
+
+2. For this position, HM Manan Chopra,first reached out to me via linkedin and ask me if I am interested in this position and his team needs an machine leanring expertist in anomaly detection. I am glad to hear that because I am leadning a AD project at Oak Ridge nationa lab, and just publsihed two papers in AAAI and Neurips. That's very excited opportunity for me and when I took at the job description and found my background well matched this position, not only ad, but also my machine learning, optimization, uncertainty quantification are important to the supply chain optimization techiques.  For example, machine leanring for accurate prediction and forcasting, and how to leverage optimization tehdniques to determine the operation and planning (OR), in addition, the uncertainty is also important, how to make decision with uncertainty and how to quantify the confidence is really important as well. 
+
+
 - What's your strength and weakness? 
-> 整个interview都应该集中强调你的strength 
-1. hard working
-2. quick-learner and telented
-3. passionate 
+1. hard working - 40 publications, 
+2. quick-learner and talented - from phd in uq to Ml at oak ridge, every one quick grows
+3. passionate and enjoy challenge - read many papers
+
+4. 不能提太多paper，将来进industry，多读blog，了解最新的发展，多和同事和manager学习交流，积累经验
 
 
+weakness
+https://www.indeed.com/career-advice/interviewing/list-of-example-weaknesses-for-interviewing
+
+
+1. 总是喜欢最求最优解，但是很多时间很难，或者甚至不存在，很累，花了很多时间
+2. It can be difficult for me to maintain a healthy work/life balance. 很难维持work life balance 
+3. I have trouble saying “no.” 很多人过来帮忙，我还是愿意去帮，但有时候就牺牲了自己的休息时间
+
+
+<!-- 
+1. I focus too much on the details. 
+2. I have a hard time letting go of a project.
+3. I have trouble saying “no.”
+4. I get impatient when projects run beyond the deadline.
+5. I could use more experience in…
+6. I sometimes lack confidence.
+7. I can have trouble asking for help.
+8. It has been difficult for me to work with certain personalities.
+9. It can be difficult for me to maintain a healthy work/life balance.
+10. I have been uncomfortable working with ambiguity. 
+ -->
 
 
 
@@ -118,7 +152,7 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 ### 22 Questions Asked in 94% Amazon Interviews
 18. Tell me about a time when you were not able to meet a time commitment. What prevented you from meeting it? What was the outcome and what did you learn from it?
 > 本质就是missing deadline, 讲一下和victor 冲ICLR这个事
-- S/T：我们当时想到了一个很好的idea，graph learning and generative models for materials design, 当时还有3个月的时间，去年10.28，我觉得我们可以赶得上。 我的任务是利用graph来生成新的materials，我没能及时搞定一个baseline，而是一直对最复杂的case，来追求最好的效果，但事实证明framework有一些问题，问题太复杂，不知道那个地方出现了问题，所以最终没有赶上
+- S/T：我们当时想到了一个很好的idea，graph learning and generative models for materials design, 当时还有3个月的时间，去年10.5，我觉得我们可以赶得上。 我的任务是利用graph来生成新的materials，我没能及时搞定一个baseline，而是一直对最复杂的case，来追求最好的效果，但事实证明framework有一些问题，问题太复杂，不知道那个地方出现了问题，所以最终没有赶上
 - A: 在这之后，我改变了方针，首先无论距离下一个deadline还有多久，我们要提前规划好timeline， step-by-step的move forward because time goes very fast; second，对于复杂的问题，我需要divide and conquer，先解决简单的问题，我们当时要同时生成node, connection and lattice paramters, 我们分别设计了3个case，来分别生成这些，当code works well，我们再去解决最复杂的case; third, a good lession 这只是一个conference 后面还有其他的，但是将来对于costomer，可能还有下一个costomer也可能没有，所以一定要避免再次发生. 
 
 19. Tell me about a time you failed and what you learned from it
@@ -148,8 +182,8 @@ https://laioffer.medium.com/%E4%BA%9A%E9%BA%BBbq%E9%9D%A2%E8%AF%95%E6%94%BB%E7%9
 17. We all deal with difficult customers from time to time. Tell me about a challenging client-facing situation and how you handled it.
 - Story: 和SNS合作那个anomaly detection的事，把他们想象成customers
 - S/T: 要和他们合作，用我们的方法解决他们的任务，他们提供data，最重要上线，但是他们对问题的formulate和我们不一样，他们不想改变他们label data的方式
-- A: 我的做法是 1）明确他们的expectation，long-term foal，我们可以考虑更多的方法 2） 沟通很重要； 我给他们实现了他们的classification的方法，但是效果并不理想，同时我跟他们说这是个AD的problem，但需要他们更合理的label data，后来我们提出了一种semi-supervise learning 的手段就是用一部分data来learn，然后预测新的data，同时还能帮助他们label data
-- R: 现在的结果证明，我们的方法更有效，我们也实现了共赢的局面，他们发了domain的paper，我们发了ai的paper
+- A: 我的做法是 1）明确他们的expectation，long-term goal，我们可以考虑更多的方法 2） 沟通很重要； 我给他们实现了他们的classification的方法，但是效果并不理想，同时我跟他们说这是个AD的problem，但需要他们更合理的label data，后来我们提出了一种semi-supervise learning 的手段就是用一部分data来learn，然后预测新的data，同时还能帮助他们label data
+- R: 现在的结果证明，我们的方法更有效，我们也实现了共赢的局面，他们发了domain的paper，我们发了paper, 在facility上线帮助他们节省了很多时间
 
 
 
@@ -203,7 +237,7 @@ or tell me a time when you took on something significant outside your area of re
 > 行动优先，当仁不让，有责任能顶上的意识，比如customer找不到人刚好你在，你能主动做些事
 
 - Story: Juan让我给一个AI HPC 的tutorial，不属于我的工作范围，但是客户很感兴趣，想知道有哪些应用，我虽然很忙，有很多deadline，但还是接了
-- S/T: 给一个one-hour 的talk，介绍 AI + HPC 的应用，我们这有专门的组，但他们知识做infrastructure，缺少scientific 应用，所以问我是否可以来，这不是我的工作范围
+- S/T: 给一个one-hour 的talk，介绍 AI + HPC 的应用，我们这有专门的组，但他们只是做infrastructure，缺少scientific 应用，所以问我是否可以来，这不是我的工作范围
 - A: 我认为我有能力承担，因为对于客户很重要，虽然我有其他deadline，但我还是接受了，并且积极准备。
 - R: 客户很满意，manager很满意，他们对于how to use AI ML有了更深的理解，他们决定选择我们作为他们的支持！
 
@@ -218,14 +252,18 @@ or tell me a time when you took on something significant outside your area of re
 > 类似上面的问题？ 
 
 11. Tell me about a time you had to deal with ambiguity
-> 
+> 可以说说image recosntruction, 
+- story: 现在lab的一个需求是做neurton image reconstruction，他们只有非常有限的data，希望得到准确的可靠的image
+- A: literature review， 收集所有相关的paper，看是否有相关的办法；考虑他们的局限，small data， reliability，需要考虑不确定性，在这个基础上，我们提出了robust flow-based method 去解决这个问题
+- R: 效果挺不错的，发了paper，同时还有其他可以用的应用，包括biomedical and healthcare 
 
 12. Tell me about the toughest decision you've had to make in the past six months
-> 
+> 可以将放弃ICLR deadline这个事，为了高标准，我们觉的再仔细准备一下，冲击NeurIPS 和domain journal 
+
+13. Tell me about the data-driven decision strategy 
+> 读paper，选方向， model
 
  
-
-
 
 
 
@@ -254,6 +292,12 @@ or tell me a time when you took on something significant outside your area of re
 
 ### 22 Questions Asked in 94% Amazon Interviews
 8. Tell me about a time when you missed an obvious solution to a problem 
+> xianglin合作HEA，本身就是一个linear regression，但我开始尝试用neural networks，但效果其实并不好
+- story: 认为neural network会好，但其实并不是
+- A: 我把所有线性的model，都试了，证明就是linear model
+- R: 效果很好， 速度非常快，体现了model selection的重要，同时也仔细挖掘了这个问题，用到了BIC and AIC， details 
+
+
 9. A time when you faced a problem that had multiple possible solutions
 
 
@@ -261,8 +305,15 @@ or tell me a time when you took on something significant outside your area of re
 
 ### 22 Questions Asked in 94% Amazon Interviews
 14. Tell me about a time you stepped up into a leadership role
+- C3 project lead， 很大的一个项目，联系所有人，要做好，很有挑战，但是我们做的不错
+- mentor students, joint faculty  
+
 15. Describe a time when you sacrificed short term goals for long term success
+- ICLR deadline这个事，我们短期可能放弃了这个paper，但是为了更好的效果
+
 16. Tell me about a time when you had to push back to HQ or challenged a decision
+- 不知道啥意思
+
 
 
 
