@@ -1,8 +1,34 @@
-# blind 75/169 这个必须刷好！ 04-22-2022 
+blind 75/169, 04-22-2022 - 全部整理一下，coding 最后冲刺！
 
 
-## Double pointer & sliding window 
 
+# Double pointer & sliding window 
+
+
+# Recursion & backtracking 
+
+
+# Graph (DFS/BFS)
+
+
+# Tree
+
+
+# Stack/Heap/Queue
+
+
+# DP 
+
+
+# Linked list 
+
+
+# Binary search 
+
+
+# Array/String 
+
+# Sorting 
 
 
 
