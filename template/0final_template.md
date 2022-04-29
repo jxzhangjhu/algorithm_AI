@@ -16,7 +16,7 @@
 
 # DP
 ## 问题特征 
-1. 求最大或者最小
+1. 求最大或者最小, 不要求返回哪一个
 2. 如果求所有可能一般都需要backtracking
 
 ## 问题类型 - 1D，2D
@@ -31,6 +31,37 @@
 5. 举例推导dp数组
 
 ## Examples 
+53. Maximum Subarray 
+https://leetcode.com/problems/maximum-subarray/
+> 1D DP数组，求最大值，这里面要注意判断dp[i-1]的正负，不是nums[i]的正负，同时注意subarry是连续的！
+
+```python
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        # dp[i] 数组的含义是以nums[i]结尾的连续子数组的最大和
+        # 关键是dp[i] 转换的含义，这里面要判断dp[i-1]的大小，如果>0, dp[i]会更大，但是dp[i-1]<0, 重新开始，因为nums[i]会更小如果加上dp[i-1] 
+    
+        n = len(nums)
+        dp = [0] * n 
+        dp[0] = nums[0]
+        for i in range(1, n):
+            if dp[i-1] > 0: #不是判断nums[i]的正负
+                dp[i] = dp[i-1] + nums[i]
+            else:
+                dp[i] = nums[i]
+        return max(dp) # 返回所有的最大值
+        
+        # brute force - 这是比较优化的方法，但超时
+        res = -inf 
+        n = len(nums)
+        for i in range(n):
+            curr = 0 
+            for j in range(i, n):
+                curr += nums[j]
+                res = max(res, curr)
+        
+        return res
+```
 
 926. Flip String to Monotone Increasing 
 https://leetcode.com/problems/flip-string-to-monotone-increasing/ 
