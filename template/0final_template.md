@@ -32,7 +32,10 @@
 
 ## Examples 
 
-926. Flip String to Monotone Increasing  https://leetcode.com/problems/flip-string-to-monotone-increasing/ 
+926. Flip String to Monotone Increasing 
+https://leetcode.com/problems/flip-string-to-monotone-increasing/ 
+
+> [2D DP数组类型] 求最小，符合DP的特征，同时2种情况讨论，确定用2d dp，关键在于如何确定dp数组的含义！
 ```python
 class Solution: # dp 看题解思路 O(n) O(n)
     def minFlipsMonoIncr(self, S: str) -> int:
@@ -61,8 +64,28 @@ class Solution: # dp 看题解思路 O(n) O(n)
                 dp[i][0] = dp[i - 1][0] + 1
                 dp[i][1] = min(dp[i - 1][0], dp[i - 1][1])
         return min(dp[n - 1]) # 返回值，最大到n-1
-```
 
+class Solution: # dp 空间优化 O(n) O(1)
+    def minFlipsMonoIncr(self, S: str) -> int:
+        zero, one = 0, 0
+        n = len(S)
+        for i in range(n):
+            if S[i] == '0':
+                one = min(zero, one) + 1
+            else:
+                zero, one = zero + 1, min(zero, one)
+        return min(one, zero)
+
+class Solution: # 前缀和 看题解思路 O(n) O(n)
+    def minFlipsMonoIncr(self, S: str) -> int:
+        P = [0]
+        n = len(S)
+        for a in S:
+            P.append(P[-1] + int(a))
+        # return min(P[i] + n - i - (P[n] - P[i]) for i in range(n))
+        return min(P[i] + n - i - (P[n] - P[i]) for i in range(n + 1))
+        # return min(P[j] + len(S)-j-(P[-1]-P[j]) for j in range(len(P)))
+```
 
 
 
