@@ -30,9 +30,38 @@
 4. 确定遍历顺序
 5. 举例推导dp数组
 
-## 经典问题
+## Examples 
 
-
+926. Flip String to Monotone Increasing  https://leetcode.com/problems/flip-string-to-monotone-increasing/ 
+```python
+class Solution: # dp 看题解思路 O(n) O(n)
+    def minFlipsMonoIncr(self, S: str) -> int:
+        # DP数组的含义才是最重要的
+        # DP[i][0] 是到i这个位置的子串，结尾是0的，需要的最少次数
+        # DP[i][1] 是i这个位置的子串，结尾是1的，需要的最少次数
+        # 递归过程：s[i] = 0时有2种情况
+        # 1. 对于dp[i][0]需要都是0, 所以不需要翻转dp[i][0] = dp[i-1][0]
+        # 2. 对于dp[i][1]需要翻转，因此+1，这个时候是上个时刻最小值+1 dp[i][1] = min(dp[i-1][0], dp[i-1][1]) + 1
+        # 当s[i] = 1时也有2种情况
+        # 1. dp[i][0] 需要翻转 dp[i][0] = dp[i-1][0] + 1 也就是从1到0
+        # 2. dp[i][1] 不需要翻转 dp[i][1] = min(dp[i - 1][0], dp[i - 1][1]) 都是0的时候翻转 
+        # 特殊情况
+        if not S: return 0
+        n = len(S)
+        # 递归初始化
+        dp = [[0] * 2 for _ in range(n)]
+        dp[0][0] = int(S[0] == '1')
+        dp[0][1] = int(S[0] == '0')
+        # 递归遍历从1到n
+        for i in range(1, n):
+            if S[i] == '0':
+                dp[i][0] = dp[i - 1][0]
+                dp[i][1] = min(dp[i - 1][0], dp[i - 1][1]) + 1
+            else:
+                dp[i][0] = dp[i - 1][0] + 1
+                dp[i][1] = min(dp[i - 1][0], dp[i - 1][1])
+        return min(dp[n - 1]) # 返回值，最大到n-1
+```
 
 
 
