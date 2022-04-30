@@ -63,6 +63,25 @@ class Solution:
         return res
 ```
 
+152. Maximum Product Subarray https://leetcode.com/problems/maximum-product-subarray/ 
+> 和53非常像，但是是求和，需要维护max和min同时，现在状态并不是由上一个状态完全决定 - maximum, fits DP problem
+``` python
+        # dp 解法和之前不一样的
+        n = len(nums)
+        dpmax = [0] * n
+        dpmin = [0] * n
+        dpmax[0] = nums[0]
+        dpmin[0] = nums[0]
+        res = nums[0]
+        
+        for i in range(1, n):
+            dpmax[i] = max(dpmax[i-1] * nums[i], nums[i], dpmin[i-1]*nums[i])
+            dpmin[i] = min(dpmax[i-1] * nums[i], nums[i], dpmin[i-1]*nums[i])
+            res = max(res, dpmax[i])
+        
+        return res
+```
+
 926. Flip String to Monotone Increasing 
 https://leetcode.com/problems/flip-string-to-monotone-increasing/ 
 
@@ -117,6 +136,19 @@ class Solution: # 前缀和 看题解思路 O(n) O(n)
         return min(P[i] + n - i - (P[n] - P[i]) for i in range(n + 1))
         # return min(P[j] + len(S)-j-(P[-1]-P[j]) for j in range(len(P)))
 ```
+
+
+416. Partition Equal Subset Sum https://leetcode.com/problems/partition-equal-subset-sum/ 
+
+>  好题 + 这个帖子好，顺便复习0-1背包，完全背包
+https://leetcode-cn.com/problems/partition-equal-subset-sum/solution/by-flix-szk7/
+
+01 背包问题的定义
+
+我们有 $n$ 件物品和一个容量 (capacity）为 C 的背包，记第 i 件物品的重量 (weight)为 w_i, 价值 (value)(value) 为 v_iv，求将哪些物品装入背包可使价值总和最大
+
+
+
 
 
 
