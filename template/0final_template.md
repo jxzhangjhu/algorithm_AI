@@ -146,7 +146,9 @@ https://leetcode-cn.com/problems/partition-equal-subset-sum/solution/by-flix-szk
 01 背包问题的定义
 
 我们有n件物品和一个容量 (capacity）为C的背包，记第i件物品的重量 (weight)为 $`w_i`$, 价值(value)为$`v_i`$，求将哪些物品装入背包可使价值总和最大
-
+```math
+\max \sum_{i=0}^{n-1}k_i \cdot v_i
+```
 
 
 
