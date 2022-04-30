@@ -144,10 +144,48 @@ class Solution: # 前缀和 看题解思路 O(n) O(n)
 https://leetcode-cn.com/problems/partition-equal-subset-sum/solution/by-flix-szk7/
 
 01 背包问题的定义
-
 ![p](https://github.com/jxzhangjhu/Coding2022/blob/main/images/beibao.png)
 
 
+```python
+
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        # brute force - DFS 的方法
+        # DP  背包模板转换 
+        # https://leetcode-cn.com/problems/partition-equal-subset-sum/solution/by-flix-szk7/ 
+        
+        # way 1 - 2D DP 
+        # dp[i][j] 前i个数字选取若干个，刚好选出的数字和为j
+        total = sum(nums)
+        if total % 2 == 1: return False 
+        
+        target = total // 2
+        if max(nums) > target: return False
+        
+        n = len(nums) # 注意初始化要target + 1, and n+1 最终状态dp[n][target]
+        dp = [[False] * (target+1) for _ in range(n + 1)]
+        dp[0][0] = True
+        for i in range(1, n + 1):
+            for j in range(target + 1):
+                if j < nums[i-1]:
+                    dp[i][j] = dp[i-1][j]
+                else:
+                    dp[i][j] = dp[i-1][j] | dp[i-1][j - nums[i-1]] # | 运算
+        return dp[n][target]
+    
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        # 套用背包的模板，第一遍确实想不清楚
+        taraget = sum(nums)
+        if taraget % 2 == 1: return False
+        taraget //= 2
+        dp = [0] * 10001
+        for i in range(len(nums)):
+            for j in range(taraget, nums[i] - 1, -1):
+                dp[j] = max(dp[j], dp[j - nums[i]] + nums[i])
+        return taraget == dp[taraget]
+```
 
 
 
