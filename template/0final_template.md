@@ -14,6 +14,46 @@
 # Stack
 
 # Heap (Priority Queue)
+> python 官方文档 https://docs.python.org/zh-cn/3/library/heapq.html 
+```python
+import heapq
+
+s = [4,2,1,4,6]
+heapq.heapify(s) # s已经堆化
+# print(s) #[1, 2, 4, 4, 6], 只能保证最小的在最上面，后面无法保证
+
+s1 = [4,3,2,1]
+heapq.heappush(s1,5)
+heapq.heappush(s1,3)
+heapq.heappush(s1,4)
+print(s1) #[4, 3, 2, 1, 5, 3, 4] 
+heapq.heappop(s1) #4 
+
+# 说明，s1已经被创建了，heappush并不能保证最小的在堆顶，只是正常的pop
+s1 = [4,3,2,1]
+heapq.heapify(s1) # 对s1堆化就可以了
+heapq.heappush(s1,5)
+heapq.heappush(s1,3)
+print(s1)# [1, 3, 2, 4, 5, 3]
+heapq.heappop(s1) #1 
+heapq.heappop(s1) #2
+heapq.heappop(s1) #2
+heapq.heappop(s1) #3 
+
+
+
+s1 = []
+heapq.heappush(s1,4)
+heapq.heappush(s1,2)
+heapq.heappush(s1,3)
+heapq.heappush(s1,1)
+heapq.heappush(s1,2)
+heapq.heappush(s1,5)
+print(s1) #[1, 2, 3, 4, 2, 5] 
+heapq.heappop(s1) #1 
+
+```
+
 
 ## 定义
 1. 分为最小堆minheap，和最大堆，maxheap， 也就是最小元素或者最大元素在堆顶
