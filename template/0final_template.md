@@ -142,6 +142,7 @@ class Solution: # 前缀和 看题解思路 O(n) O(n)
 
 >  好题 + 这个帖子好，顺便复习0-1背包，完全背包
 https://leetcode-cn.com/problems/partition-equal-subset-sum/solution/by-flix-szk7/
+https://leetcode-cn.com/problems/partition-equal-subset-sum/solution/yi-pian-wen-zhang-chi-tou-bei-bao-wen-ti-a7dd/ 
 
 01 背包问题的定义
 ![p](https://github.com/jxzhangjhu/Coding2022/blob/main/images/beibao.png)
@@ -187,8 +188,71 @@ class Solution:
         return taraget == dp[taraget]
 ```
 
+<!-- 其他还有好几个背包问题可以一起做一下 -->
+
+322. Coin Change https://leetcode.com/problems/coin-change/ 
+> 也是背包问题一起解决一下
+```python
+         # 记整数数组 coins 的长度为 nn。为便于状态更新，减少对边界的判断，初始二维 dpdp 数组维度为 {(n+1) \times (*)}(n+1)×(∗)，其中第一维为 n+1n+1 也意味着：第 ii 种硬币为 coins[i-1]coins[i−1]，第 11 种硬币为 coins[0]coins[0]，第 00 种硬币为空。
+
+        n = len(coins)
+        dp = [[amount+1] * (amount+1) for _ in range(n+1)]    # 初始化为一个较大的值，如 +inf 或 amount+1
+        # 合法的初始化
+        dp[0][0] = 0    # 其他 dp[0][j]均不合法
+        
+        # 完全背包：优化后的状态转移
+        for i in range(1, n+1):             # 第一层循环：遍历硬币
+            for j in range(amount+1):       # 第二层循环：遍历背包
+                if j < coins[i-1]:          # 容量有限，无法选择第i种硬币
+                    dp[i][j] = dp[i-1][j]
+                else:                       # 可选择第i种硬币
+                    dp[i][j] = min( dp[i-1][j], dp[i][j-coins[i-1]] + 1 )
+
+        ans = dp[n][amount] 
+        return ans if ans != amount+1 else -1
+```
+
+198. House Robber https://leetcode.com/problems/house-robber/
+> 经典dp，注意初始条件，边界条件，特殊判定
+```python
+        # dp[i] 定义 - 前i个房子最大值
+        # dp转移 dp[i] = max(dp[i-1], dp[i-2] + nums[i]])
+        # 初始化 dp
+        # 这些特判也很重要！
+        if len(nums) == 0: 
+            return 0
+        if len(nums) == 1:
+            return nums[0]
+        n = len(nums)
+        dp = [0] * n 
+        dp[0] = nums[0] # 第一个简单
+        dp[1] = max(nums[0], nums[1]) # 第二个是前两个最大值
+        for i in range(2, n):
+            dp[i] = max(dp[i-1], dp[i-2] + nums[i]) # 注意nums[i] 所以只能是到n
+        return dp[-1] # 返回最后一个数比dp[n-1]安全？
+```
 
 
+62. Unique Paths https://leetcode.com/problems/unique-paths/ 
+> 2D矩阵的跳楼梯 - dp[i][j] 含义是到[i,j]这个状态的所有数目，只能从2个状态得来！dp[i-1][j] and dp[i][j-1]. 
+
+DP问题的一个核心思想是
+1. 寻找子问题，缩小问题规模
+2. 枚举子问题到原问题的所有转移过程和状态，枚举！
+3. 明确dp数组的含义，一般直接针对问题本身，max，min，all possible， 最值问题，存在问题，组合问题
+4. 初始化的定义，这个需要经验，看corn case
+5. 明确遍历顺序和最后输出，是最终状态，还是所有的最值
+
+```python
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        # 直接开一个2维数组
+        dp = [[1 for i in range(n)] for j in range(m)]
+        for i in range(1, m):
+            for j in range(1, n):
+                dp[i][j] = dp[i][j - 1] + dp[i - 1][j] # 递推公式
+        return dp[m - 1][n - 1]
+```
 
 
 # Linked list 
