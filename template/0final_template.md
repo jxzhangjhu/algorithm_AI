@@ -3,6 +3,195 @@
 
 
 # Recursion & backtracking 
+很重要明确几个步骤
+1. 确定递归函数的参数和返回值
+2. 确定终止条件 
+3. 确定递归回溯的遍历过程，一般是for loop，横向遍历，递归是纵向遍历
+
+主要解决的问题
+1. 组合问题：N个数里面按一定规则找出k个数的集合
+2. 排列问题：N个数按一定规则全排列，有几种排列方式
+3. 切割问题：一个字符串按一定规则有几种切割方式
+4. 子集问题：一个N个数的集合里有多少符合条件的子集
+5. 棋盘问题：N皇后，解数独等等
+
+## tempalte 
+```python
+
+def dfs(参数):
+    if (终止条件):
+        存放结果
+        return 
+
+    for (选择本层集合中的元素，一般是集合大小)
+        处理当前节点
+        dfs(路径，选择列表)
+        回溯，撤销处理结果 pop操作
+```
+这是fuxuemingzhu的模板 关于subset的几个题
+```python
+res = []
+path = []
+
+def backtrack(未探索区域, res, path):
+    if path 满足条件:
+        res.add(path) # 深度拷贝
+        # return  # 如果不用继续搜索需要 return
+    for 选择 in 未探索区域当前可能的选择:
+        if 当前选择符合要求:
+            path.add(当前选择)
+            backtrack(新的未探索区域, res, path)
+            path.pop()
+
+# 作者：fuxuemingzhu
+# 链接：https://leetcode-cn.com/problems/subsets-ii/solution/hui-su-fa-mo-ban-tao-lu-jian-hua-xie-fa-y4evs/
+# 来源：力扣（LeetCode）
+# 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+```
+> 关于deep copy的问题
+``` python
+s = []
+a = [1,2]
+s.append(a)
+print(s)
+a.pop()
+a.append(3)
+s.append(a)
+print(s)
+# [[1, 2]]
+# [[1, 3], [1, 3]]
+
+s = []
+a = [1,2]
+s.append(a[:])
+print(s)
+a.pop()
+a.append(3)
+s.append(a)
+print(s)
+# [[1, 2]]
+# [[1, 2], [1, 3]]
+```
+
+
+## Examples 
+22. Generate Parentheses https://leetcode.com/problems/generate-parentheses/ 
+```python
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        ans = []
+        def backtrack(S = [], left = 0, right = 0):
+            if len(S) == 2 * n:
+                ans.append("".join(S))
+                return
+            if left < n:
+                S.append("(")
+                backtrack(S, left+1, right)
+                S.pop()
+            if right < left:
+                S.append(")")
+                backtrack(S, left, right+1)
+                S.pop()
+        backtrack()
+        return ans
+    
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        if n <= 0: return 
+        res = []
+        def dfs(paths, num_left, num_right):
+            if num_left > n or num_left < num_right: # 这个有讲究，关键是括号的处理
+                return 
+            # 先写递归出口
+            if len(paths) == n * 2:
+                res.append(paths)
+                return 
+            # 递归定义， 只有paths 放进去作为参数
+            dfs(paths + '(', num_left + 1, num_right)
+            dfs(paths + ')', num_left, num_right + 1)
+        dfs('', 0, 0)
+        return res 
+```
+
+17. Letter Combinations of a Phone Number https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+```python
+class Solution:
+    def __init__(self):
+        self.answers: List[str] = []
+        self.answer: str = ''
+        self.letter_map = {
+            '2': 'abc',
+            '3': 'def',
+            '4': 'ghi',
+            '5': 'jkl',
+            '6': 'mno',
+            '7': 'pqrs',
+            '8': 'tuv',
+            '9': 'wxyz'
+        }
+
+    def letterCombinations(self, digits: str) -> List[str]:
+        self.answers.clear()
+        if not digits: return []
+        self.backtracking(digits, 0)
+        return self.answers
+    
+    def backtracking(self, digits: str, index: int) -> None:
+        # 回溯函数没有返回值
+        # Base Case
+        if index == len(digits):    # 当遍历穷尽后的下一层时
+            self.answers.append(self.answer)
+            return 
+        # 单层递归逻辑  
+        # letters: str = self.letter_map[digits[index]]
+        letters = self.letter_map[digits[index]]
+        for letter in letters:
+            self.answer += letter   # 处理
+            self.backtracking(digits, index + 1)    # 递归至下一层
+            self.answer = self.answer[:-1]  # 回溯
+```
+
+77. Combinations https://leetcode.com/problems/combinations/ 
+
+```python
+class Solution:
+    def combine(self, n,k):
+        res = []
+        path = []
+        def dfs(n,k, index):
+            if len(path) == k:
+                res.append(path[:]) # 这个地方关键是必须用path[:]这个含义是copy path的内容， 新内容，如果知识path还是之前的id
+                return 
+            for i in range(index, n + 1):
+                path.append(i)
+                dfs(n,k, i + 1)
+                path.pop()
+
+        dfs(n,k,1)
+        return res
+
+# 优化
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        res=[]  #存放符合条件结果的集合
+        path=[]  #用来存放符合条件结果
+        def backtrack(n,k,startIndex):
+            if len(path) == k:
+                res.append(path[:])
+                return
+            for i in range(startIndex,n-(k-len(path))+2):  #优化的地方
+                path.append(i)  #处理节点 
+                backtrack(n,k,i+1)  #递归
+                path.pop()  #回溯，撤销处理的节点
+        backtrack(n,k,1)
+        return res
+```
+
+
+
+
+
+
 
 
 # Graph (DFS/BFS)
