@@ -1,17 +1,20 @@
-All topics
+All topics about coding test including ML coding
 
 - Double pointer & sliding window 
-- Recursion & backtracking 
-- Graph (DFS/BFS)
+- Recursion & backtracking - done 
+- Graph DFS
+- Graph BFS
 - Tree
 - Stack
-- Heap (Priority Queue)
-- DP
+- Heap (Priority Queue) - done
+- DP - done 
 - Linked list 
 - Binary search 
 - Array/String 
 - Sorting 
 - Prefix sum 
+- Math/random/statistics/probability
+- ML coding 
 
 
 
@@ -206,13 +209,177 @@ class Solution:
 ```
 
 
+78. Subsets https://leetcode.com/problems/subsets/ 
+
+Given an integer array nums of unique elements, return all possible subsets (the power set). The solution set must not contain duplicate subsets. Return the solution in any order. 
+
+Examples 1: 
+```
+Input: nums = [1,2,3]
+Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+```
+
+```python
+class Solution:
+    def subsets(self, nums):
+        res = []
+        path = []
+        def dfs(nums, index):
+            res.append(path[:]) # 等价于deepcopy 直接copy里面的内容，这里面path没有终止条件
+            # res.append(copy.deepcopy(path))
+            # stop critiera
+            if len(nums) == index: 
+                return 
+            for i in range(index, len(nums)):
+                path.append(nums[i])
+                dfs(nums, i + 1) # 这个地方不是index + 1 而是i + 1
+                path.pop()
+        dfs(nums, 0)
+        return res 
+```
+
+90. Subsets II https://leetcode.com/problems/subsets-ii/ 
+
+Given an integer array nums that may contain duplicates, return all possible subsets (the power set). The solution set must not contain duplicate subsets. Return the solution in any order.
+
+Examples 1: 
+```
+Input: nums = [1,2,2]
+Output: [[],[1],[1,2],[1,2,2],[2],[2,2]]
+```
+```python 
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        path = []
+        def dfs(nums, index):
+            res.append(path[:]) # 等价于deepcopy 直接copy里面的内容，这里面path没有终止条件
+            # res.append(copy.deepcopy(path))
+            # stop critiera
+            if len(nums) == index: 
+                return 
+            for i in range(index, len(nums)):
+                if i > index and nums[i] == nums[i-1]: # 加这个判定条件！ # 当前后元素值相同时，跳入下一个循环，去重 
+                    continue 
+                path.append(nums[i])
+                dfs(nums, i + 1) # 这个地方不是index + 1 而是i + 1
+                path.pop()
+        dfs(nums, 0)
+        return res  
+```
 
 
+46. Permutations  https://leetcode.com/problems/permutations/ 
+> Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order. 
+
+```
+Input: nums = [1,2,3]
+Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+```
+```python 
+class Solution:
+    def permute(self, nums):
+        res = []
+        path = []
+        def dfs(nums):
+            if len(nums) == len(path):
+                res.append(path[:])
+                return 
+            for i in range(len(nums)):
+                if nums[i] in path: # 这个是关键，去重，否则很多一样的
+                    continue
+                path.append(nums[i])
+                dfs(nums)
+                path.pop()
+        dfs(nums)
+        return res
+``` 
+
+47. Permutations II https://leetcode.com/problems/permutations-ii/ 
+> Given a collection of numbers, nums, that might contain duplicates, return all possible unique permutations in any order. 
+Example 1:
+```
+Input: nums = [1,1,2]
+Output:
+[[1,1,2],
+ [1,2,1],
+ [2,1,1]]
+```
+Example 2:
+```
+Input: nums = [1,2,3]
+Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+```
+
+```python
+class Solution:
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        # res用来存放结果
+        if not nums: return []
+        res = []
+        used = [0] * len(nums)
+        def backtracking(nums, used, path):
+            # 终止条件
+            if len(path) == len(nums):
+                res.append(path.copy())
+                return
+            for i in range(len(nums)):
+                if not used[i]:
+                    if i>0 and nums[i] == nums[i-1] and not used[i-1]:
+                        continue
+                    used[i] = 1
+                    path.append(nums[i])
+                    backtracking(nums, used, path)
+                    path.pop()
+                    used[i] = 0
+        # 记得给nums排序
+        backtracking(sorted(nums),used,[])
+        return res
+```
 
 
 
 
 # Graph (DFS/BFS)
+
+733. Flood Fill  https://leetcode.com/problems/flood-fill/ 
+> BFS or DFS 都可以，但似乎DFS更快！BFS没有超时，需要加一个判断，这个和number of island不同在于，不需要记录visit，直接全部赋值？
+
+```python 
+class Solution:
+    def floodFill(self, image, sr, sc, newColor):
+        curr_color = image[sr][sc]
+        if curr_color == newColor: # 如果不加这个就超时
+            return image
+
+        n, m = len(image), len(image[0])
+        direct = [(0, 1),(0, -1),(1, 0),(-1, 0)]
+        from collections import deque
+        queue = collections.deque([]) # 先加[] 
+        queue.append((sr, sc))
+        image[sr][sc] = newColor
+        # visit = set() # 这个题不适合加visit，why？ 没有必要？BFS大部分都需要加
+        while queue:
+            curr_x, curr_y = queue.popleft()
+            for dx, dy in direct:
+                x = curr_x + dx
+                y = curr_y + dy
+                if 0 <= x < n and 0 <= y < m and image[x][y] == curr_color:
+                # if 0 <= x < m and 0 <= y < n and image[x][y] == curr_color and (x, y) in visit: 加了这个就说out of range, 不明白！
+                    visit.add((x,y))
+                    queue.append((x,y))
+                    image[x][y] = newColor
+                # else:
+                #     continue
+        return image
+```
+
+
+200. Number of Islands  https://leetcode.com/problems/number-of-islands/ 
+
+
+
+
 
 
 # Tree
@@ -321,8 +488,6 @@ class Heap:
         return not bool(self.minheap)
 
 ```
-
-## 几种类型的双指针及相关题目
 
 ### Example 264. Ugly Number II 
 https://leetcode.com/problems/ugly-number-ii/ 
