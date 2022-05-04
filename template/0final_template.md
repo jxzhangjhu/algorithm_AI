@@ -18,9 +18,140 @@ All topics about coding test including ML coding
 
 
 
-
-
 # Double pointer & sliding window 
+
+1. Two Sum https://leetcode.com/problems/two-sum/ 
+
+```python 
+
+class Solution:
+    def twoSum(self, nums, target):
+        hashmap = {} #这个写法make sense多了！
+        for i in range(len(nums)):
+            hashmap[nums[i]] = i
+        for i in range(len(nums)):
+            complement = target - nums[i]
+            if complement in hashmap and hashmap[complement] != i:
+                return [i, hashmap[complement]] 
+
+class Solution:
+    def twoSum(self, nums, target):
+        # way1 - hashmap
+        if not nums: return 
+        n = len(nums)
+        hashmap = {}
+        for i in range(n):
+            residual = target - nums[i]
+            if residual in hashmap:
+                res = [hashmap[residual], i]
+            hashmap[nums[i]] = i
+        return sorted(res)
+
+class Solution:
+    def twoSum(self, nums, target):
+        # double pointer 
+        if not nums:
+            return 
+        # 先排序，才能用相向双指针 
+        nums = [(number, index) for index, number in enumerate(nums)]
+        nums.sort()
+        
+        left, right = 0, len(nums) - 1
+        while left < right:
+            if nums[left][0] + nums[right][0] < target: # 小于target，left 右移
+                left += 1
+            elif nums[left][0] + nums[right][0] > target: # 大于target，right 左移
+                right -= 1
+            else: # 这个必须要有，就是说 == target，直接返回
+                return sorted([nums[left][1], nums[right][1]]) # 是否拍需要看要求，这个需要从小到大，就排一下
+        return 
+```
+
+15. 3Sum https://leetcode.com/problems/3sum/ 
+
+```python
+class Solution:
+    def threeSum(nums):
+        # way 1 - hashtable 
+        from collections import Counter
+        hashm = Counter(nums)
+        n = len(nums)
+        for i in range(n):
+            for j in rage(i + 1, n):
+                residual = 0 - nums[i] - nums[j]
+                if residul in hashm and residual != nums[i] and residual != nums[j]: 
+                    res = [nums[i], nums[j], residual]
+        return res
+        # double pointer sorting()
+class Solution:
+    def threeSum(nums):
+       ans = []
+        n = len(nums)
+        nums.sort()
+        for i in range(n):
+            left = i + 1
+            right = n - 1
+            if nums[i] > 0:
+                break
+            if i >= 1 and nums[i] == nums[i - 1]:
+                continue
+            while left < right:
+                total = nums[i] + nums[left] + nums[right]
+                if total > 0:
+                    right -= 1
+                elif total < 0:
+                    left += 1
+                else:
+                    ans.append([nums[i], nums[left], nums[right]])
+                    # while left != right and nums[left] == nums[left + 1]: left += 1
+                    # while left != right and nums[right] == nums[right - 1]: right -= 1
+                    left += 1
+                    right -= 1
+        return ans
+```
+3. Longest Substring Without Repeating Characters https://leetcode.com/problems/longest-substring-without-repeating-characters/ 
+> Given a string s, find the length of the longest substring without repeating characters. 
+
+Example 1:
+```
+Input: s = "abcabcbb"
+Output: 3
+Explanation: The answer is "abc", with the length of 3.
+```
+Example 2:
+```
+Input: s = "bbbbb"
+Output: 1
+Explanation: The answer is "b", with the length of 1.
+```
+Example 3:
+```
+Input: s = "pwwkew"
+Output: 3
+Explanation: The answer is "wke", with the length of 3.
+Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
+```
+
+```python 
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        # sliding window template 
+        n = len(s)
+        slow = 0  
+        hashm = {}
+        res = 0
+        for fast in range(n): # fast 一直在走
+            hashm[s[fast]] = hashm.get(s[fast],0) + 1
+            if len(hashm) == fast - slow + 1: # 先考虑窗口满足的条件，然后得到结果
+                res = max(res, fast - slow + 1)
+            while len(hashm) < fast - slow + 1: # 再考虑窗口不满足，是if or while， 然后来移动slow
+                hashm[s[slow]] -= 1
+                if hashm[s[slow]] == 0:
+                    del hashm[s[slow]]
+                slow += 1
+        return res
+```
+
 
 
 # Recursion & backtracking 
@@ -377,7 +508,37 @@ class Solution:
 
 200. Number of Islands  https://leetcode.com/problems/number-of-islands/ 
 
-
+```python
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        from collections import deque
+        if not grid or not grid[0]:
+            return 0        
+        island_num = 0 
+        visited = set() # 不用hash map 因为只需要看是否存在过
+        for i in range(len(grid)): # 行
+            for j in range(len(grid[0])): # 列
+                if grid[i][j] == '1' and (i, j) not in visited: 
+                    self.bfs(grid, i, j, visited)
+                    island_num += 1
+        return island_num
+    
+    def bfs(self, grid, x, y, visited):
+        direct = [(1, 0), (0, -1), (-1, 0), (0, 1)] 
+        n, m = len(grid), len(grid[0])
+        queue = deque([(x, y)]) # 如果是tree的话，这里是node
+        visited.add((x, y))
+        while queue:
+            x, y = queue.popleft()
+            for delta_x, delta_y in direct:
+                next_x = x + delta_x
+                next_y = y + delta_y
+                if (0 <= next_x < n and 0 <= next_y < m) and grid[next_x][next_y] == '1' and (next_x, next_y) not in visited:
+                    queue.append((next_x, next_y)) # queue uses append 不是list 
+                    visited.add((next_x, next_y)) # set use add
+                else:
+                    continue 
+```
 
 
 
@@ -1225,6 +1386,48 @@ class Solution:
         return max(dp)
 ```
 
+
+121. Best Time to Buy and Sell Stock https://leetcode.com/problems/best-time-to-buy-and-sell-stock/ 
+
+```python
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        
+        # # brute force 暴力遍历 time o(n^2) and space o(1) 超时了！
+        # if not prices: return 0
+        # res = -inf
+        # for i in range(len(prices)):
+        #     for j in range(i + 1, len(prices)):
+        #         diff = prices[j] - prices[i]
+        #         res = max(res, diff)
+        # return res if res > 0 else 0 
+        # 结果是对的，但是超时了，注意corner case，比如都是负数，要返回0
+        
+        # # greedy 贪心策略也可以 - time o(n), space o(1)
+        # if not prices: return 0
+        # low = inf
+        # res = -inf 
+        # for i in range(len(prices)):
+        #     low = min(low, prices[i])
+        #     res = max(res, prices[i] - low)
+        # return res
+        
+        # DP - 维护一维动态数组 
+        n = len(prices)
+        if n == 0: return 0 # 边界条件
+        dp = [0] * n
+        minprice = prices[0] 
+
+        for i in range(1, n):
+            minprice = min(minprice, prices[i])
+            dp[i] = max(dp[i - 1], prices[i] - minprice)
+
+        return dp[-1]
+```
+
+
+
+
 # Linked list 
 
 
@@ -1233,7 +1436,55 @@ class Solution:
 
 # Array/String 
 
+
 # Sorting 
+
+56. Merge Intervals  https://leetcode.com/problems/merge-intervals/ 
+> Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input. 
+
+Example 1:
+```
+Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
+Output: [[1,6],[8,10],[15,18]]
+Explanation: Since intervals [1,3] and [2,6] overlaps, merge them into [1,6].
+```
+Example 2:
+```
+Input: intervals = [[1,4],[4,5]]
+Output: [[1,5]]
+Explanation: Intervals [1,4] and [4,5] are considered overlapping.
+```
+```python
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals.sort(key=lambda x: x[0])
+
+        merged = []
+        for interval in intervals:
+            # 如果列表为空，或者当前区间与上一区间不重合，直接添加
+            if not merged or merged[-1][1] < interval[0]:
+                merged.append(interval)
+            else:
+                # 否则的话，我们就可以与上一区间进行合并
+                merged[-1][1] = max(merged[-1][1], interval[1])
+
+        return merged
+# class Solution:
+#     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+#         s = sorted(intervals)
+#         res = []
+#         n = len(s)
+#         for i in range(1, s):
+#             if s[i-1][1] > s[i][0]:
+#                 item_min = s[i-1][0]
+#                 item_max = max(s[i-1] + s[i])
+#                 item = [item_min, item_max]
+#                 res.append(item)
+#             else：
+#                 res.append(s[i])
+
+#         return res
+```
 
 # Prefix sum 
 
