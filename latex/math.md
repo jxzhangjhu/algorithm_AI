@@ -1,10 +1,10 @@
 # Math 相关题型
 
 
-### randomized 
+## randomized 
 
 
-### 进位制理解和操作 - digit 
+## 进位制理解和操作 - digit 
 基本操作不熟悉！
 ```python
 # 就是对进位不了解或者不熟悉
@@ -27,7 +27,7 @@ print(num % 1000) # 百分位 + 十位 + 个位
 # 123
 ````
 
-400. Nth Digit  https://leetcode.com/problems/nth-digit/ 
+### 400. Nth Digit  https://leetcode.com/problems/nth-digit/ 
 
 Given an integer n, return the nth digit of the infinite integer sequence [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ...].
 
