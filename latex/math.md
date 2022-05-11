@@ -1,7 +1,75 @@
 # Math 相关题型
 
 
-## randomized 
+## Randomized 随机操作
+
+这个题以及相关题目有很多可以考的
+1. 2个uniform distribution 求和不是uniform，因为有很多重复的可能性，比如rand2() + rand2() 有多种可能性得到3， 这个问题也可以用数学公式推导，他的分布是三角分布
+2. rand_x() 生成[1,x] 那么(rand_x - 1) * Y + rand_y() 可以生成rand_{xy} [1, xy]的随机数 - 这个定理很重要
+3. rejected sampling， 生成之后可以用mod 操作来拒绝掉不想要的部分，但注意效率，可以迭代几次来提高效率
+4. 扔骰子问题，或者抛硬币 https://leetcode.cn/problems/implement-rand10-using-rand7/solution/wei-rao-li-lun-yi-ge-bu-jun-yun-ying-bi-fo4ei/ 
+
+
+### 470. Implement Rand10() Using Rand7()
+
+Given the API rand7() that generates a uniform random integer in the range [1, 7], write a function rand10() that generates a uniform random integer in the range [1, 10]. You can only call the API rand7(), and you shouldn't call any other API. Please do not use a language's built-in random API.
+
+Each test case will have one internal argument n, the number of times that your implemented function rand10() will be called while testing. Note that this is not an argument passed to rand10().
+
+Example 1:
+```
+Input: n = 1
+Output: [2]
+```
+Example 2:
+```
+Input: n = 2
+Output: [2,8]
+```
+Example 3:
+```
+Input: n = 3
+Output: [3,8,10]
+```
+Constraints:1 <= n <= 105
+Follow up: What is the expected value for the number of calls to rand7() function? Could you minimize the number of calls to rand7()?
+
+
+```python
+class Solution:
+    def rand10(self):
+        """
+        :rtype: int
+        """
+        while True:
+            base = rand7() - 1
+            new = (rand7() - 1) * 7 + rand7() # 49 
+            if new <= 40:
+                return new % 10 + 1
+            
+            
+class Solution:
+    def rand10(self) -> int:
+        while True:
+            a = rand7()
+            b = rand7()
+            idx = (a - 1) * 7 + b
+            if idx <= 40:
+                return 1 + (idx - 1) % 10 # 拒绝了41-49 9个数
+            a = idx - 40
+            b = rand7()
+            # get uniform dist from 1 - 63 - 拒绝61,62,63 三个数
+            idx = (a - 1) * 7 + b
+            if idx <= 60:
+                return 1 + (idx - 1) % 10
+            a = idx - 60
+            b = rand7()
+            # get uniform dist from 1 - 21 - 这样每次只拒绝21一个数
+            idx = (a - 1) * 7 + b
+            if idx <= 20:
+                return 1 + (idx - 1) % 10
+```
+
 
 
 ## 进位制理解和操作 - digit 
