@@ -8,9 +8,11 @@
 2. rand_x() 生成[1,x] 那么(rand_x - 1) * Y + rand_y() 可以生成rand_{xy} [1, xy]的随机数 - 这个定理很重要
 3. rejected sampling， 生成之后可以用mod 操作来拒绝掉不想要的部分，但注意效率，可以迭代几次来提高效率
 4. 扔骰子问题，或者抛硬币 https://leetcode.cn/problems/implement-rand10-using-rand7/solution/wei-rao-li-lun-yi-ge-bu-jun-yun-ying-bi-fo4ei/ 
+5. 只有2个Gaussian求和是Gaussian. 2个Uniform的加减乘除都不是uniform 
+6. 2个均匀分布 求和是三角分布，这个知乎讲得挺好的！  https://www.zhihu.com/question/27060339 
 
 
-### 470. Implement Rand10() Using Rand7()
+### 470. Implement Rand10() Using Rand7() https://leetcode.com/problems/implement-rand10-using-rand7/ 
 
 Given the API rand7() that generates a uniform random integer in the range [1, 7], write a function rand10() that generates a uniform random integer in the range [1, 10]. You can only call the API rand7(), and you shouldn't call any other API. Please do not use a language's built-in random API.
 
@@ -48,7 +50,7 @@ class Solution:
                 return new % 10 + 1
             
             
-class Solution:
+class Solution: # 解决follow-up的question！
     def rand10(self) -> int:
         while True:
             a = rand7()
