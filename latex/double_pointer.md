@@ -483,9 +483,9 @@ class Solution:
 ```
 
 ---
-> 217, 219, 220 是连续三个contains duplicate 比较常见
+✅  217, 219, 220 是连续三个contains duplicate 比较常见
 
-✅ ### 217. Contains Duplicate https://leetcode.com/problems/contains-duplicate/ 
+### 217. Contains Duplicate https://leetcode.com/problems/contains-duplicate/ 
 Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
 ```
 Example 1:
@@ -671,3 +671,11 @@ class Solution:
         
         return ans
 ```
+
+
+--- 
+✅  系列题，关于longest substring distinct characters 很多类似的题目， 总结一下！主要是hashtable，sliding window的结合，复杂的case需要dp 
+✅  upstart 考了类似的题目！
+
+
+
