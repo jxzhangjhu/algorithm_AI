@@ -107,23 +107,41 @@ class Solution:
 
 ## 题目答案和分析
 
-### 1. Two Sum
+### 1. Two Sum 
 ```python
-    nums = [(number, index) for index, number in enumerate(nums)]
-    nums.sort()
-    left, right = 0, len(nums) - 1
-    while left < right:
-        if nums[left][0] + nums[right][0] < target: # 小于target，left 右移
-            left += 1
-        elif nums[left][0] + nums[right][0] > target: # 大于target，right 左移
-            right -= 1
-        else: # 这个必须要有，就是说 == target，直接返回
-            return sorted([nums[left][1], nums[right][1]]) # 是否拍需要看要求，这个需要从小到大，就排一下
-    return 
+# double pointer 
+class Solution:
+    def twoSum(self, nums, target):
+        nums = [(number, index) for index, number in enumerate(nums)]
+        nums.sort()
+        left, right = 0, len(nums) - 1
+        while left < right:
+            if nums[left][0] + nums[right][0] < target: # 小于target，left 右移
+                left += 1
+            elif nums[left][0] + nums[right][0] > target: # 大于target，right 左移
+                right -= 1
+            else: # 这个必须要有，就是说 == target，直接返回
+                return sorted([nums[left][1], nums[right][1]]) # 是否拍需要看要求，这个需要从小到大，就排一下
+        return 
+
+# hashmap solution - better one！
+class Solution:
+    def twoSum(self, nums, target):
+        if not nums: return 
+        n = len(nums)
+        hashmap = {}
+        for i in range(n):
+            residual = target - nums[i]
+            if residual in hashmap:
+                res = [hashmap[residual], i]
+            hashmap[nums[i]] = i
+        return sorted(res)
 ```
 
 ### 15. 3Sum https://leetcode.com/problems/3sum/
 ```python
+class Solution:
+    def threeSum(self, nums):
         if len(nums) < 3:
             return 
         
@@ -157,6 +175,9 @@ class Solution:
 
 ### 18. 4Sum https://leetcode.com/problems/4sum/  
 ```python
+# hashmap solution
+class Solution:
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
         hashmap = {}
         for i in nums1:
             for j in nums2:
@@ -168,9 +189,357 @@ class Solution:
         for m in nums3:
             for n in nums4:
                 if 0 - m - n in hashmap:
-                    res += hashmap[0 - m - n]
-                    
+                    res += hashmap[0 - m - n]   
         return res
+
+# double pointer solution
+class Solution:
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+        # 完全和3sum一样！ 就是复杂的一点, time o(n^3), space o(n)
+        nums.sort()
+        n = len(nums)
+        res = []
+        for i in range(n):
+            if i > 0 and nums[i] == nums[i - 1]: continue
+            for j in range(i+1, n):
+                if j > i + 1 and nums[j] == nums[j - 1]: continue
+                left = j + 1
+                right = n - 1 
+                while left < right:
+                    sum_all = nums[i] + nums[j] + nums[left] + nums[right]
+                    if sum_all < target:
+                        left += 1
+                    elif sum_all > target:
+                        right -= 1
+                    else:
+                        res.append([nums[i], nums[j], nums[left], nums[right]])
+                        while left < right and nums[left] == nums[left + 1]:
+                            left += 1
+                        while left < right and nums[right] == nums[right - 1]:
+                            right -= 1
+                        
+                        left += 1
+                        right -= 1
+            
+        return res # 位置错了，在最外层，容易忽视！
+```
+
+### 3. Longest Substring Without Repeating Characters https://leetcode.com/problems/longest-substring-without-repeating-characters/ 
+```python
+# 这个题upstart考了难一点的版本，比如要返回所有的substring怎么办？ 比如最长的所有的substring 
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        # 这个模板还是不错的！ 
+        slow = 0
+        hashmap = {}
+        res = 0
+        n = len(s)
+        for fast in range(n):
+            tail = s[fast]
+            hashmap[tail] = hashmap.get(tail, 0) + 1
+            if len(hashmap) == fast - slow + 1:
+                res = max(res, fast - slow + 1)
+
+            while fast - slow + 1 > len(hashmap):
+                head = s[slow]
+                hashmap[head] -= 1
+                if hashmap[head] == 0:
+                    del hashmap[head]
+                slow += 1
+        return res
+```
+
+### 30. Substring with Concatenation of All Words https://leetcode.com/problems/substring-with-concatenation-of-all-words/ [hard]
+You are given a string s and an array of strings words of the same length. Return all starting indices of substring(s) in s that is a concatenation of each word in words exactly once, in any order, and without any intervening characters. You can return the answer in any order.
+
+Example 1:
+```
+Input: s = "barfoothefoobarman", words = ["foo","bar"]
+Output: [0,9]
+Explanation: Substrings starting at index 0 and 9 are "barfoo" and "foobar" respectively.
+The output order does not matter, returning [9,0] is fine too.
+```
+Example 2:
+```
+Input: s = "wordgoodgoodgoodbestword", words = ["word","good","best","word"]
+Output: []
+```
+Example 3:
+```
+Input: s = "barfoofoobarthefoobarman", words = ["bar","foo","the"]
+Output: [6,9,12]
+```
+
+```python
+# 完全不会， 太难！ 
+class Solution:
+    def findSubstring(self, s: str, words: List[str]) -> List[int]:
+        from collections import Counter
+        if not s or not words:return []
+        one_word = len(words[0])
+        word_num = len(words)
+        n = len(s)
+        words = Counter(words)
+        res = []
+        for i in range(0, one_word):
+            cur_cnt = 0
+            left = i
+            right = i
+            cur_Counter = Counter()
+            while right + one_word <= n:
+                w = s[right:right + one_word]
+                right += one_word
+                cur_Counter[w] += 1
+                cur_cnt += 1
+                while cur_Counter[w] > words[w]:
+                    left_w = s[left:left+one_word]
+                    left += one_word
+                    cur_Counter[left_w] -= 1
+                    cur_cnt -= 1
+                if cur_cnt == word_num :
+                    res.append(left)
+        return res
+```
+
+### 76. Minimum Window Substring https://leetcode.com/problems/minimum-window-substring/ [hard]
+Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
+
+The testcases will be generated such that the answer is unique. A substring is a contiguous sequence of characters within the string.
+```
+Example 1:
+
+Input: s = "ADOBECODEBANC", t = "ABC"
+Output: "BANC"
+Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
+```
+Example 2:
+```
+Input: s = "a", t = "a"
+Output: "a"
+Explanation: The entire string s is the minimum window.
+```
+Example 3:
+```
+Input: s = "a", t = "aa"
+Output: ""
+Explanation: Both 'a's from t must be included in the window.
+Since the largest window of s only has one 'a', return empty string.
+```
+
+```python
+# 经典sliding window，比较难，可能需要背一下？
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        # write your code here
+        target, source = t, s
+        if len(target) == 0 or len(source) == 0:
+            return ''
+        m, n = len(target), len(source)
+        target_c, sub_c = {}, {}
+        for i in range(m):
+            target_c[target[i]] = target_c.get(target[i], 0) + 1
+        fast = 0 
+        matched_chars = 0
+        start, substring_len = 0, float('inf') 
+        for slow in range(n):
+            while fast < n and matched_chars < len(target_c):
+                sub_c[source[fast]] = sub_c.get(source[fast], 0) + 1
+                if sub_c[source[fast]] == target_c.get(source[fast], 0):
+                    matched_chars += 1
+                fast += 1
+
+            if matched_chars == len(target_c):
+                if substring_len > fast - slow:
+                    substring_len = fast - slow 
+                    start = slow 
+
+            sub_c[source[slow]] -= 1
+            if sub_c[source[slow]] == target_c.get(source[slow], 0) - 1:
+                matched_chars -= 1
+
+        if substring_len == float('inf') :
+            return ''
+
+        return source[start : start + substring_len]
+```
+
+### 159. Longest Substring with At Most Two Distinct Characters  https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/
+
+Given a string s, return the length of the longest substring that contains at most two distinct characters.
+Example 1:
+```
+Input: s = "eceba"
+Output: 3
+Explanation: The substring is "ece" which its length is 3.
+```
+Example 2:
+```
+Input: s = "ccaabbb"
+Output: 5
+Explanation: The substring is "aabbb" which its length is 5.
+```
+
+```python
+# 经典sliding window 模板题，
+class Solution:
+    def lengthOfLongestSubstringTwoDistinct(self, s: str) -> int:
+        # 这个模板不错！
+        slow = 0 
+        n = len(s)
+        # hashset = set() # 尽量用set来弄，或者hashmap
+        hashmap = {}
+        res = 0
+        for fast in range(n):
+            # 先去操作目标，放进hashmap
+            hashmap[s[fast]] = hashmap.get(s[fast],0) + 1
+            # 先判断是否满足条件，如果满足，操作
+            if len(hashmap) <= 2:
+                res = max(res, fast - slow + 1)
+            # 不满足的话，想办法更新slow 指针
+            while len(hashmap) > 2:
+                head = s[slow]
+                hashmap[head] -= 1
+                if hashmap[head] == 0:
+                    del hashmap[head]
+                slow += 1
+                
+        return res
+```
+
+### 187. Repeated DNA Sequences https://leetcode.com/problems/repeated-dna-sequences/
+
+The DNA sequence is composed of a series of nucleotides abbreviated as 'A', 'C', 'G', and 'T'.
+
+For example, "ACGAATTCCG" is a DNA sequence.
+When studying DNA, it is useful to identify repeated sequences within the DNA.
+
+Given a string s that represents a DNA sequence, return all the 10-letter-long sequences (substrings) that occur more than once in a DNA molecule. You may return the answer in any order.
+
+Example 1:
+```
+Input: s = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"
+Output: ["AAAAACCCCC","CCCCCAAAAA"]
+```
+Example 2:
+```
+Input: s = "AAAAAAAAAAAAA"
+Output: ["AAAAAAAAAA"]
+```
+```python
+# 不难，应该不算典型的sliding window！
+class Solution:
+    def findRepeatedDnaSequences(self, s: str) -> List[str]:
+        if not s: return 
+        n = len(s)
+        hashm = {}
+        res = []
+        for i in range(n - 10 + 1): # 别忘了+1
+            curr = s[i:i + 10]
+            hashm[curr] = hashm.get(curr, 0) + 1
+            if hashm[curr] > 1:
+                res.append(curr)
+            
+        return set(res) # 这个要加set 否则输出一样的
+        # time o(n), space o(n)
+```
+
+### 209. Minimum Size Subarray Sum https://leetcode.com/problems/minimum-size-subarray-sum/ 
+
+Given an array of positive integers nums and a positive integer target, return the minimal length of a contiguous subarray [numsl, numsl+1, ..., numsr-1, numsr] of which the sum is greater than or equal to target. If there is no such subarray, return 0 instead.
+
+Example 1:
+```
+Input: target = 7, nums = [2,3,1,2,4,3]
+Output: 2
+Explanation: The subarray [4,3] has the minimal length under the problem constraint.
+```
+Example 2:
+```
+Input: target = 4, nums = [1,4,4]
+Output: 1
+```
+Example 3:
+```
+Input: target = 11, nums = [1,1,1,1,1,1,1,1]
+Output: 0
+```
+```python
+# sliding window 模板题，不难，涉及subarray 
+class Solution:
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        if sum(nums) < target: # 临界状态
+           return 0
+        n = len(nums)
+        slow = 0
+        res = inf
+        sum_ = 0
+        for fast in range(n):
+            sum_ += nums[fast]
+            while sum_ >= target:
+                res = min(res, fast - slow + 1)
+                sum_ -= nums[slow]
+                slow += 1
+        return res
+```
+
+
+### 219. Contains Duplicate II 
+Given an integer array nums and an integer k, return true if there are two distinct indices i and j in the array such that nums[i] == nums[j] and abs(i - j) <= k.
+
+Example 1:
+```
+Input: nums = [1,2,3,1], k = 3
+Output: true
+```
+Example 2:
+```
+Input: nums = [1,0,1,1], k = 1
+Output: true
+```
+Example 3:
+```
+Input: nums = [1,2,3,1,2,3], k = 2
+Output: false
+```
+
+```python
+class Solution:
+    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
+        # brute force - 超时
+        for i in range(len(nums)):
+            for j in range(i + 1, len(nums)):
+                if nums[i] == nums[j] and abs(i-j) <= k:
+                    return True
+        return False
+
+        # hashtable 还是做出来了，之前方向不对！ 
+        # 思路是，用hash找到所有相同的数，然后要注意更新，因为是一次遍历，如果之前的相等的数不work要update到当前值
+        hashm = {}
+        for i in range(len(nums)):
+            if nums[i] not in hashm:
+                hashm[nums[i]] = i
+            else:
+                dis = abs(i - hashm[nums[i]])
+                if dis <= k:
+                    return True
+                else:
+                    hashm[nums[i]] = i # 这步是关键，之前没有更新nums = [1,0,1,1], k = 1 就过不去
+                    continue 
+        return False
+        time o(n), space o(n)
+        
+        # sliding window, 但不容易，容易顺序错了！
+        s = set()
+        for i, num in enumerate(nums):
+            # 先判断是不是有违法的窗口
+            if i > k:
+                s.remove(nums[i - k - 1])
+            # 如果没有违法的，看是否满足目标
+            if num in s:
+                return True
+            # 上面都没有满足，加入set来判断， 这三条顺序都不能变！
+            s.add(num)
+        return False 
 ```
 
 
