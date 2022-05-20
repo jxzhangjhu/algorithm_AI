@@ -482,10 +482,10 @@ class Solution:
         return res
 ```
 
-
+---
 > 217, 219, 220 是连续三个contains duplicate 比较常见
 
-### 217. Contains Duplicate https://leetcode.com/problems/contains-duplicate/ 
+✅ ### 217. Contains Duplicate https://leetcode.com/problems/contains-duplicate/ 
 Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
 ```
 Example 1:
@@ -583,5 +583,91 @@ class Solution:
 ```
 
 
+### 220. Contains Duplicate III  https://leetcode.com/problems/contains-duplicate-iii/
 
+Given an integer array nums and two integers k and t, return true if there are two distinct indices i and j in the array such that abs(nums[i] - nums[j]) <= t and abs(i - j) <= k.
+```
+Example 1:
+Input: nums = [1,2,3,1], k = 3, t = 0
+Output: true
+Example 2:
+Input: nums = [1,0,1,1], k = 1, t = 2
+Output: true
+Example 3:
+Input: nums = [1,5,9,1,5,9], k = 2, t = 3
+Output: false
+```
+> 挺难的，不太了解，超出了通常sliding window的范围！在219的基础上可能做出来一些，但排序已经bucket 不好做
 
+``` python
+# brute force 过不了，意义不大，太easy了
+# class Solution:
+#     def containsNearbyAlmostDuplicate(self, nums: List[int], k: int, t: int) -> bool:
+        # # brute force  - o(n^2), space o (1)
+        # n = len(nums)
+        # for i in range(n):
+        #     for j in range(i + 1, n):
+        #         if abs(nums[i] - nums[j]) <= t and abs(i - j) <= k:
+        #             return True
+        # return False 
+class Solution:
+    def containsNearbyAlmostDuplicate(self, nums: List[int], k: int, t: int) -> bool:
+        from sortedcontainers import SortedSet
+        if not nums or t < 0: return False     # Handle special cases
+        ss, n = SortedSet(), 0                 # Create SortedSet. `n` is the size of sortedset, max value of `n` is `k` from input
+        for i, num in enumerate(nums):
+            ceiling_idx = ss.bisect_left(num)  # index whose value is greater than or equal to `num`
+            floor_idx = ceiling_idx - 1        # index whose value is smaller than `num`
+            if ceiling_idx < n and abs(ss[ceiling_idx]-num) <= t: return True  # check right neighbour 
+            if 0 <= floor_idx and abs(ss[floor_idx]-num) <= t: return True     # check left neighbour
+            ss.add(num)
+            n += 1
+            if i - k >= 0:  # maintain the size of sortedset by finding & removing the earliest number in sortedset
+                ss.remove(nums[i-k])
+                n -= 1
+        return False
+```
+
+### 239. Sliding Window Maximum https://leetcode.com/problems/sliding-window-maximum/ 
+You are given an array of integers nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position. Return the max sliding window.
+
+```
+Example 1:
+Input: nums = [1,3,-1,-3,5,3,6,7], k = 3
+Output: [3,3,5,5,6,7]
+Explanation: 
+Window position                Max
+---------------               -----
+[1  3  -1] -3  5  3  6  7       3
+ 1 [3  -1  -3] 5  3  6  7       3
+ 1  3 [-1  -3  5] 3  6  7       5
+ 1  3  -1 [-3  5  3] 6  7       5
+ 1  3  -1  -3 [5  3  6] 7       6
+ 1  3  -1  -3  5 [3  6  7]      7
+Example 2:
+Input: nums = [1], k = 1
+Output: [1]
+```
+> hard 不会，没有做出来，跳过
+```python 
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        
+        n = len(nums)
+        q = collections.deque()
+        for i in range(k):
+            while q and nums[i] >= nums[q[-1]]:
+                q.pop()
+            q.append(i)
+
+        ans = [nums[q[0]]]
+        for i in range(k, n):
+            while q and nums[i] >= nums[q[-1]]:
+                q.pop()
+            q.append(i)
+            while q[0] <= i - k:
+                q.popleft()
+            ans.append(nums[q[0]])
+        
+        return ans
+```
