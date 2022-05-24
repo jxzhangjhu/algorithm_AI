@@ -224,31 +224,6 @@ class Solution:
         return res # 位置错了，在最外层，容易忽视！
 ```
 
-### 3. Longest Substring Without Repeating Characters https://leetcode.com/problems/longest-substring-without-repeating-characters/ 
-```python
-# 这个题upstart考了难一点的版本，比如要返回所有的substring怎么办？ 比如最长的所有的substring 
-class Solution:
-    def lengthOfLongestSubstring(self, s: str) -> int:
-        # 这个模板还是不错的！ 
-        slow = 0
-        hashmap = {}
-        res = 0
-        n = len(s)
-        for fast in range(n):
-            tail = s[fast]
-            hashmap[tail] = hashmap.get(tail, 0) + 1
-            if len(hashmap) == fast - slow + 1:
-                res = max(res, fast - slow + 1)
-
-            while fast - slow + 1 > len(hashmap):
-                head = s[slow]
-                hashmap[head] -= 1
-                if hashmap[head] == 0:
-                    del hashmap[head]
-                slow += 1
-        return res
-```
-
 ### 30. Substring with Concatenation of All Words https://leetcode.com/problems/substring-with-concatenation-of-all-words/ [hard]
 You are given a string s and an array of strings words of the same length. Return all starting indices of substring(s) in s that is a concatenation of each word in words exactly once, in any order, and without any intervening characters. You can return the answer in any order.
 
@@ -361,49 +336,6 @@ class Solution:
             return ''
 
         return source[start : start + substring_len]
-```
-
-### 159. Longest Substring with At Most Two Distinct Characters  https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/
-
-Given a string s, return the length of the longest substring that contains at most two distinct characters.
-Example 1:
-```
-Input: s = "eceba"
-Output: 3
-Explanation: The substring is "ece" which its length is 3.
-```
-Example 2:
-```
-Input: s = "ccaabbb"
-Output: 5
-Explanation: The substring is "aabbb" which its length is 5.
-```
-
-```python
-# 经典sliding window 模板题，
-class Solution:
-    def lengthOfLongestSubstringTwoDistinct(self, s: str) -> int:
-        # 这个模板不错！
-        slow = 0 
-        n = len(s)
-        # hashset = set() # 尽量用set来弄，或者hashmap
-        hashmap = {}
-        res = 0
-        for fast in range(n):
-            # 先去操作目标，放进hashmap
-            hashmap[s[fast]] = hashmap.get(s[fast],0) + 1
-            # 先判断是否满足条件，如果满足，操作
-            if len(hashmap) <= 2:
-                res = max(res, fast - slow + 1)
-            # 不满足的话，想办法更新slow 指针
-            while len(hashmap) > 2:
-                head = s[slow]
-                hashmap[head] -= 1
-                if hashmap[head] == 0:
-                    del hashmap[head]
-                slow += 1
-                
-        return res
 ```
 
 ### 187. Repeated DNA Sequences https://leetcode.com/problems/repeated-dna-sequences/
@@ -676,9 +608,51 @@ class Solution:
 --- 
 ✅  系列题，关于longest substring distinct characters 很多类似的题目， 总结一下！主要是hashtable，sliding window的结合，复杂的case需要dp. upstart 考了类似的题目！
 
-✅ substring, subarray, subsequence 三种常见的问题，总结一下！ 
+✅✅✅ substring, subarray, subsequence 三种常见的问题，总结一下！ 
 
 
+### 159. Longest Substring with At Most Two Distinct Characters  https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/
+
+Given a string s, return the length of the longest substring that contains at most two distinct characters.
+Example 1:
+```
+Input: s = "eceba"
+Output: 3
+Explanation: The substring is "ece" which its length is 3.
+```
+Example 2:
+```
+Input: s = "ccaabbb"
+Output: 5
+Explanation: The substring is "aabbb" which its length is 5.
+```
+
+```python
+# 经典sliding window 模板题，
+class Solution:
+    def lengthOfLongestSubstringTwoDistinct(self, s: str) -> int:
+        # 这个模板不错！
+        slow = 0 
+        n = len(s)
+        # hashset = set() # 尽量用set来弄，或者hashmap
+        hashmap = {}
+        res = 0
+        for fast in range(n):
+            # 先去操作目标，放进hashmap
+            hashmap[s[fast]] = hashmap.get(s[fast],0) + 1
+            # 先判断是否满足条件，如果满足，操作
+            if len(hashmap) <= 2:
+                res = max(res, fast - slow + 1)
+            # 不满足的话，想办法更新slow 指针
+            while len(hashmap) > 2:
+                head = s[slow]
+                hashmap[head] -= 1
+                if hashmap[head] == 0:
+                    del hashmap[head]
+                slow += 1
+                
+        return res
+```
 
 ### 340. Longest Substring with At Most K Distinct Characters https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/ 
 Given a string s and an integer k, return the length of the longest substring of s that contains at most k distinct characters.
@@ -707,13 +681,141 @@ class Solution:
             hashm[tail] = hashm.get(tail, 0) + 1
             if len(hashm) <= k:
                 res = max(res, fast - slow + 1)
-            
             while len(hashm) > k: #这个位置就是想清楚，不满足if 条件，用if还是while
                 head = s[slow]
                 hashm[head] -= 1
                 if hashm[head] == 0:
                     del hashm[head]
                 slow += 1
-        
         return res
 ```
+
+### 3. Longest Substring Without Repeating Characters https://leetcode.com/problems/longest-substring-without-repeating-characters/
+Given a string s, find the length of the longest substring without repeating characters.
+```
+Example 1:
+
+Input: s = "abcabcbb"
+Output: 3
+Explanation: The answer is "abc", with the length of 3.
+Example 2:
+
+Input: s = "bbbbb"
+Output: 1
+Explanation: The answer is "b", with the length of 1.
+Example 3:
+
+Input: s = "pwwkew"
+Output: 3
+Explanation: The answer is "wke", with the length of 3.
+Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
+```
+> 这个和340非常一致，可以放到一起来做，一个follow up是返回所有的最长的substring！ upstart考了！
+
+```python
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        # 这个模板还是不错的！ 
+        slow = 0
+        hashmap = {}
+        res = 0
+        n = len(s)
+        for fast in range(n):
+            tail = s[fast]
+            hashmap[tail] = hashmap.get(tail, 0) + 1
+            if len(hashmap) == fast - slow + 1:
+                res = max(res, fast - slow + 1)
+            while fast - slow + 1 > len(hashmap):
+                head = s[slow]
+                hashmap[head] -= 1
+                if hashmap[head] == 0:
+                    del hashmap[head]
+                slow += 1
+        return res
+```
+
+> Follow-up：return all 最长的substring
+Example
+input = "fsfetwenwac"
+output = ['sfetw', 'enwac'] 
+
+```python
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        # 这个模板还是不错的！ 
+        slow = 0
+        hashmap = {}
+        max_len = 0
+        n = len(s)
+        res_list = [] 
+        for fast in range(n):
+            tail = s[fast]
+            hashmap[tail] = hashmap.get(tail, 0) + 1
+            if len(hashmap) == fast - slow + 1:
+                # 这段是核心记录所有list的办法！其实不难
+                print(fast - slow + 1, max_len)
+                if fast - slow + 1 > max_len:
+                    res_list = [] # 这个就是通过[]来不断update 
+                    res_list.append((slow, fast))
+                    print(res_list)
+                    max_len = max(max_len, fast - slow + 1)
+                elif fast - slow + 1 == max_len:
+                    res_list.append((slow, fast))
+            
+            while fast - slow + 1 > len(hashmap):
+                head = s[slow]
+                hashmap[head] -= 1
+                if hashmap[head] == 0:
+                    del hashmap[head]
+                slow += 1
+        # 用tuple记录slow and fast 位置，然后最后一起输出
+        output = []
+        print(res_list)
+        for i, j in res_list:
+            output.append(s[i:j+1])
+            
+        return output
+```
+
+
+### 395. Longest Substring with At Least K Repeating Characters https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters/ 
+Given a string s and an integer k, return the length of the longest substring of s such that the frequency of each character in this substring is greater than or equal to k.
+```
+Example 1:
+
+Input: s = "aaabb", k = 3
+Output: 3
+Explanation: The longest substring is "aaa", as 'a' is repeated 3 times.
+Example 2:
+
+Input: s = "ababbc", k = 2
+Output: 5
+Explanation: The longest substring is "ababb", as 'a' is repeated 2 times and 'b' is repeated 3 times.
+```
+> 这个用brute force可以，但是sliding window很难写，关键是如何控制 window里面的最小值， 递归的方法不好想，不具有通用性！虽然看上去和340挺像，但实际上完全不一样！！！！
+
+```python
+class Solution:
+    def longestSubstring(self, s: str, k: int) -> int:
+        # 这个题用正常的sliding window 很难做!
+        # brute force 要想出来 double for loop - time o(n^2), space o(1)
+        n = len(s)
+        res = 0
+        for i in range(n):
+            for j in range(i + 1, n + 1): # 注意这个地方要n+1
+                hashmap = Counter(s[i:j]) # 这个也要注意
+                if min(hashmap.values()) >= k: # 这个是可以操作的
+                    res = max(res, j - i)
+        return res
+            
+# # 递归的解法有点秀！
+# class Solution(object):
+#     def longestSubstring(self, s, k):
+#         if len(s) < k:
+#             return 0
+#         for c in set(s):
+#             if s.count(c) < k:
+#                 return max(self.longestSubstring(t, k) for t in s.split(c))
+#         return len(s)
+```
+
