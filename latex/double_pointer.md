@@ -674,9 +674,46 @@ class Solution:
 
 
 --- 
-✅  系列题，关于longest substring distinct characters 很多类似的题目， 总结一下！主要是hashtable，sliding window的结合，复杂的case需要dp 
+✅  系列题，关于longest substring distinct characters 很多类似的题目， 总结一下！主要是hashtable，sliding window的结合，复杂的case需要dp. upstart 考了类似的题目！
 
-✅  upstart 考了类似的题目！
+✅ substring, subarray, subsequence 三种常见的问题，总结一下！ 
 
 
 
+### 340. Longest Substring with At Most K Distinct Characters https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/ 
+Given a string s and an integer k, return the length of the longest substring of s that contains at most k distinct characters.
+```
+Example 1:
+
+Input: s = "eceba", k = 2
+Output: 3
+Explanation: The substring is "ece" with length 3.
+Example 2:
+
+Input: s = "aa", k = 1
+Output: 2
+Explanation: The substring is "aa" with length 2.
+```
+> 这个题如果难一点就是让返回所有的最长的substring这个要自己写一下
+
+```python 
+class Solution:
+    def lengthOfLongestSubstringKDistinct(self, s: str, k: int) -> int:
+        # 模板确实厉害！清晰
+        slow, hashm = 0, {}
+        res = 0
+        for fast in range(len(s)):
+            tail = s[fast]
+            hashm[tail] = hashm.get(tail, 0) + 1
+            if len(hashm) <= k:
+                res = max(res, fast - slow + 1)
+            
+            while len(hashm) > k: #这个位置就是想清楚，不满足if 条件，用if还是while
+                head = s[slow]
+                hashm[head] -= 1
+                if hashm[head] == 0:
+                    del hashm[head]
+                slow += 1
+        
+        return res
+```
