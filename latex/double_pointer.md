@@ -224,119 +224,6 @@ class Solution:
         return res # 位置错了，在最外层，容易忽视！
 ```
 
-### 30. Substring with Concatenation of All Words https://leetcode.com/problems/substring-with-concatenation-of-all-words/ [hard]
-You are given a string s and an array of strings words of the same length. Return all starting indices of substring(s) in s that is a concatenation of each word in words exactly once, in any order, and without any intervening characters. You can return the answer in any order.
-
-Example 1:
-```
-Input: s = "barfoothefoobarman", words = ["foo","bar"]
-Output: [0,9]
-Explanation: Substrings starting at index 0 and 9 are "barfoo" and "foobar" respectively.
-The output order does not matter, returning [9,0] is fine too.
-```
-Example 2:
-```
-Input: s = "wordgoodgoodgoodbestword", words = ["word","good","best","word"]
-Output: []
-```
-Example 3:
-```
-Input: s = "barfoofoobarthefoobarman", words = ["bar","foo","the"]
-Output: [6,9,12]
-```
-
-```python
-# 完全不会， 太难！ 
-class Solution:
-    def findSubstring(self, s: str, words: List[str]) -> List[int]:
-        from collections import Counter
-        if not s or not words:return []
-        one_word = len(words[0])
-        word_num = len(words)
-        n = len(s)
-        words = Counter(words)
-        res = []
-        for i in range(0, one_word):
-            cur_cnt = 0
-            left = i
-            right = i
-            cur_Counter = Counter()
-            while right + one_word <= n:
-                w = s[right:right + one_word]
-                right += one_word
-                cur_Counter[w] += 1
-                cur_cnt += 1
-                while cur_Counter[w] > words[w]:
-                    left_w = s[left:left+one_word]
-                    left += one_word
-                    cur_Counter[left_w] -= 1
-                    cur_cnt -= 1
-                if cur_cnt == word_num :
-                    res.append(left)
-        return res
-```
-
-### 76. Minimum Window Substring https://leetcode.com/problems/minimum-window-substring/ [hard]
-Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
-
-The testcases will be generated such that the answer is unique. A substring is a contiguous sequence of characters within the string.
-```
-Example 1:
-
-Input: s = "ADOBECODEBANC", t = "ABC"
-Output: "BANC"
-Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
-```
-Example 2:
-```
-Input: s = "a", t = "a"
-Output: "a"
-Explanation: The entire string s is the minimum window.
-```
-Example 3:
-```
-Input: s = "a", t = "aa"
-Output: ""
-Explanation: Both 'a's from t must be included in the window.
-Since the largest window of s only has one 'a', return empty string.
-```
-
-```python
-# 经典sliding window，比较难，可能需要背一下？
-class Solution:
-    def minWindow(self, s: str, t: str) -> str:
-        # write your code here
-        target, source = t, s
-        if len(target) == 0 or len(source) == 0:
-            return ''
-        m, n = len(target), len(source)
-        target_c, sub_c = {}, {}
-        for i in range(m):
-            target_c[target[i]] = target_c.get(target[i], 0) + 1
-        fast = 0 
-        matched_chars = 0
-        start, substring_len = 0, float('inf') 
-        for slow in range(n):
-            while fast < n and matched_chars < len(target_c):
-                sub_c[source[fast]] = sub_c.get(source[fast], 0) + 1
-                if sub_c[source[fast]] == target_c.get(source[fast], 0):
-                    matched_chars += 1
-                fast += 1
-
-            if matched_chars == len(target_c):
-                if substring_len > fast - slow:
-                    substring_len = fast - slow 
-                    start = slow 
-
-            sub_c[source[slow]] -= 1
-            if sub_c[source[slow]] == target_c.get(source[slow], 0) - 1:
-                matched_chars -= 1
-
-        if substring_len == float('inf') :
-            return ''
-
-        return source[start : start + substring_len]
-```
 
 ### 187. Repeated DNA Sequences https://leetcode.com/problems/repeated-dna-sequences/
 
@@ -415,7 +302,7 @@ class Solution:
 ```
 
 ---
-✅  217, 219, 220 是连续三个contains duplicate 比较常见
+✅✅✅✅  217, 219, 220 是连续三个contains duplicate 比较常见
 
 ### 217. Contains Duplicate https://leetcode.com/problems/contains-duplicate/ 
 Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
@@ -560,56 +447,15 @@ class Solution:
         return False
 ```
 
-### 239. Sliding Window Maximum https://leetcode.com/problems/sliding-window-maximum/ 
-You are given an array of integers nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position. Return the max sliding window.
-
-```
-Example 1:
-Input: nums = [1,3,-1,-3,5,3,6,7], k = 3
-Output: [3,3,5,5,6,7]
-Explanation: 
-Window position                Max
----------------               -----
-[1  3  -1] -3  5  3  6  7       3
- 1 [3  -1  -3] 5  3  6  7       3
- 1  3 [-1  -3  5] 3  6  7       5
- 1  3  -1 [-3  5  3] 6  7       5
- 1  3  -1  -3 [5  3  6] 7       6
- 1  3  -1  -3  5 [3  6  7]      7
-Example 2:
-Input: nums = [1], k = 1
-Output: [1]
-```
-> hard 不会，没有做出来，跳过
-```python 
-class Solution:
-    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
-        
-        n = len(nums)
-        q = collections.deque()
-        for i in range(k):
-            while q and nums[i] >= nums[q[-1]]:
-                q.pop()
-            q.append(i)
-
-        ans = [nums[q[0]]]
-        for i in range(k, n):
-            while q and nums[i] >= nums[q[-1]]:
-                q.pop()
-            q.append(i)
-            while q[0] <= i - k:
-                q.popleft()
-            ans.append(nums[q[0]])
-        
-        return ans
-```
 
 
 --- 
 ✅  系列题，关于longest substring distinct characters 很多类似的题目， 总结一下！主要是hashtable，sliding window的结合，复杂的case需要dp. upstart 考了类似的题目！
 
-✅✅✅ substring, subarray, subsequence 三种常见的问题，总结一下！ 
+✅✅ substring, subarray, subsequence 三种常见的问题，总结一下！ 
 
+
+✅✅✅ Substring & string 类型的
 
 ### 159. Longest Substring with At Most Two Distinct Characters  https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/
 
@@ -777,6 +623,7 @@ class Solution:
         return output
 ```
 
+> 395 算是substring，但不算典型的sliding window 
 
 ### 395. Longest Substring with At Least K Repeating Characters https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters/ 
 Given a string s and an integer k, return the length of the longest substring of s such that the frequency of each character in this substring is greater than or equal to k.
@@ -819,3 +666,607 @@ class Solution:
 #         return len(s)
 ```
 
+### 424. Longest Repeating Character Replacement https://leetcode.com/problems/longest-repeating-character-replacement/ 
+You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character. You can perform this operation at most k times. Return the length of the longest substring containing the same letter you can get after performing the above operations.
+```
+Example 1:
+
+Input: s = "ABAB", k = 2
+Output: 4
+Explanation: Replace the two 'A's with two 'B's or vice versa.
+Example 2:
+
+Input: s = "AABABBA", k = 1
+Output: 4
+Explanation: Replace the one 'A' in the middle with 'B' and form "AABBBBA".
+The substring "BBBB" has the longest repeating letters, which is 4.
+```
+> 不算substring，但是sliding windows相关，有一类题就是可以替换操作！
+```python
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        # 应用模板不错的一个题
+        slow, res, max_freq, hashm = 0, 0, 0, {}
+        for fast in range(len(s)):
+            tail = s[fast]
+            hashm[tail] = hashm.get(tail, 0) + 1
+            max_freq = max(max_freq, hashm[tail]) # 这是关键，统计frequency，和01问题的区别，当时给定1了
+            if fast - slow + 1 <= max_freq + k: # 这步必须是<= 之前也有类似的问题
+                res = max(res, fast - slow + 1)
+            while fast - slow + 1 > max_freq + k:
+                head = s[slow]
+                hashm[head] -= 1
+                if hashm[head] == 0:
+                    del hashm[head]
+                slow += 1
+        return res 
+```
+
+### 438. Find All Anagrams in a String https://leetcode.com/problems/find-all-anagrams-in-a-string/ 
+Given two strings s and p, return an array of all the start indices of p's anagrams in s. You may return the answer in any order.
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+```
+Example 1:
+
+Input: s = "cbaebabacd", p = "abc"
+Output: [0,6]
+Explanation:
+The substring with start index = 0 is "cba", which is an anagram of "abc".
+The substring with start index = 6 is "bac", which is an anagram of "abc".
+Example 2:
+
+Input: s = "abab", p = "ab"
+Output: [0,1,2]
+Explanation:
+The substring with start index = 0 is "ab", which is an anagram of "ab".
+The substring with start index = 1 is "ba", which is an anagram of "ab".
+The substring with start index = 2 is "ab", which is an anagram of "ab".
+```
+> sliding window 模板题
+```python
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        # 模板确实不错！
+        res = []
+        slow = 0
+        hash_s = {}
+        hash_p = {}
+        for char in p:
+            hash_p[char] = hash_p.get(char, 0) + 1
+        for fast in range(len(s)):
+            hash_s[s[fast]] = hash_s.get(s[fast], 0) + 1
+            if hash_s == hash_p:
+                res.append(slow)
+            if fast >= len(p) - 1:
+                head = s[slow]
+                hash_s[head] -= 1
+                if hash_s[head] == 0: 
+                    del hash_s[head]
+                slow += 1
+        return res
+```
+
+### 567. Permutation in String https://leetcode.com/problems/permutation-in-string/ 
+Given two strings s1 and s2, return true if s2 contains a permutation of s1, or false otherwise. In other words, return true if one of s1's permutations is the substring of s2.
+```
+Example 1:
+
+Input: s1 = "ab", s2 = "eidbaooo"
+Output: true
+Explanation: s2 contains one permutation of s1 ("ba").
+Example 2:
+
+Input: s1 = "ab", s2 = "eidboaoo"
+Output: false
+```
+> 和438 很像主席细节
+```python
+class Solution:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        # sliding window的题，和438非常像, 本身也算permutation
+        hashs1 = {}
+        hashs2 = {}
+        for char in s1:
+            hashs1[char] = hashs1.get(char, 0) + 1
+        
+        slow = 0
+        for fast in range(len(s2)):
+            hashs2[s2[fast]] = hashs2.get(s2[fast], 0) + 1
+            if hashs2 == hashs1:
+                return True
+            if fast >= len(s1) - 1:
+                head = s2[slow] # 注意细节，不是一味的背模板！
+                hashs2[head] -= 1
+                if hashs2[head] == 0:
+                    del hashs2[head]
+                slow +=1
+        
+        return False
+```
+
+
+✅✅✅✅ 系列题，max consecutive ones 1,2,3 
+
+### 485. Max Consecutive Ones https://leetcode.com/problems/max-consecutive-ones/ 
+
+Given a binary array nums, return the maximum number of consecutive 1's in the array.
+```
+Example 1:
+
+Input: nums = [1,1,0,1,1,1]
+Output: 3
+Explanation: The first two digits or the last three digits are consecutive 1s. The maximum number of consecutive 1s is 3.
+Example 2:
+
+Input: nums = [1,0,1,1,0,1]
+Output: 2
+``` 
+```python
+class Solution:
+    def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
+        temp = 0 
+        res = 0 
+        for i in nums:
+            if i == 1:
+                temp += 1
+            else:
+                temp = 0
+            res = max(res, temp)
+            
+        return res 
+```
+
+
+### 487. Max Consecutive Ones II  https://leetcode.com/problems/max-consecutive-ones-ii/ 
+Given a binary array nums, return the maximum number of consecutive 1's in the array if you can flip at most one 0.
+```
+Example 1:
+
+Input: nums = [1,0,1,1,0]
+Output: 4
+Explanation: Flip the first zero will get the maximum number of consecutive 1s. After flipping, the maximum number of consecutive 1s is 4.
+Example 2:
+
+Input: nums = [1,0,1,1,0,1]
+Output: 4
+```
+> 比485复杂但基本也是模板
+
+```python
+class Solution:
+    def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
+        # get(key) 方法在 key（键）不在字典中时，可以返回默认值 None 或者设置的默认值
+        # dict[key] 在 key（键）不在字典中时，会触发 KeyError 异常。
+        slow = 0
+        num_zero = 0
+        hashm = {}   
+        res = 0
+        for fast in range(len(nums)):
+            tail = nums[fast]
+            hashm[tail] = hashm.get(tail, 0) + 1
+            if hashm.get(0, 0) <= 1:  # 如果直接call dict[key] 就会报错，因为没有0，可能
+                res = max(res, fast - slow + 1)
+            
+            while hashm.get(0, 0) > 1: # 如果直接call dict[key] 就会报错，因为没有0，可能
+                head = nums[slow]
+                hashm[head] -= 1
+                if hashm[head] == 0:
+                    del hashm[head]
+                
+                slow += 1
+        return res
+```
+
+### 1004. Max Consecutive Ones III  https://leetcode.com/problems/max-consecutive-ones-iii/ 
+
+Given a binary array nums and an integer k, return the maximum number of consecutive 1's in the array if you can flip at most k 0's.
+```
+Example 1:
+
+Input: nums = [1,1,1,0,0,0,1,1,1,1,0], k = 2
+Output: 6
+Explanation: [1,1,1,0,0,1,1,1,1,1,1]
+Bolded numbers were flipped from 0 to 1. The longest subarray is underlined.
+Example 2:
+
+Input: nums = [0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1], k = 3
+Output: 10
+Explanation: [0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1]
+Bolded numbers were flipped from 0 to 1. The longest subarray is underlined.
+```
+> 和487 完全一样，从1变成k, 这个模板不错！
+
+```python 
+class Solution:
+    def longestOnes(self, nums: List[int], k: int) -> int:
+        slow = 0
+        num_zero = 0
+        hashm = {}   
+        res = 0
+        for fast in range(len(nums)):
+            tail = nums[fast]
+            hashm[tail] = hashm.get(tail, 0) + 1
+            if hashm.get(0, 0) <= k:  # 如果直接call dict[key] 就会报错，因为没有0，可能
+                res = max(res, fast - slow + 1)
+            
+            while hashm.get(0, 0) > k: # 如果直接call dict[key] 就会报错，因为没有0，可能
+                head = nums[slow]
+                hashm[head] -= 1
+                if hashm[head] == 0:
+                    del hashm[head]
+                
+                slow += 1
+        return res
+```
+
+### 1446. Consecutive Characters  https://leetcode.com/problems/consecutive-characters/ 
+The power of the string is the maximum length of a non-empty substring that contains only one unique character.Given a string s, return the power of s.
+```
+Example 1:
+
+Input: s = "leetcode"
+Output: 2
+Explanation: The substring "ee" is of length 2 with the character 'e' only.
+Example 2:
+
+Input: s = "abbcccddddeeeeedcba"
+Output: 5
+Explanation: The substring "eeeee" is of length 5 with the character 'e' only.
+```
+> one pass 这种相邻的题目是一类题，substring 的这个是最简单的！ 
+```python
+class Solution:
+    def maxPower(self, s: str) -> int:
+        res = 1 # 这个初始化是1 不是0
+        maxtemp = 1
+        for i in range(1, len(s)):
+            if s[i] == s[i-1]:
+                maxtemp += 1
+                res = max(res, maxtemp)
+            else:
+                maxtemp = 1
+        return res 
+        # time o(n), space o(1)
+```
+
+✅✅✅  Subarray 题型总结！
+
+### 643. Maximum Average Subarray I  https://leetcode.com/problems/maximum-average-subarray-i/ 
+You are given an integer array nums consisting of n elements, and an integer k. Find a contiguous subarray whose length is equal to k that has the maximum average value and return this value. Any answer with a calculation error less than 10-5 will be accepted.
+```
+Example 1:
+
+Input: nums = [1,12,-5,-6,50,3], k = 4
+Output: 12.75000
+Explanation: Maximum average is (12 - 5 - 6 + 50) / 4 = 51 / 4 = 12.75
+Example 2:
+
+Input: nums = [5], k = 1
+Output: 5.00000
+```
+> subarray 经典入门题
+```python
+class Solution:
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        slow = 0
+        n = len(nums)
+        sum_ = 0 
+        res = -inf
+        for fast in range(n):
+            sum_ += nums[fast]
+            # 不满足窗口条件，对slow操作， 有时候也用while？因为这个是fix 窗口，所以用if
+            if fast >= k - 1:
+                sum_ -= nums[slow]
+                slow += 1
+            # 这步可以理解！ 满足条件然后操作
+            if fast - slow + 1 == k:
+                res = max(res, sum_ / k)
+        return res
+```
+
+### 644. Maximum Average Subarray II https://leetcode.com/problems/maximum-average-subarray-ii/ ❌❌❌ 
+You are given an integer array nums consisting of n elements, and an integer k. Find a contiguous subarray whose length is greater than or equal to k that has the maximum average value and return this value. Any answer with a calculation error less than 10-5 will be accepted.
+```
+Example 1:
+
+Input: nums = [1,12,-5,-6,50,3], k = 4
+Output: 12.75000
+Explanation:
+- When the length is 4, averages are [0.5, 12.75, 10.5] and the maximum average is 12.75
+- When the length is 5, averages are [10.4, 10.8] and the maximum average is 10.8
+- When the length is 6, averages are [9.16667] and the maximum average is 9.16667
+The maximum average is when we choose a subarray of length 4 (i.e., the sub array [12, -5, -6, 50]) which has the max average 12.75, so we return 12.75
+Note that we do not consider the subarrays of length < 4.
+Example 2:
+
+Input: nums = [5], k = 1
+Output: 5.00000
+```
+> 虽然是643相似，但这个题是二分法
+```python
+class Solution:
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        if not nums:
+            return 0
+        start, end = min(nums), max(nums)
+        while end - start > 1e-5:
+            mid = (start + end) / 2
+            if self.check_subarray(nums, k, mid):
+                start = mid
+            else:
+                end = mid
+        return start
+    def check_subarray(self, nums, k, average):
+        prefix_sum = [0]
+        for num in nums:
+            prefix_sum.append(prefix_sum[-1] + num - average)
+
+        min_prefix_sum = 0
+        for i in range(k, len(nums) + 1):
+            if prefix_sum[i] - min_prefix_sum >= 0:
+                return True
+            min_prefix_sum = min(min_prefix_sum, prefix_sum[i - k + 1])
+        return False
+```
+
+
+
+
+
+✅✅✅  Subsequence的类型题！ 很多要用DP？ 
+
+### 674. Longest Continuous Increasing Subsequence https://leetcode.com/problems/longest-continuous-increasing-subsequence/
+Given an unsorted array of integers nums, return the length of the longest continuous increasing subsequence (i.e. subarray). The subsequence must be strictly increasing. A continuous increasing subsequence is defined by two indices l and r (l < r) such that it is [nums[l], nums[l + 1], ..., nums[r - 1], nums[r]] and for each l <= i < r, nums[i] < nums[i + 1].
+```
+Example 1:
+
+Input: nums = [1,3,5,4,7]
+Output: 3
+Explanation: The longest continuous increasing subsequence is [1,3,5] with length 3.
+Even though [1,3,5,7] is an increasing subsequence, it is not continuous as elements 5 and 7 are separated by element
+4.
+Example 2:
+
+Input: nums = [2,2,2,2,2]
+Output: 1
+Explanation: The longest continuous increasing subsequence is [2] with length 1. Note that it must be strictly
+increasing.
+```
+> 这个题挺不错，很多种解法！
+```python
+class Solution:
+    def findLengthOfLCIS(self, nums: List[int]) -> int:
+        
+        # 这个题虽然是一个easy，但是很多种解法，很多不错的方法！
+        # way 1 - 上来想到的是simulate 也可以叫greey？ 
+        # 这里比较的是 i + 1 和 i, 然后从len(nums) - 1开始的
+#         if len(nums) == 0: return 0
+#         res = 1
+#         count = 1
+#         for i in range(len(nums) - 1):
+#             if nums[i + 1] > nums[i]:
+#                 count += 1
+#             else:
+#                 count = 1
+#             res = max(res, count)
+#         return res 
+    
+        # # 这个写法也可以，从1开始的，之前写的有问题
+        # res = 1
+        # count = 1
+        # for i in range(1, len(nums)):
+        #     if nums[i] > nums[i - 1]:
+        #         count += 1
+        #     else:
+        #         count = 1
+        #     res = max(res, count)
+        # return res
+        
+        
+        # way 2 - sliding window, double pointer 这里面sliding window 有2种可以做！
+        # 方法1 是锚钉，像solution 说的那种
+        # res, anchor = 0, 0 
+        # for i in range(len(nums)):
+        #     if i and nums[i - 1] >= nums[i]:
+        #         anchor = i
+        #     res = max(res, i - anchor + 1) # 在出现nums[i - 1] >= nums[i]之前，anchor 总是0， 没有更新，所以这个就是记录的最大值
+        # return res
+            
+        
+        # # 方法2 是滑动while 然后求最大长度 这个理解的不错！复习一下sliding windows！
+        # if not nums: return 0
+        # slow, fast = 0, 1
+        # res = 1 
+        # n = len(nums)
+        # for fast in range(n):
+        #     while fast < n and nums[fast] > nums[fast - 1]:
+        #         fast += 1
+        #     res = max(res, fast - slow)
+        #     slow = fast 
+        # return  res
+        # # time 一样是 o(n) and space is o(1)
+        
+        # way 3 - DP 方法！
+        # 确定dp的含义 dp[i] 以下标i为结尾的数组的连续递增子序列长度
+        if len(nums) == 0: return 0
+        dp = [1] * len(nums)
+        res = 1
+        for i in range(len(nums) - 1):
+            if nums[i + 1] > nums[i]:
+                dp[i + 1] = dp[i] + 1
+            res = max(res, dp[i + 1])
+        return res
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+❌❌❌  hard题 sliding window ❌❌❌ 
+### 76. Minimum Window Substring   https://leetcode.com/problems/minimum-window-substring/
+Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "". The testcases will be generated such that the answer is unique. A substring is a contiguous sequence of characters within the string.
+```
+Example 1:
+
+Input: s = "ADOBECODEBANC", t = "ABC"
+Output: "BANC"
+Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
+Example 2:
+
+Input: s = "a", t = "a"
+Output: "a"
+Explanation: The entire string s is the minimum window.
+Example 3:
+
+Input: s = "a", t = "aa"
+Output: ""
+Explanation: Both 'a's from t must be included in the window.
+Since the largest window of s only has one 'a', return empty string.
+``` 
+> 很复杂，不会
+```python
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        
+        # write your code here
+        target, source = t, s
+
+        if len(target) == 0 or len(source) == 0:
+            return ''
+
+        m, n = len(target), len(source)
+        target_c, sub_c = {}, {}
+
+        for i in range(m):
+            target_c[target[i]] = target_c.get(target[i], 0) + 1
+
+        fast = 0 
+        matched_chars = 0
+        start, substring_len = 0, float('inf') 
+
+        for slow in range(n):
+
+            while fast < n and matched_chars < len(target_c):
+                sub_c[source[fast]] = sub_c.get(source[fast], 0) + 1
+                if sub_c[source[fast]] == target_c.get(source[fast], 0):
+                    matched_chars += 1
+                fast += 1
+
+            if matched_chars == len(target_c):
+                if substring_len > fast - slow:
+                    substring_len = fast - slow 
+                    start = slow 
+
+            sub_c[source[slow]] -= 1
+            if sub_c[source[slow]] == target_c.get(source[slow], 0) - 1:
+                matched_chars -= 1
+
+        if substring_len == float('inf') :
+            return ''
+
+        return source[start : start + substring_len]
+```
+
+### 239. Sliding Window Maximum https://leetcode.com/problems/sliding-window-maximum/ 
+You are given an array of integers nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position. Return the max sliding window.
+
+```
+Example 1:
+Input: nums = [1,3,-1,-3,5,3,6,7], k = 3
+Output: [3,3,5,5,6,7]
+Explanation: 
+Window position                Max
+---------------               -----
+[1  3  -1] -3  5  3  6  7       3
+ 1 [3  -1  -3] 5  3  6  7       3
+ 1  3 [-1  -3  5] 3  6  7       5
+ 1  3  -1 [-3  5  3] 6  7       5
+ 1  3  -1  -3 [5  3  6] 7       6
+ 1  3  -1  -3  5 [3  6  7]      7
+Example 2:
+Input: nums = [1], k = 1
+Output: [1]
+```
+> hard 不会，没有做出来，跳过
+```python 
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        
+        n = len(nums)
+        q = collections.deque()
+        for i in range(k):
+            while q and nums[i] >= nums[q[-1]]:
+                q.pop()
+            q.append(i)
+
+        ans = [nums[q[0]]]
+        for i in range(k, n):
+            while q and nums[i] >= nums[q[-1]]:
+                q.pop()
+            q.append(i)
+            while q[0] <= i - k:
+                q.popleft()
+            ans.append(nums[q[0]])
+        
+        return ans
+```
+### 30. Substring with Concatenation of All Words https://leetcode.com/problems/substring-with-concatenation-of-all-words/ [hard]
+You are given a string s and an array of strings words of the same length. Return all starting indices of substring(s) in s that is a concatenation of each word in words exactly once, in any order, and without any intervening characters. You can return the answer in any order.
+
+Example 1:
+```
+Input: s = "barfoothefoobarman", words = ["foo","bar"]
+Output: [0,9]
+Explanation: Substrings starting at index 0 and 9 are "barfoo" and "foobar" respectively.
+The output order does not matter, returning [9,0] is fine too.
+```
+Example 2:
+```
+Input: s = "wordgoodgoodgoodbestword", words = ["word","good","best","word"]
+Output: []
+```
+Example 3:
+```
+Input: s = "barfoofoobarthefoobarman", words = ["bar","foo","the"]
+Output: [6,9,12]
+```
+
+```python
+# 完全不会， 太难！ 
+class Solution:
+    def findSubstring(self, s: str, words: List[str]) -> List[int]:
+        from collections import Counter
+        if not s or not words:return []
+        one_word = len(words[0])
+        word_num = len(words)
+        n = len(s)
+        words = Counter(words)
+        res = []
+        for i in range(0, one_word):
+            cur_cnt = 0
+            left = i
+            right = i
+            cur_Counter = Counter()
+            while right + one_word <= n:
+                w = s[right:right + one_word]
+                right += one_word
+                cur_Counter[w] += 1
+                cur_cnt += 1
+                while cur_Counter[w] > words[w]:
+                    left_w = s[left:left+one_word]
+                    left += one_word
+                    cur_Counter[left_w] -= 1
+                    cur_cnt -= 1
+                if cur_cnt == word_num :
+                    res.append(left)
+        return res
+```
