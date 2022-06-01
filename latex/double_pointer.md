@@ -1230,6 +1230,104 @@ class Solution:
 Follow-up: 如何输出所有符合的subarray # 如果要输出所有的subarrays 相当于在nums[slow:fast] 这个window里的subset 所有合集? 不好做！ 
 
 
+### 1248. Count Number of Nice Subarrays https://leetcode.com/problems/count-number-of-nice-subarrays/
+Given an array of integers nums and an integer k. A continuous subarray is called nice if there are k odd numbers on it. Return the number of nice sub-arrays.
+```
+Example 1:
+
+Input: nums = [1,1,2,1,1], k = 3
+Output: 2
+Explanation: The only sub-arrays with 3 odd numbers are [1,1,2,1] and [1,2,1,1].
+Example 2:
+
+Input: nums = [2,4,6], k = 1
+Output: 0
+Explanation: There is no odd numbers in the array.
+Example 3:
+
+Input: nums = [2,2,2,1,2,2,1,2,2,2], k = 2
+Output: 16
+```
+> 这个题不错，控制窗口计算内部所有可能性
+```python
+class Solution:
+    def numberOfSubarrays(self, nums: List[int], k: int) -> int:
+        # 前缀和直接定义成奇数的个数和，而不是简单求和，根据问题需要！核心是理解，前缀和的定义！
+        odd = 0
+        res = 0 
+        hashm = {0:1} # 这个初始条件是重要的
+        for num in nums:
+            if num % 2 == 1:
+                odd += 1
+            if odd >= k and odd - k in hashm:
+                res += hashm[odd - k]
+            hashm[odd] = hashm.get(odd, 0) + 1 # 需要用hashm来维护
+            print(hashm)
+        return res
+    #   time o(n), space o(n)
+    
+        # sliding window 还没有解，感觉比较麻烦！
+        right ,left = 0,0
+        ans = 0 
+        odd_cnt = 0
+        cur_sub_cnt = 0
+        for right in range(len(nums)):
+            # 控制窗口
+            if nums[right]%2 == 1:
+                odd_cnt += 1
+                cur_sub_cnt = 0
+            # 判定条件
+            while odd_cnt == k:
+                if nums[left]%2 == 1: # 左边有odd
+                    odd_cnt -= 1
+                cur_sub_cnt += 1
+                left += 1
+                
+            ans += cur_sub_cnt
+        return ans 
+    # time o(n), space o(1)
+```
+
+
+### 1695. Maximum Erasure Value
+You are given an array of positive integers nums and want to erase a subarray containing unique elements. The score you get by erasing the subarray is equal to the sum of its elements. Return the maximum score you can get by erasing exactly one subarray. An array b is called to be a subarray of a if it forms a contiguous subsequence of a, that is, if it is equal to a[l],a[l+1],...,a[r] for some (l,r).
+```
+Example 1:
+
+Input: nums = [4,2,4,5,6]
+Output: 17
+Explanation: The optimal subarray here is [2,4,5,6].
+Example 2:
+
+Input: nums = [5,2,1,2,5,2,1,2,5]
+Output: 8
+Explanation: The optimal subarray here is [5,2,1] or [1,2,5].
+```
+> 模板题
+```python
+class Solution:
+    def maximumUniqueSubarray(self, nums: List[int]) -> int:
+        # 这种套模板和归纳的方法最有用了!
+        n = len(nums)
+        slow, hashmap = 0, {}
+        sum_ = 0
+        res = -inf 
+        for fast in range(n):
+            tail = nums[fast]
+            sum_ += tail
+            hashmap[tail] = hashmap.get(tail, 0) + 1
+            if fast - slow + 1 == len(hashmap):
+                res = max(res, sum_)
+            while fast - slow + 1 > len(hashmap):
+                head = nums[slow]
+                hashmap[head] -= 1
+                if hashmap[head] == 0:
+                    del hashmap[head]
+                sum_ -= nums[slow]
+                slow += 1
+        
+        return res
+```
 
 
 ✅✅✅  Subsequence的类型题！ 很多要用DP？ 
@@ -1509,6 +1607,136 @@ class Solution:
         return res
 ```
 
+### 1984. Minimum Difference Between Highest and Lowest of K Scores
+You are given a 0-indexed integer array nums, where nums[i] represents the score of the ith student. You are also given an integer k. Pick the scores of any k students from the array so that the difference between the highest and the lowest of the k scores is minimized. Return the minimum possible difference.
+```
+Example 1:
+
+Input: nums = [90], k = 1
+Output: 0
+Explanation: There is one way to pick score(s) of one student:
+- [90]. The difference between the highest and lowest score is 90 - 90 = 0.
+The minimum possible difference is 0.
+Example 2:
+
+Input: nums = [9,4,1,7], k = 2
+Output: 2
+Explanation: There are six ways to pick score(s) of two students:
+- [9,4,1,7]. The difference between the highest and lowest score is 9 - 4 = 5.
+- [9,4,1,7]. The difference between the highest and lowest score is 9 - 1 = 8.
+- [9,4,1,7]. The difference between the highest and lowest score is 9 - 7 = 2.
+- [9,4,1,7]. The difference between the highest and lowest score is 4 - 1 = 3.
+- [9,4,1,7]. The difference between the highest and lowest score is 7 - 4 = 3.
+- [9,4,1,7]. The difference between the highest and lowest score is 7 - 1 = 6.
+The minimum possible difference is 2.
+```
+```python
+class Solution:
+    def minimumDifference(self, nums: List[int], k: int) -> int:
+        
+        # 这种easy题必须得过，simulation，然后注意是k>2的case，还是排序和之前的greedy idea 类似
+        if len(nums) == 1 or k == 1: # 注意这个边界条件
+            return 0
+        nums.sort() # nlogn
+        res = inf 
+        for i in range(len(nums) - (k - 1)): # 注意这种第k个，进来直接-1
+            diff = nums[i + k - 1] - nums[i]
+            res = min(res, diff)
+        return res
+    # time i(n-(k-1)), space o(1)
+```
+
+
+### 1423. Maximum Points You Can Obtain from Cards
+There are several cards arranged in a row, and each card has an associated number of points. The points are given in the integer array cardPoints. In one step, you can take one card from the beginning or from the end of the row. You have to take exactly k cards. Your score is the sum of the points of the cards you have taken. Given the integer array cardPoints and the integer k, return the maximum score you can obtain.
+```
+Example 1:
+
+Input: cardPoints = [1,2,3,4,5,6,1], k = 3
+Output: 12
+Explanation: After the first step, your score will always be 1. However, choosing the rightmost card first will maximize your total score. The optimal strategy is to take the three cards on the right, giving a final score of 1 + 6 + 5 = 12.
+Example 2:
+
+Input: cardPoints = [2,2,2], k = 2
+Output: 4
+Explanation: Regardless of which two cards you take, your score will always be 4.
+Example 3:
+
+Input: cardPoints = [9,7,7,9,7,7,9], k = 7
+Output: 55
+Explanation: You have to take all the cards. Your score is the sum of points of all cards.
+```
+```python
+class Solution:
+    def maxScore(self, cardPoints: List[int], k: int) -> int:
+        # 思路不好想，需要是移除连续n-k的最小的 - 剩下的就是最大值
+        # 这个题思路重要，然后这个fast指针的范围也重要！
+        n = len(cardPoints) 
+        if n == k:
+            return sum(cardPoints)
+        
+        res_min = inf
+        slow = 0
+        sum_ = 0
+        for fast in range(n):
+            sum_ += cardPoints[fast]
+            if fast >= n - k - 1: # 就是差在这 因为fast 从0开始，但是n-k就是从绝对开始
+                res_min = min(res_min, sum_)
+                sum_ -= cardPoints[slow]
+                slow += 1
+        
+        return sum(cardPoints) - res_min
+```
+
+✅✅✅✅ 删除类型题，找到指定规则的数或者string，然后问如何删除，删除最小次数是多少
+
+### 2091. Removing Minimum and Maximum From Array 
+You are given a 0-indexed array of distinct integers nums. There is an element in nums that has the lowest value and an element that has the highest value. We call them the minimum and maximum respectively. Your goal is to remove both these elements from the array. A deletion is defined as either removing an element from the front of the array or removing an element from the back of the array. Return the minimum number of deletions it would take to remove both the minimum and maximum element from the array.
+```
+Example 1:
+
+Input: nums = [2,10,7,5,4,1,8,6]
+Output: 5
+Explanation: 
+The minimum element in the array is nums[5], which is 1.
+The maximum element in the array is nums[1], which is 10.
+We can remove both the minimum and maximum by removing 2 elements from the front and 3 elements from the back.
+This results in 2 + 3 = 5 deletions, which is the minimum number possible.
+Example 2:
+
+Input: nums = [0,-4,19,1,8,-2,-3,5]
+Output: 3
+Explanation: 
+The minimum element in the array is nums[1], which is -4.
+The maximum element in the array is nums[2], which is 19.
+We can remove both the minimum and maximum by removing 3 elements from the front.
+This results in only 3 deletions, which is the minimum number possible.
+```
+> 纯simulation， 删除次数，找最少次数
+```python
+class Solution:
+    def minimumDeletions(self, nums: List[int]) -> int:
+        n = len(nums)
+        maxvalue = max(nums)
+        minvalue = min(nums)
+        
+        for index, num in enumerate(nums):
+            if num == maxvalue:
+                maxindex = index
+            if num == minvalue:
+                minindex = index
+        
+        left1 = maxindex + 1 
+        right1 = n - maxindex
+        left2 = minindex + 1
+        right2 = n - minindex
+        # 注意对称性，比如max,min可以换，4种case讨论
+        case1 = left1 + right2
+        case2 = left2 + right1
+        case3 = max(left1, left2)
+        case4 = max(right1, right2)
+        return min(case1, case2, case3, case4)
+```
 
 
 
