@@ -138,6 +138,82 @@ class Solution:
         return sorted(res)
 ```
 
+### 1099. Two Sum Less Than K https://leetcode.com/problems/two-sum-less-than-k/ 
+Given an array nums of integers and integer k, return the maximum sum such that there exists i < j with nums[i] + nums[j] = sum and sum < k. If no i, j exist satisfying this equation, return -1.
+``` 
+Example 1:
+
+Input: nums = [34,23,1,24,75,33,54,8], k = 60
+Output: 58
+Explanation: We can use 34 and 24 to sum 58 which is less than 60.
+Example 2:
+
+Input: nums = [10,20,30], k = 15
+Output: -1
+Explanation: In this case it is not possible to get a pair sum less that 15. 
+```
+> two sum 的一个变种!
+```python
+class Solution:
+    def twoSumLessThanK(self, nums: List[int], k: int) -> int:
+        # brute force 不对，草！    time o(n^2) and space o(1)     
+        res = -1 # 这个最开始就应该等于-1
+        for i in range(len(nums)):
+            for j in range(i + 1, len(nums)): # 不一样的数
+                twosum = nums[i] + nums[j]
+                if twosum < k:
+                    res = max(res, twosum)
+        return res    
+        # double pointer - 这个思路就很清晰，time o(nlogn), space o(logn) to o(n)
+        nums.sort()
+        left, right = 0, len(nums) - 1
+        res = - 1
+        while left < right:
+            twosum = nums[left] + nums[right]
+            if twosum < k:
+                left += 1
+                res = max(res, twosum)
+            else:
+                right -= 1
+        return res
+```
+
+### 167. Two Sum II - Input Array Is Sorted https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/ 
+Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number. Let these two numbers be numbers[index1] and numbers[index2] where 1 <= index1 < index2 <= numbers.length. Return the indices of the two numbers, index1 and index2, added by one as an integer array [index1, index2] of length 2. The tests are generated such that there is exactly one solution. You may not use the same element twice. Your solution must use only constant extra space.
+```
+Example 1:
+
+Input: numbers = [2,7,11,15], target = 9
+Output: [1,2]
+Explanation: The sum of 2 and 7 is 9. Therefore, index1 = 1, index2 = 2. We return [1, 2].
+Example 2:
+
+Input: numbers = [2,3,4], target = 6
+Output: [1,3]
+Explanation: The sum of 2 and 4 is 6. Therefore index1 = 1, index2 = 3. We return [1, 3].
+Example 3:
+
+Input: numbers = [-1,0], target = -1
+Output: [1,2]
+Explanation: The sum of -1 and 0 is -1. Therefore index1 = 1, index2 = 2. We return [1, 2].
+```
+> two sum 变种
+```python
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        # 就是two sum with double pointer but it is sorted 
+        # 要求 o(1) space
+        left, right = 0, len(numbers) - 1
+        while left < right:
+            if numbers[left] + numbers[right] < target:
+                left += 1
+            elif numbers[left] + numbers[right] > target:
+                right -= 1
+            else:
+                return [left + 1, right + 1]
+        return []
+```
+
 ### 15. 3Sum https://leetcode.com/problems/3sum/
 ```python
 class Solution:
@@ -784,6 +860,44 @@ class Solution:
         return False
 ```
 
+### 1208. Get Equal Substrings Within Budget 
+You are given two strings s and t of the same length and an integer maxCost. You want to change s to t. Changing the ith character of s to ith character of t costs |s[i] - t[i]| (i.e., the absolute difference between the ASCII values of the characters). Return the maximum length of a substring of s that can be changed to be the same as the corresponding substring of t with a cost less than or equal to maxCost. If there is no substring from s that can be changed to its corresponding substring from t, return 0.
+
+Example 1:
+Input: s = "abcd", t = "bcdf", maxCost = 3
+Output: 3
+Explanation: "abc" of s can change to "bcd".
+That costs 3, so the maximum length is 3.
+
+Example 2:
+Input: s = "abcd", t = "cdef", maxCost = 3
+Output: 1
+Explanation: Each character in s costs 2 to change to character in t,  so the maximum length is 1.
+
+Example 3:
+Input: s = "abcd", t = "acde", maxCost = 0
+Output: 1
+Explanation: You cannot make any change, so the maximum length is 1.
+
+``` python
+class Solution:
+    def equalSubstring(self, s: str, t: str, maxCost: int) -> int:
+        # 题没太明白，但似乎就是很straightforward
+        cost, res = 0, 0
+        slow = 0
+        for fast in range(len(t)):
+            cost += abs(ord(s[fast]) - ord(t[fast]))
+            if cost <= maxCost:
+                res = max(res, fast - slow + 1)
+                
+            while cost > maxCost:
+                cost -= abs(ord(s[slow]) - ord(t[slow]))
+                slow += 1
+        
+        return res
+
+```
+
 
 ✅✅✅✅ 系列题，max consecutive ones 1,2,3 
 
@@ -929,7 +1043,62 @@ class Solution:
         # time o(n), space o(1)
 ```
 
+
+### 2067. Number of Equal Count Substrings https://leetcode.com/problems/number-of-equal-count-substrings/
+You are given a 0-indexed string s consisting of only lowercase English letters, and an integer count. A substring of s is said to be an equal count substring if, for each unique letter in the substring, it appears exactly count times in the substring. Return the number of equal count substrings in s. A substring is a contiguous non-empty sequence of characters within a string.
+```
+Example 1:
+
+Input: s = "aaabcbbcc", count = 3
+Output: 3
+Explanation:
+The substring that starts at index 0 and ends at index 2 is "aaa".
+The letter 'a' in the substring appears exactly 3 times.
+The substring that starts at index 3 and ends at index 8 is "bcbbcc".
+The letters 'b' and 'c' in the substring appear exactly 3 times.
+The substring that starts at index 0 and ends at index 8 is "aaabcbbcc".
+The letters 'a', 'b', and 'c' in the substring appear exactly 3 times.
+Example 2:
+
+Input: s = "abcd", count = 2
+Output: 0
+Explanation:
+The number of times each letter appears in s is less than count.
+Therefore, no substrings in s are equal count substrings, so return 0.
+```
+
+```python
+class Solution:
+    def equalCountSubstrings(self, s: str, count: int) -> int:
+        # aaabbcccb
+        ans=0
+        # The sizes of the substring windows are limited, namely, 1*count, 2*count ..... 26*count
+        # window can have 1 unique_char, 2 unique_chars...... 26 unique_chars respectively.
+        for al in range(1,27):
+            ans+=self.count_fix_s(s,al*count,count)
+        return ans
+    def count_fix_s(self,s,w,count):
+        # standard sliding window logic with fixed window size w with left and right being left index and right index respectively..
+        left=0
+        d={}
+        ans=0
+        for right in range(len(s)):
+            d[s[right]]=d.get(s[right],0)+1
+            if right-left+1>w:
+                d[s[left]]-=1
+                if d[s[left]]==0: del d[s[left]]
+                left+=1
+            
+            if right-left+1 == w and set(d.values())==set([count]):
+                ans+=1
+        return ans
+```
+
+
+
+
 ✅✅✅  Subarray 题型总结！
+> 有一类就是和K结合，product less than K， summary less than K 
 
 ### 643. Maximum Average Subarray I  https://leetcode.com/problems/maximum-average-subarray-i/ 
 You are given an integer array nums consisting of n elements, and an integer k. Find a contiguous subarray whose length is equal to k that has the maximum average value and return this value. Any answer with a calculation error less than 10-5 will be accepted.
@@ -1009,6 +1178,56 @@ class Solution:
         return False
 ```
 
+
+### 713. Subarray Product Less Than K https://leetcode.com/problems/subarray-product-less-than-k/ 
+Given an array of integers nums and an integer k, return the number of contiguous subarrays where the product of all the elements in the subarray is strictly less than k.
+```
+Example 1:
+
+Input: nums = [10,5,2,6], k = 100
+Output: 8
+Explanation: The 8 subarrays that have product less than 100 are:
+[10], [5], [2], [6], [10, 5], [5, 2], [2, 6], [5, 2, 6]
+Note that [10, 5, 2] is not included as the product of 100 is not strictly less than k.
+Example 2:
+
+Input: nums = [1,2,3], k = 0
+Output: 0
+```
+> 之前的模板要改，不能直接用，因为先判断的话，其实window并不合法，所以要在最后存结果
+```python
+class Solution:
+    def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:
+        # 这个题不错，能不能输出所有的pair 
+        if k <= 1: return 0
+        slow = 0
+        prod = 1
+        res = 0
+        for fast in range(len(nums)):
+            prod *= nums[fast]
+            # if prod < k: 都是错误的，不能在这存结果， 跟之前的模板不同，这个window不合法！
+            #     res += fast - slow + 1  # 放在这就错误了，没有更新slow
+            while prod >= k:
+                prod /= nums[slow]
+                slow += 1
+            res += fast - slow + 1 
+        return res
+        # time o(n), space o(1)
+        
+        # brute force # time o(n^2) and space o(1) 会超时
+        # res = 0
+        # for i in range(len(nums)):
+        #     prod = 1 
+        #     for j in range(i, len(nums)):
+        #         prod *= nums[j]
+        #         if prod < k:
+        #             res += 1
+        #         else:
+        #             continue 
+        # return res 
+        # time o(n^2), space o(1)
+```
+Follow-up: 如何输出所有符合的subarray # 如果要输出所有的subarrays 相当于在nums[slow:fast] 这个window里的subset 所有合集? 不好做！ 
 
 
 
@@ -1105,6 +1324,190 @@ class Solution:
 
 
 
+✅✅✅ Swap 题型 Consecutive Ones， Group All 1's Together
+
+### 1151. Minimum Swaps to Group All 1's Together
+Given a binary array data, return the minimum number of swaps required to group all 1’s present in the array together in any place in the array.
+```
+Example 1:
+
+Input: data = [1,0,1,0,1]
+Output: 1
+Explanation: There are 3 ways to group all 1's together:
+[1,1,1,0,0] using 1 swap.
+[0,1,1,1,0] using 2 swaps.
+[0,0,1,1,1] using 1 swap.
+The minimum is 1.
+Example 2:
+
+Input: data = [0,0,0,1,0]
+Output: 0
+Explanation: Since there is only one 1 in the array, no swaps are needed.
+Example 3:
+
+Input: data = [1,0,1,0,1,0,0,1,1,0,1]
+Output: 3
+Explanation: One possible solution that uses 3 swaps is [0,0,0,0,0,1,1,1,1,1,1].
+```
+> 转移把问题转化和拆解
+```python
+class Solution:
+    def minSwaps(self, data: List[int]) -> int:
+        # 这些题都是在于如何转化和理解，而不是单纯的思考，直接解肯定不行！
+        # 这个意思就是1） 数出有多少个1， 2） 1的个数为窗口，其中0的最小个数
+        sum_1 = 0
+        for i in data:
+            if i == 1:
+                sum_1 += 1
+        if sum_1 <= 1: return 0  # 注意这个边界条件，如果全是0，那么就是返回0
+        slow = 0 
+        res_min = inf 
+        len_1 = sum_1 
+        num_0 = 0
+        for fast in range(len(data)):
+            if data[fast] == 0:
+                num_0 += 1
+            if fast - slow + 1 == len_1: #这个判断条件要有！
+                res_min = min(res_min, num_0)
+            
+            if fast >= len_1 - 1:
+                if data[slow] == 0:
+                    num_0 -= 1
+                slow += 1
+            
+        return res_min
+```
+
+### 2134. Minimum Swaps to Group All 1's Together II
+A swap is defined as taking two distinct positions in an array and swapping the values in them. A circular array is defined as an array where we consider the first element and the last element to be adjacent. Given a binary circular array nums, return the minimum number of swaps required to group all 1's present in the array together at any location.
+```
+Example 1:
+
+Input: nums = [0,1,0,1,1,0,0]
+Output: 1
+Explanation: Here are a few of the ways to group all the 1's together:
+[0,0,1,1,1,0,0] using 1 swap.
+[0,1,1,1,0,0,0] using 1 swap.
+[1,1,0,0,0,0,1] using 2 swaps (using the circular property of the array).
+There is no way to group all 1's together with 0 swaps.
+Thus, the minimum number of swaps required is 1.
+Example 2:
+
+Input: nums = [0,1,1,1,0,0,1,1,0]
+Output: 2
+Explanation: Here are a few of the ways to group all the 1's together:
+[1,1,1,0,0,0,0,1,1] using 2 swaps (using the circular property of the array).
+[1,1,1,1,1,0,0,0,0] using 2 swaps.
+There is no way to group all 1's together with 0 or 1 swaps.
+Thus, the minimum number of swaps required is 2.
+Example 3:
+
+Input: nums = [1,1,0,0,1]
+Output: 0
+Explanation: All the 1's are already grouped together due to the circular property of the array.
+Thus, the minimum number of swaps required is 0.
+```
+> 和1151唯一区别是allow circle，这样就mod就可以! 思路一样是先数多少个1，然后最小0
+```python
+class Solution:
+    def minSwaps(self, nums: List[int]) -> int:
+        n = len(nums)
+        cnt = sum(nums)
+        if cnt == 0:
+            return 0
+        cur = 0
+        for i in range(cnt):
+            cur += (1 - nums[i])
+        
+        ans = cur
+        for i in range(1, n):
+            if nums[i - 1] == 0:
+                cur -= 1
+            if nums[(i + cnt - 1) % n] == 0:
+                cur += 1
+            ans = min(ans, cur)
+        return ans
+
+# 作者：LeetCode-Solution
+# 链接：https://leetcode.cn/problems/minimum-swaps-to-group-all-1s-together-ii/solution/zui-shao-jiao-huan-ci-shu-lai-zu-he-suo-iaghf/
+# 来源：力扣（LeetCode）
+# 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+```
+ 
+### 1703. Minimum Adjacent Swaps for K Consecutive Ones   ❌ hard
+You are given an integer array, nums, and an integer k. nums comprises of only 0's and 1's. In one move, you can choose two adjacent indices and swap their values.
+Return the minimum number of moves required so that nums has k consecutive 1's.
+```
+Example 1:
+
+Input: nums = [1,0,0,1,0,1], k = 2
+Output: 1
+Explanation: In 1 move, nums could be [1,0,0,0,1,1] and have 2 consecutive 1's.
+Example 2:
+
+Input: nums = [1,0,0,0,0,0,1,1], k = 3
+Output: 5
+Explanation: In 5 moves, the leftmost 1 can be shifted right until nums = [0,0,0,0,0,1,1,1].
+Example 3:
+
+Input: nums = [1,1,0,1], k = 2
+Output: 0
+Explanation: nums already has 2 consecutive 1's.
+```
+> 太难，很麻烦！短时间搞不定
+
+
+
+
+
+✅✅✅ Others 非高频
+
+### 1052. Grumpy Bookstore Owner
+
+There is a bookstore owner that has a store open for n minutes. Every minute, some number of customers enter the store. You are given an integer array customers of length n where customers[i] is the number of the customer that enters the store at the start of the ith minute and all those customers leave after the end of that minute. On some minutes, the bookstore owner is grumpy. You are given a binary array grumpy where grumpy[i] is 1 if the bookstore owner is grumpy during the ith minute, and is 0 otherwise. When the bookstore owner is grumpy, the customers of that minute are not satisfied, otherwise, they are satisfied. The bookstore owner knows a secret technique to keep themselves not grumpy for minutes consecutive minutes, but can only use it once.
+
+Return the maximum number of customers that can be satisfied throughout the day.
+```
+Example 1:
+
+Input: customers = [1,0,1,2,1,1,7,5], grumpy = [0,1,0,1,0,1,0,1], minutes = 3
+Output: 16
+Explanation: The bookstore owner keeps themselves not grumpy for the last 3 minutes. 
+The maximum number of customers that can be satisfied = 1 + 1 + 1 + 1 + 7 + 5 = 16.
+Example 2:
+
+Input: customers = [1], grumpy = [0], minutes = 1
+Output: 1
+```
+```python
+class Solution:
+    def maxSatisfied(self, customers: List[int], grumpy: List[int], minutes: int) -> int:
+        # 非高频, 不太懂！
+        sum_, max_sum, max_start = 0, 0, 0
+        slow = 0
+        for fast in range(len(customers)):
+            if grumpy[fast] == 1:
+                sum_ += customers[fast]
+            
+            if sum_ > max_sum:
+                max_sum = sum_
+                max_start = slow 
+            
+            if fast >= minutes - 1:
+                if grumpy[slow]:
+                    sum_ -= customers[slow]
+                slow += 1
+            
+        for i in range(max_start, max_start + minutes):
+            grumpy[i] = 0
+        
+        res = 0
+        for i in range(len(customers)):
+            if not grumpy[i]:
+                res += customers[i]
+            
+        return res
+```
 
 
 
