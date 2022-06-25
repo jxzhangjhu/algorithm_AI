@@ -193,3 +193,67 @@ class Solution:
     
     # time o(n) and space o(1) 算是非常简单的dp了，需要理解dp的定义和含义！
 ```
+
+
+
+✅✅✅ Subsequence DP ✅✅✅ 
+
+
+### 1048. Longest String Chain https://leetcode.com/problems/longest-string-chain/ 
+> Google 高频， 06232022 
+
+You are given an array of words where each word consists of lowercase English letters.
+
+wordA is a predecessor of wordB if and only if we can insert exactly one letter anywhere in wordA without changing the order of the other characters to make it equal to wordB.
+
+For example, "abc" is a predecessor of "abac", while "cba" is not a predecessor of "bcad".
+A word chain is a sequence of words [word1, word2, ..., wordk] with k >= 1, where word1 is a predecessor of word2, word2 is a predecessor of word3, and so on. A single word is trivially a word chain with k == 1.
+
+Return the length of the longest possible word chain with words chosen from the given list of words.
+```
+Example 1:
+
+Input: words = ["a","b","ba","bca","bda","bdca"]
+Output: 4
+Explanation: One of the longest word chains is ["a","ba","bda","bdca"].
+Example 2:
+
+Input: words = ["xbc","pcxbcf","xb","cxbc","pcxbc"]
+Output: 5
+Explanation: All the words can be put in a word chain ["xb", "xbc", "cxbc", "pcxbc", "pcxbcf"].
+Example 3:
+
+Input: words = ["abcd","dbqca"]
+Output: 1
+Explanation: The trivial word chain ["abcd"] is one of the longest word chains.
+["abcd","dbqca"] is not a valid word chain because the ordering of the letters is changed.
+``` 
+> 这个题挺好的，需要想到DP，还要想到 temp = word[:i] + word[i + 1:] 挺难的！ 
+```python 
+
+class Solution:
+    def longestStrChain(self, words: List[str]) -> int:
+        # 对words中的元素，按照每个元素的长度，从小到大进行排序
+        words.sort(key=lambda word: len(word))
+        # map集合
+        dic = {}
+        maxLen, minVal = 1, len(words[0])
+        for word in words:
+            cur = 1
+            if len(word) > minVal:
+                # 枚举一下，删除哪个字符，可以获得最长单词链
+                for i in range(len(word)):
+                    temp = word[:i] + word[i + 1:] # 每次check 当前word的所有可能性，比如删除某一个字符之后，是否在之前的dict里面！
+                    # print(word, temp)
+                    if temp in dic:
+                        cur = max(cur, dic[temp] + 1)
+            dic[word] = cur
+            maxLen = max(maxLen, dic[word])
+        return maxLen
+        # time o(n), n is the length of the number of words; space o(n), due to create the dict? 
+
+# 作者：bu-lao-er-huo
+# 链接：https://leetcode.cn/problems/longest-string-chain/solution/javapythonmapdp-by-bu-lao-er-huo-o9sd/
+# 来源：力扣（LeetCode）
+# 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。   
+```

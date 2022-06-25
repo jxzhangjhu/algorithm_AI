@@ -72,7 +72,7 @@ class Solution: # 解决follow-up的question！
                 return 1 + (idx - 1) % 10
 ```
 
-
+✅✅✅ 进位值相关题目 ✅✅✅ 
 
 ## 进位制理解和操作 - digit 
 基本操作不熟悉！
@@ -163,3 +163,45 @@ class Solution:
         print(idx)
         return num // (10 ** (cur - 1 - idx)) % 10
 ```
+
+
+### 539. Minimum Time Difference https://leetcode.com/problems/minimum-time-difference/
+Given a list of 24-hour clock time points in "HH:MM" format, return the minimum minutes difference between any two time-points in the list.
+```
+Example 1:
+
+Input: timePoints = ["23:59","00:00"]
+Output: 1
+Example 2:
+
+Input: timePoints = ["00:00","23:59","00:00"]
+Output: 0
+```
+> 第一步的函数一定要熟悉，ord的操作！ 后面的一次遍历比较straightforward在排序的基础上，开始也想到了这个idea 
+
+```python
+# time - nlogn 因为有排序，如果加了优化，可能会小一些； space o(logn) or o(n)? 为排序需要的空间，取决于具体语言的实现。 
+
+def getMinutes(t: str) -> int:
+    # 计算总时间，min为单位， 1440 是最大值
+    return ((ord(t[0]) - ord('0')) * 10 + ord(t[1]) - ord('0')) * 60 + (ord(t[3]) - ord('0')) * 10 + ord(t[4]) - ord('0')
+
+class Solution:
+    def findMinDifference(self, timePoints: List[str]) -> int:
+        # 这个判断是如果大于1440，那么必然有相同的时间，鸽巢原理， 优化一下
+        n = len(timePoints)
+        if n > 1440:
+            return 0
+        
+        timePoints.sort() # nlogn 无法减少
+        ans = float('inf')
+        t0Minutes = getMinutes(timePoints[0])
+        preMinutes = t0Minutes
+        for i in range(1, len(timePoints)):
+            minutes = getMinutes(timePoints[i])
+            ans = min(ans, minutes - preMinutes)  # 相邻时间的时间差
+            preMinutes = minutes
+        ans = min(ans, t0Minutes + 1440 - preMinutes)  # 首尾时间的时间差
+        return ans
+``` 
+
