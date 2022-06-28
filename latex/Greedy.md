@@ -52,3 +52,78 @@ class Solution:
         else:
             return sum(damage) - max(damage) + 1
 ``` 
+
+
+### 1921. Eliminate Maximum Number of Monsters  https://leetcode.com/problems/eliminate-maximum-number-of-monsters/ 
+You are playing a video game where you are defending your city from a group of n monsters. You are given a 0-indexed integer array dist of size n, where dist[i] is the initial distance in kilometers of the ith monster from the city.
+
+The monsters walk toward the city at a constant speed. The speed of each monster is given to you in an integer array speed of size n, where speed[i] is the speed of the ith monster in kilometers per minute.
+
+You have a weapon that, once fully charged, can eliminate a single monster. However, the weapon takes one minute to charge.The weapon is fully charged at the very start.
+
+You lose when any monster reaches your city. If a monster reaches the city at the exact moment the weapon is fully charged, it counts as a loss, and the game ends before you can use your weapon.
+
+Return the maximum number of monsters that you can eliminate before you lose, or n if you can eliminate all the monsters before they reach the city.
+
+```
+Example 1:
+
+Input: dist = [1,3,4], speed = [1,1,1]
+Output: 3
+Explanation:
+In the beginning, the distances of the monsters are [1,3,4]. You eliminate the first monster.
+After a minute, the distances of the monsters are [X,2,3]. You eliminate the second monster.
+After a minute, the distances of the monsters are [X,X,2]. You eliminate the thrid monster.
+All 3 monsters can be eliminated.
+Example 2:
+
+Input: dist = [1,1,2,3], speed = [1,1,1,1]
+Output: 1
+Explanation:
+In the beginning, the distances of the monsters are [1,1,2,3]. You eliminate the first monster.
+After a minute, the distances of the monsters are [X,0,1,2], so you lose.
+You can only eliminate 1 monster.
+Example 3:
+
+Input: dist = [3,2,4], speed = [5,3,2]
+Output: 1
+Explanation:
+In the beginning, the distances of the monsters are [3,2,4]. You eliminate the first monster.
+After a minute, the distances of the monsters are [X,0,2], so you lose.
+You can only eliminate 1 monster.
+``` 
+> 纯贪心 + 排序 + 模拟，没有什么难度和技巧，之前的写法直接暴力超时了！
+```python
+class Solution:
+    def eliminateMaximum(self, dist: List[int], speed: List[int]) -> int:
+#         res = 1
+#         temp = 1
+#         diff_min = +inf
+#         while temp:
+#             for i in range(1, len(dist)):
+#                 diff = dist[i] - speed[i]
+#                 diff_min = min(diff_min, diff)
+#             if diff_min >= 1:
+#                 res += 1
+#             else:
+#                 temp = 0 
+        
+#         return res
+        
+    # 排序 + 贪心， time o(nlogn), space o(n)
+        n = len(dist)
+        # 每个怪物的最晚可被消灭时间
+        time = [(dist[i] - 1) // speed[i] for i in range(n)]
+        time.sort()
+        for i in range(n):
+            if time[i] < i:
+                # 无法消灭该怪物，返回消灭的怪物数量
+                return i
+        # 成功消灭全部怪物
+        return n
+
+# 作者：LeetCode-Solution
+# 链接：https://leetcode.cn/problems/eliminate-maximum-number-of-monsters/solution/xiao-mie-guai-wu-de-zui-da-shu-liang-by-0ou2p/
+# 来源：力扣（LeetCode）
+# 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+``` 
