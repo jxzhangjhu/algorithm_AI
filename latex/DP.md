@@ -466,3 +466,218 @@ https://leetcode.com/problems/count-unique-characters-of-all-substrings-of-a-giv
             res += (len(S) - j) * (j - k)
         return res % (10**9 + 7)
 ```
+
+
+### 2193. Minimum Number of Moves to Make Palindrome  https://leetcode.com/problems/minimum-number-of-moves-to-make-palindrome/
+
+You are given a string s consisting only of lowercase English letters.
+
+In one move, you can select any two adjacent characters of s and swap them.
+
+Return the minimum number of moves needed to make s a palindrome.
+
+Note that the input will be generated such that s can always be converted to a palindrome.
+
+```
+Example 1:
+
+Input: s = "aabb"
+Output: 2
+Explanation:
+We can obtain two palindromes from s, "abba" and "baab". 
+- We can obtain "abba" from s in 2 moves: "aabb" -> "abab" -> "abba".
+- We can obtain "baab" from s in 2 moves: "aabb" -> "abab" -> "baab".
+Thus, the minimum number of moves needed to make s a palindrome is 2.
+Example 2:
+
+Input: s = "letelt"
+Output: 2
+Explanation:
+One of the palindromes we can obtain from s in 2 moves is "lettel".
+One of the ways we can obtain it is "letelt" -> "letetl" -> "lettel".
+Other palindromes such as "tleelt" can also be obtained in 2 moves.
+It can be shown that it is not possible to obtain a palindrome in less than 2 moves.
+```
+> 题目标注是double pointer，greey但实际就是greey，非常困难，基本不会
+```python
+class Solution:               
+# https://leetcode.com/problems/minimum-number-of-moves-to-make-palindrome/discuss/1822174/C%2B%2BPython-Short-Greedy-Solution
+
+# 贪心，完全想不到！
+    
+    def minMovesToMakePalindrome(self, s):
+        s = list(s)
+        res = 0
+        while s:
+            i = s.index(s[-1])
+            if i == len(s) - 1:
+                res += i / 2
+            else:
+                res += i
+                s.pop(i)
+            s.pop()
+        return int(res)
+    
+# Explanation
+# Considering the first and the last char in final palindrome.
+# If they are neither the first nor the last char in the initial string,
+# you must waste some steps:
+# Assume start with "...a....a.."
+# ".a.......a." can be ealier completed thand "a.........a".
+
+# Then compare the situation "a....b..a...b"
+# It takes same number of steps to "ab.........ba" and "ba.........ab".
+# So we can actually greedy move the characters to match string prefix.
+
+# Other reference: https://www.codechef.com/problems/ENCD12
+
+# Complexity
+# Time O(n^2), can be improved to O(nlogn) by segment tree
+# Space O(n)
+```
+
+### 1312. Minimum Insertion Steps to Make a String Palindrome https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/ 
+
+Given a string s. In one step you can insert any character at any index of the string.
+
+Return the minimum number of steps to make s palindrome.
+
+A Palindrome String is one that reads the same backward as well as forward.
+
+```
+Example 1:
+
+Input: s = "zzazz"
+Output: 0
+Explanation: The string "zzazz" is already palindrome we don't need any insertions.
+Example 2:
+
+Input: s = "mbadm"
+Output: 2
+Explanation: String can be "mbdadbm" or "mdbabdm".
+Example 3:
+
+Input: s = "leetcode"
+Output: 5
+Explanation: Inserting 5 characters the string becomes "leetcodocteel".
+```
+
+```python
+class Solution:
+    def minInsertions(self, s: str) -> int:
+        n = len(s)
+        dp = [[0] * (n + 1) for i in range(n + 1)]
+        for i in range(n):
+            for j in range(n):
+                dp[i + 1][j + 1] = dp[i][j] + 1 if s[i] == s[-j-1] else max(dp[i][j + 1], dp[i + 1][j])
+        return n - dp[n][n]
+    
+# Intuition
+# Split the string s into to two parts,
+# and we try to make them symmetrical by adding letters.
+
+# The more common symmetrical subsequence they have,
+# the less letters we need to add.
+
+# Now we change the problem to find the length of longest common sequence.
+# This is a typical dynamic problem.
+
+
+# Explanation
+# Step1.
+# Initialize dp[n+1][n+1],
+# wheredp[i][j] means the length of longest common sequence between
+# i first letters in s1 and j first letters in s2.
+
+# Step2.
+# Find the the longest common sequence between s1 and s2,
+# where s1 = s and s2 = reversed(s)
+
+# Step3.
+# return n - dp[n][n]
+
+
+# Complexity
+# Time O(N^2)
+# Space O(N^2)
+
+class Solution(object):
+    def minInsertions(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        #定义dp数组:dp[i][j],使得s[i...j]成为回文串所需要最少的插入次数
+        length = len(s)
+        dp = [[0]*length for i in range(length)]
+       
+        #反向遍历
+        for i in range(length-2,-1,-1):
+            for j in range(i+1,length):
+                #print(i,j)
+                if s[i] == s[j]:
+                    dp[i][j] = dp[i+1][j-1]
+                else:
+                    dp[i][j] = min(dp[i+1][j]+1,dp[i][j-1]+1)
+                #print(dp[i][j])
+
+        return dp[0][length-1]
+
+# 步骤1：做选择，先将s[i-1,..j]或者是s[i..j+1]变回文串
+# 步骤2将s[i..j]或者是s[i..j+1]变回文串
+# 反向遍历
+
+# 作者：a-bo-luo-zhi-zi
+# 链接：https://leetcode.cn/problems/minimum-insertion-steps-to-make-a-string-palindrome/solution/yi-zui-xiao-cha-ru-ci-shu-gou-zao-hui-we-8vte/
+# 来源：力扣（LeetCode）
+# 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+```
+ 
+### 1143. Longest Common Subsequence  https://leetcode.com/problems/longest-common-subsequence/
+
+Given two strings text1 and text2, return the length of their longest common subsequence. If there is no common subsequence, return 0.
+
+A subsequence of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.
+
+For example, "ace" is a subsequence of "abcde".
+A common subsequence of two strings is a subsequence that is common to both strings.
+
+```
+Example 1:
+
+Input: text1 = "abcde", text2 = "ace" 
+Output: 3  
+Explanation: The longest common subsequence is "ace" and its length is 3.
+Example 2:
+
+Input: text1 = "abc", text2 = "abc"
+Output: 3
+Explanation: The longest common subsequence is "abc" and its length is 3.
+Example 3:
+
+Input: text1 = "abc", text2 = "def"
+Output: 0
+Explanation: There is no such common subsequence, so the result is 0.
+``` 
+
+```python
+class Solution:
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        
+        # 核心还是状态转移方程，根据hint2
+        # if text1[i] == text2[j], dp[i][j] = dp[i-1][j-1] + 1
+        # otherwise, dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+        
+        n, m = len(text1), len(text2)
+        dp = [[0] * (m + 1) for _ in range(n + 1)] # 2d matrix [n x m] 这个容易错！
+        print(dp)
+        
+        for i in range(1, n + 1):
+            for j in range(1, m + 1):
+                if text1[i - 1] == text2[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1] + 1
+                else:
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+            
+        return dp[n][m]
+``` 

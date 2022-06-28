@@ -1330,6 +1330,188 @@ class Solution:
 ```
 
 
+### 1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/ 
+
+Given an array of integers nums and an integer limit, return the size of the longest non-empty subarray such that the absolute difference between any two elements of this subarray is less than or equal to limit.
+```
+Example 1:
+
+Input: nums = [8,2,4,7], limit = 4
+Output: 2 
+Explanation: All subarrays are: 
+[8] with maximum absolute diff |8-8| = 0 <= 4.
+[8,2] with maximum absolute diff |8-2| = 6 > 4. 
+[8,2,4] with maximum absolute diff |8-2| = 6 > 4.
+[8,2,4,7] with maximum absolute diff |8-2| = 6 > 4.
+[2] with maximum absolute diff |2-2| = 0 <= 4.
+[2,4] with maximum absolute diff |2-4| = 2 <= 4.
+[2,4,7] with maximum absolute diff |2-7| = 5 > 4.
+[4] with maximum absolute diff |4-4| = 0 <= 4.
+[4,7] with maximum absolute diff |4-7| = 3 <= 4.
+[7] with maximum absolute diff |7-7| = 0 <= 4. 
+Therefore, the size of the longest subarray is 2.
+Example 2:
+
+Input: nums = [10,1,2,4,7,2], limit = 5
+Output: 4 
+Explanation: The subarray [2,4,7,2] is the longest since the maximum absolute diff is |2-7| = 5 <= 5.
+Example 3:
+
+Input: nums = [4,2,2,2,4,4,2,2], limit = 0
+Output: 3
+```
+> 了解一下sortedlist, sorteddict, sortedset 三个内置的函数from sortedcontainers import SortedList。 还可以用单调队列
+https://leetcode.cn/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/solution/jue-dui-chai-bu-chao-guo-xian-zhi-de-zui-5bki/ 但是很麻烦！
+
+```python
+# class Solution:
+#     def longestSubarray(self, nums: List[int], limit: int) -> int:
+        
+#         # brute force, time o(n^2), space o(1) 肯定是超时
+#         res = 0
+#         for i in range(len(nums)):
+#             for j in range(i + 1, len(nums) + 1):
+#                 subarray = nums[i:j]
+#                 diff = abs(max(subarray) - min(subarray))
+#                 if diff <= limit:
+#                     res = max(res, len(subarray))
+#         return res
+                
+        # # 这是一类题，对于subarray内部区间的操作，然后返回最长或者直接返回subarray 
+        # # 这个sliding window可以！还是超时，这个max或者nums[slow:fast]这个太慢了！
+        # slow = 0
+        # res = 0
+        # for fast in range(1, len(nums) + 1):
+        #     subarray = nums[slow:fast]
+        #     diff = abs(max(subarray) - min(subarray))
+        #     if diff <= limit:
+        #         res = max(res, len(subarray))
+        #     else:
+        #         slow += 1
+        # return res 
+    
+        # # 这个sliding window可以！用了sort还是超时，这个太慢了
+        # slow = 0
+        # res = 0
+        # for fast in range(1, len(nums) + 1):
+        #     subarray = nums[slow:fast]
+        #     subarray.sort() # nlogn
+        #     diff = subarray[-1] - subarray[0]
+        #     if diff <= limit:
+        #         res = max(res, len(subarray))
+        #     else:
+        #         slow += 1
+        # return res 
+    
+class Solution:
+    def longestSubarray(self, nums: List[int], limit: int) -> int:
+        from sortedcontainers import SortedList
+        s = SortedList()  # python内置，然后直接sorting
+        n = len(nums)
+        left = right = ret = 0
+
+        while right < n:
+            s.add(nums[right])
+            while s[-1] - s[0] > limit:
+                s.remove(nums[left])
+                left += 1
+            ret = max(ret, right - left + 1)
+            right += 1
+        
+        return ret
+    
+# 时间复杂度：O(n \log n)O(nlogn)，其中 nn 是数组长度。向有序集合中添加或删除元素都是 O(\log n)O(logn) 的时间复杂度。每个元素最多被添加与删除一次。
+
+# 空间复杂度：O(n)O(n)，其中 nn 是数组长度。最坏情况下有序集合将和原数组等大。
+
+# Python Sorted Containers
+# Sorted Containers is an Apache2 licensed sorted collections library, written in pure-Python, and fast as C-extensions.
+
+# Python’s standard library is great until you need a sorted collections type. Many will attest that you can get really far without one, but the moment you really need a sorted list, sorted dict, or sorted set, you’re faced with a dozen different implementations, most using C-extensions without great documentation and benchmarking.
+
+# In Python, we can do better. And we can do it in pure-Python!
+
+# >>> from sortedcontainers import SortedList
+# >>> sl = SortedList(['e', 'a', 'c', 'd', 'b'])
+# >>> sl
+# SortedList(['a', 'b', 'c', 'd', 'e'])
+# >>> sl *= 10_000_000
+# >>> sl.count('c')
+# 10000000
+# >>> sl[-3:]
+# ['e', 'e', 'e']
+# >>> from sortedcontainers import SortedDict
+# >>> sd = SortedDict({'c': 3, 'a': 1, 'b': 2})
+# >>> sd
+# SortedDict({'a': 1, 'b': 2, 'c': 3})
+# >>> sd.popitem(index=-1)
+# ('c', 3)
+# >>> from sortedcontainers import SortedSet
+# >>> ss = SortedSet('abracadabra')
+# >>> ss
+# SortedSet(['a', 'b', 'c', 'd', 'r'])
+# >>> ss.bisect_left('c')
+# 2
+
+``` 
+
+
+### 2294. Partition Array Such That Maximum Difference Is K https://leetcode.com/problems/partition-array-such-that-maximum-difference-is-k/ 
+
+You are given an integer array nums and an integer k. You may partition nums into one or more subsequences such that each element in nums appears in exactly one of the subsequences.
+
+Return the minimum number of subsequences needed such that the difference between the maximum and minimum values in each subsequence is at most k.
+
+A subsequence is a sequence that can be derived from another sequence by deleting some or no elements without changing the order of the remaining elements.
+```
+Example 1:
+
+Input: nums = [3,6,1,2,5], k = 2
+Output: 2
+Explanation:
+We can partition nums into the two subsequences [3,1,2] and [6,5].
+The difference between the maximum and minimum value in the first subsequence is 3 - 1 = 2.
+The difference between the maximum and minimum value in the second subsequence is 6 - 5 = 1.
+Since two subsequences were created, we return 2. It can be shown that 2 is the minimum number of subsequences needed.
+Example 2:
+
+Input: nums = [1,2,3], k = 1
+Output: 2
+Explanation:
+We can partition nums into the two subsequences [1,2] and [3].
+The difference between the maximum and minimum value in the first subsequence is 2 - 1 = 1.
+The difference between the maximum and minimum value in the second subsequence is 3 - 3 = 0.
+Since two subsequences were created, we return 2. Note that another optimal solution is to partition nums into the two subsequences [1] and [2,3].
+Example 3:
+
+Input: nums = [2,2,4,5], k = 0
+Output: 3
+Explanation:
+We can partition nums into the three subsequences [2,2], [4], and [5].
+The difference between the maximum and minimum value in the first subsequences is 2 - 2 = 0.
+The difference between the maximum and minimum value in the second subsequences is 4 - 4 = 0.
+The difference between the maximum and minimum value in the third subsequences is 5 - 5 = 0.
+Since three subsequences were created, we return 3. It can be shown that 3 is the minimum number of subsequences needed.
+```
+> sorting + greedy 多想想还是不难的，但这种maximum 和minimum的可以归纳总结一下！
+
+```python
+class Solution:
+    def partitionArray(self, nums: List[int], k: int) -> int:
+        #看到sorting之后就想到了，就没往下再写写 time, O(nlogn), space o(1)
+        nums.sort()
+        result = 1
+        last = nums[0]
+        for num in nums:
+            if num - last > k:
+                last = num # 更新最后一个数，如果比他大，就要update，确实是greedy，之前向greedy 是否一定work
+                result += 1
+        return result
+```
+
+
+
+
 ✅✅✅  Subsequence的类型题！ 很多要用DP？ 
 
 ### 674. Longest Continuous Increasing Subsequence https://leetcode.com/problems/longest-continuous-increasing-subsequence/
@@ -1901,3 +2083,7 @@ class Solution:
                     res.append(left)
         return res
 ```
+
+
+
+
