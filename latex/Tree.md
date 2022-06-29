@@ -192,6 +192,284 @@ class Solution:
 ``` 
 
 
+### 543. Diameter of Binary Tree https://leetcode.com/problems/diameter-of-binary-tree/
+Given the root of a binary tree, return the length of the diameter of the tree. The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root. The length of a path between two nodes is represented by the number of edges between them.
+
+```
+Input: root = [1,2,3,4,5]
+Output: 3
+Explanation: 3 is the length of the path [4,2,1,3] or [5,2,1,3].
+Example 2:
+
+Input: root = [1,2]
+Output: 1
+```
+> DFS 也就是递归，比价容易做， time o(n), space o(n)
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+# class Solution:
+#     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+    
+class Solution:
+    def __init__(self):
+        self.max = 0
+    def diameterOfBinaryTree(self, root: TreeNode) -> int:
+        self.depth(root)
+        return self.max
+    def depth(self, root):
+        if not root:
+            return 0
+        l = self.depth(root.left)
+        r = self.depth(root.right)
+        '''每个结点都要去判断左子树+右子树的高度是否大于self.max，更新最大值'''
+        self.max = max(self.max, l+r)
+        # 返回的是高度
+        return max(l, r) + 1
+```
+
+
+### 104. Maximum Depth of Binary Tree https://leetcode.com/problems/maximum-depth-of-binary-tree/ 
+Given the root of a binary tree, return its maximum depth. A binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+```
+Input: root = [3,9,20,null,null,15,7]
+Output: 3
+Example 2:
+
+Input: root = [1,null,2]
+Output: 2
+```
+> DFS  + BFS 都可以，递归更容易，简单，但是有可能让写iteration 方法 o(n), space, o(logn) to o(n) depends on the worst case 
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        
+        """
+        :type root: TreeNode
+        :rtype: int
+        """ 
+        if root is None: 
+            return 0 
+        else: 
+            left_height = self.maxDepth(root.left) 
+            right_height = self.maxDepth(root.right) 
+            return max(left_height, right_height) + 1 
+        
+# iteration 方法 time o(n), space o(n)
+# class Solution:
+#     def maxDepth(self, root):
+#         """
+#         :type root: TreeNode
+#         :rtype: int
+#         """ 
+#         stack = []
+#         if root is not None:
+#             stack.append((1, root))
+        
+#         depth = 0
+#         while stack != []:
+#             current_depth, root = stack.pop()
+#             if root is not None:
+#                 depth = max(depth, current_depth)
+#                 stack.append((current_depth + 1, root.left))
+#                 stack.append((current_depth + 1, root.right))
+        
+#         return depth
+``` 
+
+
+### 108. Convert Sorted Array to Binary Search Tree https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/
+Given an integer array nums where the elements are sorted in ascending order, convert it to a height-balanced binary search tree.
+
+A height-balanced binary tree is a binary tree in which the depth of the two subtrees of every node never differs by more than one.
+```
+Example 1:
+Input: nums = [-10,-3,0,5,9]
+Output: [0,-3,9,-10,null,5]
+Explanation: [0,-10,5,null,-3,null,9] is also accepted:
+
+Example 2:
+Input: nums = [1,3]
+Output: [3,1]
+Explanation: [1,null,3] and [3,1] are both height-balanced BSTs.
+```
+> 
+
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
+        '''
+        构造二叉树：重点是选取数组最中间元素为分割点，左侧是递归左区间；右侧是递归右区间
+        必然是平衡树
+        左闭右闭区间
+        '''
+        # 返回根节点
+        root = self.traversal(nums, 0, len(nums)-1)
+        return root
+
+    def traversal(self, nums: List[int], left: int, right: int) -> TreeNode:
+        # Base Case
+        if left > right:
+            return None
+        
+        # 确定左右界的中心，防越界
+        mid = left + (right - left) // 2
+        # 构建根节点
+        mid_root = TreeNode(nums[mid])
+        # 构建以左右界的中心为分割点的左右子树
+        mid_root.left = self.traversal(nums, left, mid-1)
+        mid_root.right = self.traversal(nums, mid+1, right)
+
+        # 返回由被传入的左右界定义的某子树的根节点
+        return mid_root
+```
+
+
+### 109. Convert Sorted List to Binary Search Tree
+
+Given the head of a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST.
+For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.
+```
+Example 1:
+Input: head = [-10,-3,0,5,9]
+Output: [0,-3,9,-10,null,5]
+Explanation: One possible answer is [0,-3,9,-10,null,5], which represents the shown height balanced BST.
+Example 2:
+
+Input: head = []
+Output: []
+```
+> 这个挺难的，结合linked list 的tree，用的recursive
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+# time o(nlogn), space o(logn)
+class Solution:
+
+    def findMiddle(self, head):
+
+        # The pointer used to disconnect the left half from the mid node.
+        prevPtr = None
+        slowPtr = head
+        fastPtr = head
+
+        # Iterate until fastPr doesn't reach the end of the linked list.
+        while fastPtr and fastPtr.next:
+            prevPtr = slowPtr
+            slowPtr = slowPtr.next
+            fastPtr = fastPtr.next.next
+
+        # Handling the case when slowPtr was equal to head.
+        if prevPtr:
+            prevPtr.next = None
+
+        return slowPtr
+
+
+    def sortedListToBST(self, head):
+        """
+        :type head: ListNode
+        :rtype: TreeNode
+        """
+
+        # If the head doesn't exist, then the linked list is empty
+        if not head:
+            return None
+
+        # Find the middle element for the list.
+        mid = self.findMiddle(head)
+
+        # The mid becomes the root of the BST.
+        node = TreeNode(mid.val)
+
+        # Base case when there is just one element in the linked list
+        if head == mid:
+            return node
+
+        # Recursively form balanced BSTs using the left and right halves of the original list.
+        node.left = self.sortedListToBST(head)
+        node.right = self.sortedListToBST(mid.next)
+        return node
+```
+
+
+### 572. Subtree of Another Tree https://leetcode.com/problems/subtree-of-another-tree/ 
+
+Given the roots of two binary trees root and subRoot, return true if there is a subtree of root with the same structure and node values of subRoot and false otherwise. A subtree of a binary tree tree is a tree that consists of a node in tree and all of this node's descendants. The tree tree could also be considered as a subtree of itself.
+
+```
+Example 1:
+Input: root = [3,4,5,1,2], subRoot = [4,1,2]
+Output: true
+
+Example 2:
+Input: root = [3,4,5,1,2,null,null,null,null,0], subRoot = [4,1,2]
+Output: false
+```
+> DFS recursive 更容易，不知道BFS是否work? 
+
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
+        # 递归写法，几种条件的生成
+        """
+        :type s: TreeNode
+        :type t: TreeNode
+        :rtype: bool
+        """
+        if not root and not subRoot:
+            return True
+        if not root or not subRoot:
+            return False
+        return self.isSameTree(root, subRoot) or self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot)
+        
+    def isSameTree(self, s, t):
+        if not s and not t:
+            return True
+        if not s or not t:
+            return False
+        return s.val == t.val and self.isSameTree(s.left, t.left) and self.isSameTree(s.right, t.right)
+```
+
+
+
+
+
+✅✅✅ Tree BFS、层序遍历 ✅✅✅ 
+
 ### 863. All Nodes Distance K in Binary Tree
 
 Given the root of a binary tree, the value of a target node target, and an integer k, return an array of the values of all nodes that have a distance k from the target node.
@@ -251,7 +529,6 @@ class Solution:
 
 ```
 
-✅✅✅ Tree BFS、层序遍历 ✅✅✅ 
 
 
 ### 226. Invert Binary Tree 
@@ -358,3 +635,215 @@ class Solution:
 
 ```
 
+
+
+### 111. Minimum Depth of Binary Tree https://leetcode.com/problems/minimum-depth-of-binary-tree/
+Given a binary tree, find its minimum depth.
+
+The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
+
+Note: A leaf is a node with no children.
+```
+Example 1:
+
+Input: root = [3,9,20,null,null,15,7]
+Output: 2
+Example 2:
+
+Input: root = [2,null,3,null,4,null,5,null,6]
+Output: 5
+```
+> BFS or DFS 都可以
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def minDepth(self, root: Optional[TreeNode]) -> int:
+        # 别忘了特判，要不过不去
+        if not root:
+            return 0 
+        queue = collections.deque([(root,1)]) # 0 is depth
+        while queue:
+            cur_node, depth = queue.popleft()
+            if not cur_node.left and not cur_node.right:
+                return depth 
+            if cur_node.left:
+                queue.append((cur_node.left, depth + 1))
+            if cur_node.right:
+                queue.append((cur_node.right, depth + 1))
+        return 0
+```
+
+
+
+### 559. Maximum Depth of N-ary Tree https://leetcode.com/problems/maximum-depth-of-n-ary-tree/ 
+Given a n-ary tree, find its maximum depth.
+
+The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+
+Nary-Tree input serialization is represented in their level order traversal, each group of children is separated by the null value (See examples).
+
+> BFS or DFS both work 
+
+```python
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val=None, children=None):
+        self.val = val
+        self.children = children
+"""
+
+class Solution(object):
+    def maxDepth(self, root):
+        """
+        :type root: Node
+        :rtype: int
+        """
+        if root is None: 
+            return 0 
+        elif root.children == []:
+            return 1
+        else: 
+            height = [self.maxDepth(c) for c in root.children]
+            return max(height) + 1 
+        
+# class Solution(object):
+#     def maxDepth(self, root):
+#         """
+#         :type root: Node
+#         :rtype: int
+#         """ 
+#         stack = []
+#         if root is not None:
+#             stack.append((1, root))
+        
+#         depth = 0
+#         while stack != []:
+#             current_depth, root = stack.pop()
+#             if root is not None:
+#                 depth = max(depth, current_depth)
+#                 for c in root.children:
+#                     stack.append((current_depth + 1, c))
+                
+#         return depth
+``` 
+
+
+
+### 100. Same Tree https://leetcode.com/problems/same-tree/ 
+Given the roots of two binary trees p and q, write a function to check if they are the same or not.
+
+Two binary trees are considered the same if they are structurally identical, and the nodes have the same value.
+```
+Example 1:
+Input: p = [1,2,3], q = [1,2,3]
+Output: true
+Example 2:
+Input: p = [1,2], q = [1,null,2]
+Output: false
+```
+> BFS or DFS 
+```python
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+#         # queue 
+#         def check(p, q):
+#             # if both are None
+#             if not p and not q:
+#                 return True
+#             # one of p and q is None
+#             if not q or not p:
+#                 return False
+#             if p.val != q.val:
+#                 return False
+#             return True
+        
+#         # 这种写法就是deque 
+#         deq = deque([(p, q),])
+#         while deq:
+#             p, q = deq.popleft()
+#             if not check(p, q):
+#                 return False
+            
+#             if p:
+#                 deq.append((p.left, q.left))
+#                 deq.append((p.right, q.right))
+                    
+#         return True
+        
+    # 递归
+            return self.compare(p, q)
+        
+    def compare(self, tree1, tree2):
+        if not tree1 and tree2:
+            return False
+        elif tree1 and not tree2:
+            return False
+        elif not tree1 and not tree2:
+            return True
+        elif tree1.val != tree2.val: #注意这里我没有使用else
+            return False
+        
+        #此时就是：左右节点都不为空，且数值相同的情况
+        #此时才做递归，做下一层的判断
+        compareLeft = self.compare(tree1.left, tree2.left) #左子树：左、 右子树：左
+        compareRight = self.compare(tree1.right, tree2.right) #左子树：右、 右子树：右
+        isSame = compareLeft and compareRight #左子树：中、 右子树：中（逻辑处理）
+        return isSame
+``` 
+
+
+### 101. Symmetric Tree https://leetcode.com/problems/symmetric-tree/
+
+Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
+```
+Example 1:
+Input: root = [1,2,2,3,4,4,3]
+Output: true
+Example 2:
+Input: root = [1,2,2,null,3,null,3]
+Output: false
+```
+> 用的stack 而不是queue， 这个注意一下，time o(n), space o(n)
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        if not root:
+            return None
+    ## stack
+        que = []
+        que.append(root.left)
+        que.append(root.right)
+        while que:
+            leftnode = que.pop()
+            rightnode = que.pop()
+            if not leftnode and not rightnode:
+                continue 
+            if not leftnode or not rightnode or leftnode.val != rightnode.val:
+                return False
+            # why 这个顺序？ 成对进入，然后退出
+            que.append(leftnode.left)
+            que.append(rightnode.right)
+            que.append(leftnode.right)
+            que.append(rightnode.left)
+            
+        return True
+``` 
