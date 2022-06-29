@@ -241,3 +241,419 @@ class Solution:
         return nums
 ```
 
+
+### 66. Plus One https://leetcode.com/problems/plus-one/ 
+
+You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer. The digits are ordered from most significant to least significant in left-to-right order. The large integer does not contain any leading 0's.
+
+Increment the large integer by one and return the resulting array of digits.
+
+```
+Example 1:
+
+Input: digits = [1,2,3]
+Output: [1,2,4]
+Explanation: The array represents the integer 123.
+Incrementing by one gives 123 + 1 = 124.
+Thus, the result should be [1,2,4].
+Example 2:
+
+Input: digits = [4,3,2,1]
+Output: [4,3,2,2]
+Explanation: The array represents the integer 4321.
+Incrementing by one gives 4321 + 1 = 4322.
+Thus, the result should be [4,3,2,2].
+Example 3:
+
+Input: digits = [9]
+Output: [1,0]
+Explanation: The array represents the integer 9.
+Incrementing by one gives 9 + 1 = 10.
+Thus, the result should be [1,0].
+```
+> 从medium 到 easy，但其实不简单
+```python
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+# Input: digits = [4,3,2,1]
+# Output: [4,3,2,2]
+# Explanation: The array represents the integer 4321.
+# Incrementing by one gives 4321 + 1 = 4322.
+# Thus, the result should be [4,3,2,2].
+        # 写成函数好很多，要不太乱了, 没有什么具体的考点，就是simulate
+        # time o(n), n is the length of number, space o(n)
+        def num_list(num, length):
+            res = []
+            for i in range(0, length):
+                digit = num // (10 ** (length - i - 1))
+                num -= digit * (10 ** (length - i - 1))
+                res.append(digit)
+            return res
+        
+        n = len(digits)
+        # n - 1 will be the real digits 
+        j = n - 1 
+        number = 0
+        for i in range(n):
+            number += digits[i] * (10**(j)) 
+            j -= 1
+            
+        newnumber = number + 1   
+        if newnumber // (10 ** n) == 1:
+            return [1] + [0] * (n)
+        else:
+            return num_list(newnumber, n)
+                
+        
+#         # 官方答案
+        n = len(digits)
+        # move along the input array starting from the end
+        for i in range(n):
+            idx = n - 1 - i
+            # set all the nines at the end of array to zeros
+            if digits[idx] == 9:
+                digits[idx] = 0
+            # here we have the rightmost not-nine
+            else:
+                # increase this rightmost not-nine by 1
+                digits[idx] += 1
+                # and the job is done
+                return digits
+
+        # we're here because all the digits are nines
+        return [1] + digits
+``` 
+
+### 67. Add Binary https://leetcode.com/problems/add-binary/ [easy]
+Given two binary strings a and b, return their sum as a binary string.
+```
+Example 1:
+
+Input: a = "11", b = "1"
+Output: "100"
+Example 2:
+
+Input: a = "1010", b = "1011"
+Output: "10101"
+``` 
+> 二进制的问题，很多类似的math problem
+```python
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        # brute force
+        # return '{0:b}'.format(int(a, 2) + int(b, 2)) # 不理解，没用过， time o(N+M)的时间
+    
+    # 进位的方法
+        res = ''
+        carry = 0 
+        i, j = len(a) - 1, len(b) - 1
+        while i >= 0 or j >= 0 or carry != 0 :
+            digitA = int(a[i]) if i >= 0 else 0 # 注意这个
+            digitB = int(b[j]) if j >= 0 else 0
+            sum = digitA + digitB + carry
+            if sum >= 2: 
+                carry = 1
+                sum -= 2
+            else:
+                carry = 0 
+            res += str(sum)
+            i -= 1
+            j -= 1
+        return res[::-1]
+``` 
+
+
+### 415. Add Strings https://leetcode.com/problems/add-strings/ 
+Given two non-negative integers, num1 and num2 represented as string, return the sum of num1 and num2 as a string.
+
+You must solve the problem without using any built-in library for handling large integers (such as BigInteger). You must also not convert the inputs to integers directly.
+
+```
+Example 1:
+
+Input: num1 = "11", num2 = "123"
+Output: "134"
+Example 2:
+
+Input: num1 = "456", num2 = "77"
+Output: "533"
+Example 3:
+
+Input: num1 = "0", num2 = "0"
+Output: "0"
+```
+> string 操作2个数相加！
+```python
+class Solution:
+    def addStrings(self, num1: str, num2: str) -> str:
+        # 类似的几个题，都是进位操作
+        res = []
+        carry = 0
+        p1 = len(num1) - 1
+        p2 = len(num2) - 1
+        while p1 >= 0 or p2 >= 0:
+            x1 = ord(num1[p1]) - ord('0') if p1 >= 0 else 0
+            x2 = ord(num2[p2]) - ord('0') if p2 >= 0 else 0
+            value = (x1 + x2 + carry) % 10
+            carry = (x1 + x2 + carry) // 10
+            res.append(value)
+            p1 -= 1
+            p2 -= 1
+        
+        if carry:
+            res.append(carry)
+        
+        return ''.join(str(x) for x in res[::-1])
+```
+
+
+### 989. Add to Array-Form of Integer https://leetcode.com/problems/add-to-array-form-of-integer/ 
+The array-form of an integer num is an array representing its digits in left to right order. For example, for num = 1321, the array form is [1,3,2,1]. Given num, the array-form of an integer, and an integer k, return the array-form of the integer num + k.
+```
+Example 1:
+
+Input: num = [1,2,0,0], k = 34
+Output: [1,2,3,4]
+Explanation: 1200 + 34 = 1234
+Example 2:
+
+Input: num = [2,7,4], k = 181
+Output: [4,5,5]
+Explanation: 274 + 181 = 455
+Example 3:
+
+Input: num = [2,1,5], k = 806
+Output: [1,0,2,1]
+Explanation: 215 + 806 = 1021
+```
+> array + num 操作，都是类似的题
+```python
+class Solution:
+    def addToArrayForm(self, num: List[int], k: int) -> List[int]:
+        # brute force, time o(n), space o(n) 
+        n = len(num)
+        new = 0 
+        for i in range(n):
+            new += num[i] * 10 ** (n - i - 1)
+        newnum = new + k 
+        res = []
+        while newnum > 0:
+            reminder = newnum % 10 
+            newnum = newnum // 10
+            res.append(reminder)
+        return res[::-1]
+```
+
+
+### 43. Multiply Strings https://leetcode.com/problems/multiply-strings/ 
+Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2, also represented as a string. Note: You must not use any built-in BigInteger library or convert the inputs to integer directly.
+```
+Example 1:
+
+Input: num1 = "2", num2 = "3"
+Output: "6"
+Example 2:
+
+Input: num1 = "123", num2 = "456"
+Output: "56088"
+``` 
+> 这几个最难的一个题了！
+```python
+class Solution:
+    def multiply(self, num1: str, num2: str) -> str:
+        if num1 == "0" or num2 == "0":
+            return "0"
+        ans = "0"
+        m, n = len(num1), len(num2)
+        for i in range(n - 1, -1, -1):
+            add = 0
+            y = int(num2[i])
+            curr = ["0"] * (n - i - 1)
+            for j in range(m - 1, -1, -1):
+                product = int(num1[j]) * y + add
+                curr.append(str(product % 10))
+                add = product // 10
+            if add > 0:
+                curr.append(str(add))
+            curr = "".join(curr[::-1])
+            ans = self.addStrings(ans, curr)
+        return ans
+    
+    def addStrings(self, num1: str, num2: str) -> str:
+        i, j = len(num1) - 1, len(num2) - 1
+        add = 0
+        ans = list()
+        while i >= 0 or j >= 0 or add != 0:
+            x = int(num1[i]) if i >= 0 else 0
+            y = int(num2[j]) if j >= 0 else 0
+            result = x + y + add
+            ans.append(str(result % 10))
+            add = result // 10
+            i -= 1
+            j -= 1
+        return "".join(ans[::-1])
+``` 
+
+### 2. Add Two Numbers https://leetcode.com/problems/add-two-numbers/
+
+You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+```
+Example 1:
+
+
+Input: l1 = [2,4,3], l2 = [5,6,4]
+Output: [7,0,8]
+Explanation: 342 + 465 = 807.
+Example 2:
+
+Input: l1 = [0], l2 = [0]
+Output: [0]
+Example 3:
+
+Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
+Output: [8,9,9,9,0,0,0,1]
+```
+> linked list 需要自己写list 
+
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        # 当前指针，结果链表
+        result = curr = ListNode()
+        # 进位项
+        remainder = 0
+        # 非空满足循环条件
+        while l1 or l2 :
+            x = l1.val if l1 else 0
+            y = l2.val if l2 else 0
+            total = x + y + remainder
+            curr.next = ListNode(total%10)
+            remainder = total//10
+            # 🚩防止某一链表已经为空，空链表.next会报错
+            if l1 : l1 = l1.next
+            if l2 : l2 = l2.next
+            curr = curr.next
+
+        if remainder : curr.next = ListNode(remainder)
+        return result.next
+```
+
+### 445. Add Two Numbers II https://leetcode.com/problems/add-two-numbers-ii/
+You are given two non-empty linked lists representing two non-negative integers. The most significant digit comes first and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+```
+Example 1:
+
+Input: l1 = [7,2,4,3], l2 = [5,6,4]
+Output: [7,8,0,7]
+Example 2:
+
+Input: l1 = [2,4,3], l2 = [5,6,4]
+Output: [8,0,7]
+Example 3:
+
+Input: l1 = [0], l2 = [0]
+Output: [0]
+``` 
+> linked list, 更难的
+```python
+# # Definition for singly-linked list.
+# # class ListNode:
+# #     def __init__(self, val=0, next=None):
+# #         self.val = val
+# #         self.next = next
+# class Solution:
+#     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        last = None
+        while head:
+            # keep the next node
+            tmp = head.next
+            # reverse the link
+            head.next = last
+            # update the last node and the current node
+            last = head
+            head = tmp
+        
+        return last
+    
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        # reverse lists
+        l1 = self.reverseList(l1)
+        l2 = self.reverseList(l2)
+        
+        head = None
+        carry = 0
+        while l1 or l2:
+            # get the current values 
+            x1 = l1.val if l1 else 0
+            x2 = l2.val if l2 else 0
+            
+            # current sum and carry
+            val = (carry + x1 + x2) % 10
+            carry = (carry + x1 + x2) // 10
+            
+            # update the result: add to front
+            curr = ListNode(val)
+            curr.next = head
+            head = curr
+            
+            # move to the next elements in the lists
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
+
+        if carry:
+            curr = ListNode(carry)
+            curr.next = head
+            head = curr
+
+        return head
+``` 
+
+
+### 371. Sum of Two Integers https://leetcode.com/problems/sum-of-two-integers/ 
+Given two integers a and b, return the sum of the two integers without using the operators + and -.
+```
+Example 1:
+
+Input: a = 1, b = 2
+Output: 3
+Example 2:
+
+Input: a = 2, b = 3
+Output: 5
+```
+> bit operation 位运算的题
+```python
+class Solution:
+    def getSum(self, a: int, b: int) -> int:
+        
+        # bit operation 这种题没研究
+        x, y = abs(a), abs(b)
+        # ensure x >= y
+        if x < y:
+            return self.getSum(b, a)  
+        sign = 1 if a > 0 else -1
+        
+        if a * b >= 0:
+            # sum of two positive integers
+            while y:
+                x, y = x ^ y, (x & y) << 1
+        else:
+            # difference of two positive integers
+            while y:
+                x, y = x ^ y, ((~x) & y) << 1
+        
+        return x * sign
+``` 
+

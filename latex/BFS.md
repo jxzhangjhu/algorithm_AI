@@ -626,11 +626,97 @@ class Solution:
 # 空间复杂度：O(1)
 ``` 
 
+### 733. Flood Fill 
+An image is represented by an m x n integer grid image where image[i][j] represents the pixel value of the image. You are also given three integers sr, sc, and color. You should perform a flood fill on the image starting from the pixel image[sr][sc]. To perform a flood fill, consider the starting pixel, plus any pixels connected 4-directionally to the starting pixel of the same color as the starting pixel, plus any pixels connected 4-directionally to those pixels (also with the same color), and so on. Replace the color of all of the aforementioned pixels with color. Return the modified image after performing the flood fill.
+```
+Input: image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, color = 2
+Output: [[2,2,2],[2,2,0],[2,0,1]]
+Explanation: From the center of the image with position (sr, sc) = (1, 1) (i.e., the red pixel), all pixels connected by a path of the same color as the starting pixel (i.e., the blue pixels) are colored with the new color.
+Note the bottom corner is not colored 2, because it is not 4-directionally connected to the starting pixel.
+
+Example 2:
+
+Input: image = [[0,0,0],[0,0,0]], sr = 0, sc = 0, color = 0
+Output: [[0,0,0],[0,0,0]]
+Explanation: The starting pixel is already colored 0, so no changes are made to the image.
+``` 
+> 经典BFS， 类似number of island
+
+```python
+class Solution:
+    def floodFill(self, image, sr, sc, newColor):
+        curr_color = image[sr][sc]
+        if curr_color == newColor: # 如果不加这个就超时
+            return image
+        n, m = len(image), len(image[0])
+        direct = [(0, 1),(0, -1),(1, 0),(-1, 0)]
+        from collections import deque
+        queue = collections.deque([])
+        queue.append((sr, sc))
+        image[sr][sc] = newColor
+        visit = set() # 这个题不适合加visit，why？ 没有必要？BFS大部分都需要加
+        while queue:
+            curr_x, curr_y = queue.popleft()
+            for dx, dy in direct:
+                x = curr_x + dx
+                y = curr_y + dy
+                if 0 <= x < n and 0 <= y < m and image[x][y] == curr_color:
+                    if (x, y) not in visit:
+                        visit.add((x,y))
+                        queue.append((x,y))
+                        image[x][y] = newColor
+                    else:
+                        continue
+        return image
+``` 
+
+### 463. Island Perimeter 
+You are given row x col grid representing a map where grid[i][j] = 1 represents land and grid[i][j] = 0 represents water.
+
+Grid cells are connected horizontally/vertically (not diagonally). The grid is completely surrounded by water, and there is exactly one island (i.e., one or more connected land cells).
+
+The island doesn't have "lakes", meaning the water inside isn't connected to the water around the island. One cell is a square with side length 1. The grid is rectangular, width and height don't exceed 100. Determine the perimeter of the island.
+
+```
+Example 1:
+Input: grid = [[0,1,0,0],[1,1,1,0],[0,1,0,0],[1,1,0,0]]
+Output: 16
+Explanation: The perimeter is the 16 yellow stripes in the image above.
+Example 2:
+
+Input: grid = [[1]]
+Output: 4
+Example 3:
+
+Input: grid = [[1,0]]
+Output: 4
+```
+> 直接计算counting 没用BFS直接可以过
+```python 
+class Solution:
+    def islandPerimeter(self, grid: List[List[int]]) -> int:
+        # brute force - 直接过了，time o(n*m), space o(1)
+        total = 0
+        res = 0 
+        direct = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+        for i in range(len(grid)): # row 行
+            for j in range(len(grid[0])): # column 列
+                if grid[i][j] == 1:
+                    total += 1 
+                    for k in direct:
+                        if i + k[0] >= 0 and i + k[0] < len(grid) and j + k[1] >= 0 and j + k[1] < len(grid[0]):
+                            neighbor = grid[i + k[0]][j + k[1]]
+                            if neighbor == 1:
+                                res += 1
+        return total * 4 - res 
+```
 
 
 
 
 
+
+✅✅✅ others  ✅✅✅ 
 
 
 
@@ -640,7 +726,6 @@ https://leetcode.com/problems/binary-tree-vertical-order-traversal/
 Given the root of a binary tree, return the vertical order traversal of its nodes' values. (i.e., from top to bottom, column by column).
 
 If two nodes are in the same row and column, the order should be from left to right.
-
 
 <!-- Approach 1. Breadth-first search / level-order traversal with sorting
 Time complexity: O(n*logn)

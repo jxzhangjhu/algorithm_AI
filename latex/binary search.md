@@ -284,3 +284,202 @@ class Solution:
 ```
 
 
+### 278. First Bad Version https://leetcode.com/problems/first-bad-version/ 
+You are a product manager and currently leading a team to develop a new product. Unfortunately, the latest version of your product fails the quality check. Since each version is developed based on the previous version, all the versions after a bad version are also bad. Suppose you have n versions [1, 2, ..., n] and you want to find out the first bad one, which causes all the following ones to be bad.
+
+You are given an API bool isBadVersion(version) which returns whether version is bad. Implement a function to find the first bad version. You should minimize the number of calls to the API.
+
+```
+Example 1:
+
+Input: n = 5, bad = 4
+Output: 4
+Explanation:
+call isBadVersion(3) -> false
+call isBadVersion(5) -> true
+call isBadVersion(4) -> true
+Then 4 is the first bad version.
+Example 2:
+
+Input: n = 1, bad = 1
+Output: 1
+```
+> call API 基本最基本的binary search了，相当于这个api就是复杂题的call function 
+```python
+# The isBadVersion API is already defined for you.
+# def isBadVersion(version: int) -> bool:
+class Solution:
+    def firstBadVersion(self, n: int) -> int:
+        start, end = 0, n  # 这个地方必须用n, 这个不是array了！
+        while start + 1 < end:
+            mid = (end + start) // 2
+            # target 就是call这个api
+            if not isBadVersion(mid):
+                start = mid 
+            else:
+                end = mid 
+                
+        if isBadVersion(start):
+            return start
+        if isBadVersion(end):
+            return end 
+```
+
+### 374. Guess Number Higher or Lower 
+We are playing the Guess Game. The game is as follows:
+
+I pick a number from 1 to n. You have to guess which number I picked.
+
+Every time you guess wrong, I will tell you whether the number I picked is higher or lower than your guess.
+
+You call a pre-defined API int guess(int num), which returns three possible results:
+
+-1: Your guess is higher than the number I picked (i.e. num > pick).
+1: Your guess is lower than the number I picked (i.e. num < pick).
+0: your guess is equal to the number I picked (i.e. num == pick).
+Return the number that I picked.
+
+```
+Example 1:
+
+Input: n = 10, pick = 6
+Output: 6
+Example 2:
+
+Input: n = 1, pick = 1
+Output: 1
+Example 3:
+
+Input: n = 2, pick = 1
+Output: 1
+```
+> 和278基本一样，但还挺有意思的一个题
+```python
+# The guess API is already defined for you.
+# @param num, your guess
+# @return -1 if num is higher than the picked number
+#          1 if num is lower than the picked number
+#          otherwise return 0
+# def guess(num: int) -> int:
+
+class Solution:
+    def guessNumber(self, n: int) -> int:
+        # 和278 非常像，很好的题
+        start, end = 0, n
+        while start + 1 < end:
+            mid = (start + end) // 2
+            if guess(mid) == 0:
+                return mid
+            elif guess(mid) == -1:
+                end = mid
+            elif guess(mid) == 1:
+                start = mid
+        
+        if guess(start) == 0:
+            return start
+        if guess(end) == 0:
+            return end
+``` 
+
+
+
+### 35. Search Insert Position 
+Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
+
+You must write an algorithm with O(log n) runtime complexity.
+
+Example 1:
+
+Input: nums = [1,3,5,6], target = 5
+Output: 2
+Example 2:
+
+Input: nums = [1,3,5,6], target = 2
+Output: 1
+Example 3:
+
+Input: nums = [1,3,5,6], target = 7
+Output: 4
+
+```python
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        
+        start, end = 0, len(nums) - 1
+        while start + 1 < end:
+            mid = (start + end) // 2
+            if nums[mid] == target:
+                return mid
+            if nums[mid] < target:
+                start = mid 
+            else: 
+                end = mid
+        
+        # 注意start and end是相邻的，找比target大的
+        if target <= nums[start]:
+            return start 
+        elif target <= nums[end]:
+            return end
+        else: # 没有比target大的，也就是所有的数都比target 小
+            return end + 1 
+``` 
+
+### 34. Find First and Last Position of Element in Sorted Array 
+
+Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value.
+
+If target is not found in the array, return [-1, -1].
+
+You must write an algorithm with O(log n) runtime complexity.
+```
+Example 1:
+
+Input: nums = [5,7,7,8,8,10], target = 8
+Output: [3,4]
+Example 2:
+
+Input: nums = [5,7,7,8,8,10], target = 6
+Output: [-1,-1]
+Example 3:
+
+Input: nums = [], target = 0
+Output: [-1,-1]
+```
+> 2次二分的题
+```python
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        if not nums:
+            return [-1, -1]
+        
+        # 两次二分，用模板，一个是左边界，一个是右边界
+        left, right = -1, -1
+        start, end = 0, len(nums) - 1 
+        while start + 1 < end:
+            mid = (start + end) // 2 
+            if nums[mid] <= target:
+                start = mid
+            else:
+                end = mid
+        if nums[start] == target:
+            right = start
+        if nums[end] == target:
+            right = end
+        
+        
+        start, end = 0, len(nums) - 1 
+        while start + 1 < end:
+            mid = (start + end) // 2 
+            if nums[mid] >= target:
+                end = mid
+            else:
+                start = mid
+        if nums[end] == target:
+            left = end
+        if nums[start] == target:
+            left = start
+        if left == -1 and right == -1:
+            return [-1, -1]
+        
+        return [left, right]
+``` 

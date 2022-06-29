@@ -3,6 +3,232 @@
 
 ## 入门design
 
+### 232. Implement Queue using Stacks https://leetcode.com/problems/implement-queue-using-stacks/ 
+
+Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty).
+
+Implement the MyQueue class:
+
+void push(int x) Pushes element x to the back of the queue.
+int pop() Removes the element from the front of the queue and returns it.
+int peek() Returns the element at the front of the queue.
+boolean empty() Returns true if the queue is empty, false otherwise.
+Notes:
+
+You must use only standard operations of a stack, which means only push to top, peek/pop from top, size, and is empty operations are valid.
+Depending on your language, the stack may not be supported natively. You may simulate a stack using a list or deque (double-ended queue) as long as you use only a stack's standard operations.
+ 
+```
+Example 1:
+
+Input
+["MyQueue", "push", "push", "peek", "pop", "empty"]
+[[], [1], [2], [], [], []]
+Output
+[null, null, null, 1, 1, false]
+
+Explanation
+MyQueue myQueue = new MyQueue();
+myQueue.push(1); // queue is: [1]
+myQueue.push(2); // queue is: [1, 2] (leftmost is front of the queue)
+myQueue.peek(); // return 1
+myQueue.pop(); // return 1, queue is [2]
+myQueue.empty(); // return false
+```
+> 这个题挺好的，多练练，这样对stack 和queue的一些操作都有更深刻的理解！
+```python
+# # Approach 1: push O(n), pop O(1)
+# class MyQueue:
+#     def __init__(self):
+#         self.s1 = []
+#         self.s2 = []
+
+#     def push(self, x):
+#         while self.s1:
+#             self.s2.append(self.s1.pop())
+#         self.s1.append(x)
+#         while self.s2:
+#             self.s1.append(self.s2.pop())
+
+#     def pop(self):
+#         return self.s1.pop()
+
+#     def peek(self):
+#         return self.s1[-1]
+
+#     def empty(self):
+#         return not self.s1
+    
+# Approach 2: push O(1), pop amortized O(1)
+class MyQueue:
+    def __init__(self):
+        self.s1 = []
+        self.s2 = []
+
+    def push(self, x):
+        self.s1.append(x)
+
+    def pop(self):
+        self.peek()
+        return self.s2.pop()
+
+    def peek(self):
+        if not self.s2:
+            while self.s1:
+                self.s2.append(self.s1.pop())
+        return self.s2[-1]        
+
+    def empty(self):
+        return not self.s1 and not self.s2    
+
+```
+
+
+
+### 155. Min Stack 
+
+Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+
+Implement the MinStack class:
+
+MinStack() initializes the stack object.
+void push(int val) pushes the element val onto the stack.
+void pop() removes the element on the top of the stack.
+int top() gets the top element of the stack.
+int getMin() retrieves the minimum element in the stack.
+You must implement a solution with O(1) time complexity for each function.
+
+```
+Example 1:
+
+Input
+["MinStack","push","push","push","getMin","pop","top","getMin"]
+[[],[-2],[0],[-3],[],[],[],[]]
+
+Output
+[null,null,null,null,-3,null,0,-2]
+
+Explanation
+MinStack minStack = new MinStack();
+minStack.push(-2);
+minStack.push(0);
+minStack.push(-3);
+minStack.getMin(); // return -3
+minStack.pop();
+minStack.top();    // return 0
+minStack.getMin(); // return -2
+```
+> 很好的design题，和上面queue using stack 和这个题，更熟悉如何操作queue and stack，后面还有很多design用heap的
+```python
+class MinStack(object):
+    # 需要理解题目的含义，就是要设计一个stack，能够直接返回最小值，这个不清楚之前！ 
+    # 如果不理解就要问
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.stack = []
+    def push(self, x):
+        """
+        :type x: int
+        :rtype: void
+        """
+        if not self.stack:
+            self.stack.append((x, x))
+        else:
+            self.stack.append((x, min(x, self.stack[-1][1])))
+    def pop(self):
+        """
+        :rtype: void
+        """
+        self.stack.pop()
+    def top(self):
+        """
+        :rtype: int
+        """
+        return self.stack[-1][0]
+    def getMin(self):
+        """
+        :rtype: int
+        """
+        return self.stack[-1][1]
+# Your MinStack object will be instantiated and called as such:
+# obj = MinStack()
+# obj.push(x)
+# obj.pop()
+# param_3 = obj.top()
+# param_4 = obj.getMin()
+```
+
+
+### 716. Max Stack 
+Design a max stack data structure that supports the stack operations and supports finding the stack's maximum element.
+
+Implement the MaxStack class:
+
+MaxStack() Initializes the stack object.
+void push(int x) Pushes element x onto the stack.
+int pop() Removes the element on top of the stack and returns it.
+int top() Gets the element on the top of the stack without removing it.
+int peekMax() Retrieves the maximum element in the stack without removing it.
+int popMax() Retrieves the maximum element in the stack and removes it. If there is more than one maximum element, only remove the top-most one.
+You must come up with a solution that supports O(1) for each top call and O(logn) for each other call? 
+
+```
+Example 1:
+
+Input
+["MaxStack", "push", "push", "push", "top", "popMax", "top", "peekMax", "pop", "top"]
+[[], [5], [1], [5], [], [], [], [], [], []]
+Output
+[null, null, null, null, 5, 5, 1, 5, 1, 5]
+
+Explanation
+MaxStack stk = new MaxStack();
+stk.push(5);   // [5] the top of the stack and the maximum number is 5.
+stk.push(1);   // [5, 1] the top of the stack is 1, but the maximum is 5.
+stk.push(5);   // [5, 1, 5] the top of the stack is 5, which is also the maximum, because it is the top most one.
+stk.top();     // return 5, [5, 1, 5] the stack did not change.
+stk.popMax();  // return 5, [5, 1] the stack is changed now, and the top is different from the max.
+stk.top();     // return 1, [5, 1] the stack did not change.
+stk.peekMax(); // return 5, [5, 1] the stack did not change.
+stk.pop();     // return 1, [5] the top of the stack and the max element is now 5.
+stk.top();     // return 5, [5] the stack did not change.
+```
+> hard题，和上面的对比来搞，min stack and max stack？
+```python
+class MaxStack:
+
+    def __init__(self):
+        self.stack = []
+
+    def push(self, x: int) -> None:
+        self.stack.append(x)
+
+    def pop(self) -> int:
+        return self.stack.pop()
+        
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def peekMax(self) -> int:
+        return max(self.stack)
+
+    def popMax(self) -> int:
+        max_element = max(self.stack)
+        
+        index = len(self.stack) - 1
+        while self.stack[index] != max_element:
+            index -= 1
+        del self.stack[index]
+        
+        return max_element
+```
+
+
+
+
+
 ### 1603. Design Parking System https://leetcode.com/problems/design-parking-system/ 
 
 Design a parking system for a parking lot. The parking lot has three kinds of parking spaces: big, medium, and small, with a fixed number of slots for each size.

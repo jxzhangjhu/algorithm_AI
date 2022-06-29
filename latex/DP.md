@@ -55,7 +55,7 @@ Example 3:
 Input: nums = [5,4,-1,7,8]
 Output: 23
 ``` 
-> subarray 很多都是DP的， 有一部分可以double pointer
+> subarray 很多都是DP的， 有一部分可以double pointer - 这是所有subarray based DP最经典的，也是非常主要的，brute force 超时过不了
 ```python
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
@@ -149,50 +149,6 @@ class Solution:
 
 
 
-✅✅✅ Stock price ✅✅✅ 
-
-
-### 2110. Number of Smooth Descent Periods of a Stock
-You are given an integer array prices representing the daily price history of a stock, where prices[i] is the stock price on the ith day.  A smooth descent period of a stock consists of one or more contiguous days such that the price on each day is lower than the price on the preceding day by exactly 1. The first day of the period is exempted from this rule. Return the number of smooth descent periods.
-
-```
-Example 1:
-
-Input: prices = [3,2,1,4]
-Output: 7
-Explanation: There are 7 smooth descent periods:
-[3], [2], [1], [4], [3,2], [2,1], and [3,2,1]
-Note that a period with one day is a smooth descent period by the definition.
-Example 2:
-
-Input: prices = [8,6,7,7]
-Output: 4
-Explanation: There are 4 smooth descent periods: [8], [6], [7], and [7]
-Note that [8,6] is not a smooth descent period as 8 - 6 ≠ 1.
-Example 3:
-
-Input: prices = [1]
-Output: 1
-Explanation: There is 1 smooth descent period: [1]
-```
-
-```python
-class Solution:
-    def getDescentPeriods(self, prices: List[int]) -> int:
-        n = len(prices)
-        res = 1   # 平滑下降阶段的总数，初值为 dp[0]
-        prev = 1   # 上一个元素为结尾的平滑下降阶段的总数，初值为 dp[0]
-        # 从 1 开始遍历数组，按照递推式更新 prev 以及总数 res
-        for i in range(1, n):
-            if prices[i] == prices[i-1] - 1:
-                prev += 1
-            else:
-                prev = 1
-            res += prev
-        return res
-    
-    # time o(n) and space o(1) 算是非常简单的dp了，需要理解dp的定义和含义！
-```
 
 
 
@@ -681,3 +637,146 @@ class Solution:
             
         return dp[n][m]
 ``` 
+
+
+
+## 经典DP
+
+✅✅✅ Stock price ✅✅✅ 
+
+### 121. Best Time to Buy and Sell Stock
+You are given an array prices where prices[i] is the price of a given stock on the ith day. You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock. Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+
+```
+Example 1:
+
+Input: prices = [7,1,5,3,6,4]
+Output: 5
+Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
+Example 2:
+
+Input: prices = [7,6,4,3,1]
+Output: 0
+Explanation: In this case, no transactions are done and the max profit = 0.
+```
+
+```python
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        
+        # # brute force 暴力遍历 time o(n^2) and space o(1) 超时了！
+        # if not prices: return 0
+        # res = -inf
+        # for i in range(len(prices)):
+        #     for j in range(i + 1, len(prices)):
+        #         diff = prices[j] - prices[i]
+        #         res = max(res, diff)
+        # return res if res > 0 else 0 
+        # 结果是对的，但是超时了，注意corner case，比如都是负数，要返回0
+        
+        # # greedy 贪心策略也可以 - time o(n), space o(1)
+        # if not prices: return 0
+        # low = inf
+        # res = -inf 
+        # for i in range(len(prices)):
+        #     low = min(low, prices[i])
+        #     res = max(res, prices[i] - low)
+        # return res
+        
+        # DP - 维护一维动态数组 
+        n = len(prices)
+        if n == 0: return 0 # 边界条件
+        dp = [0] * n
+        minprice = prices[0] 
+
+        for i in range(1, n):
+            minprice = min(minprice, prices[i])
+            dp[i] = max(dp[i - 1], prices[i] - minprice)
+
+        return dp[-1]
+```
+
+
+### 2110. Number of Smooth Descent Periods of a Stock
+You are given an integer array prices representing the daily price history of a stock, where prices[i] is the stock price on the ith day.  A smooth descent period of a stock consists of one or more contiguous days such that the price on each day is lower than the price on the preceding day by exactly 1. The first day of the period is exempted from this rule. Return the number of smooth descent periods.
+
+```
+Example 1:
+
+Input: prices = [3,2,1,4]
+Output: 7
+Explanation: There are 7 smooth descent periods:
+[3], [2], [1], [4], [3,2], [2,1], and [3,2,1]
+Note that a period with one day is a smooth descent period by the definition.
+Example 2:
+
+Input: prices = [8,6,7,7]
+Output: 4
+Explanation: There are 4 smooth descent periods: [8], [6], [7], and [7]
+Note that [8,6] is not a smooth descent period as 8 - 6 ≠ 1.
+Example 3:
+
+Input: prices = [1]
+Output: 1
+Explanation: There is 1 smooth descent period: [1]
+```
+
+```python
+class Solution:
+    def getDescentPeriods(self, prices: List[int]) -> int:
+        n = len(prices)
+        res = 1   # 平滑下降阶段的总数，初值为 dp[0]
+        prev = 1   # 上一个元素为结尾的平滑下降阶段的总数，初值为 dp[0]
+        # 从 1 开始遍历数组，按照递推式更新 prev 以及总数 res
+        for i in range(1, n):
+            if prices[i] == prices[i-1] - 1:
+                prev += 1
+            else:
+                prev = 1
+            res += prev
+        return res
+    
+    # time o(n) and space o(1) 算是非常简单的dp了，需要理解dp的定义和含义！
+```
+
+
+✅✅✅ climbing stairs ✅✅✅ 
+
+### 70. Climbing Stairs
+You are climbing a staircase. It takes n steps to reach the top.
+
+Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+```
+Example 1:
+
+Input: n = 2
+Output: 2
+Explanation: There are two ways to climb to the top.
+1. 1 step + 1 step
+2. 2 steps
+Example 2:
+
+Input: n = 3
+Output: 3
+Explanation: There are three ways to climb to the top.
+1. 1 step + 1 step + 1 step
+2. 1 step + 2 steps
+3. 2 steps + 1 step
+```
+```python
+class Solution:
+    def climbStairs(self, n: int) -> int: 
+# 一样的斐波那契
+        if n < 4:
+            return n 
+        fn2 = 2
+        fn3 = 3
+        fn = 0
+        for i in range(4, n + 1):
+            fn = fn2 + fn3 
+            fn2 = fn3
+            fn3 = fn 
+        return fn 
+# time o(n), space o(1)
+````

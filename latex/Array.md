@@ -35,3 +35,11 @@ class Solution:
     
         # time o(nlogn), space o(logn) 都是sorting带来的
 ```
+
+✅✅✅ majority element 三个题 ✅✅✅  
+非常easy， 主要是和hashtable 一起用 
+
+### 169. Majority Element  https://leetcode.com/problems/majority-element/ 
+### 229. Majority Element II 
+### 1150. Check If a Number Is Majority Element in a Sorted Array 
+
