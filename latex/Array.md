@@ -151,3 +151,146 @@ class Solution:
                 end_pointer += 1
         return minrooms
 ``` 
+
+### 1229. Meeting Scheduler https://leetcode.com/problems/meeting-scheduler/ 
+
+Given the availability time slots arrays slots1 and slots2 of two people and a meeting duration duration, return the earliest time slot that works for both of them and is of duration duration.
+
+If there is no common time slot that satisfies the requirements, return an empty array.
+
+The format of a time slot is an array of two elements [start, end] representing an inclusive time range from start to end.
+
+It is guaranteed that no two availability slots of the same person intersect with each other. That is, for any two time slots [start1, end1] and [start2, end2] of the same person, either start1 > end2 or start2 > end1.
+
+```
+Example 1:
+
+Input: slots1 = [[10,50],[60,120],[140,210]], slots2 = [[0,15],[60,70]], duration = 8
+Output: [60,68]
+Example 2:
+
+Input: slots1 = [[10,50],[60,120],[140,210]], slots2 = [[0,15],[60,70]], duration = 12
+Output: []
+```
+> double pointer, 空间更优； 也可以用heap，来优化时间
+```python
+class Solution:
+    def minAvailableDuration(self, slots1: List[List[int]], slots2: List[List[int]], duration: int) -> List[int]:
+        slots1.sort()
+        slots2.sort()
+        i = 0
+        j = 0
+        while i < len(slots1) and j < len(slots2):
+                #有交集（ # Let's check if A[i] intersects B[j]）
+                l = max(slots1[i][0], slots2[j][0])
+                r = min(slots1[i][1], slots2[j][1])
+                if r - l >= duration:#交集满足开会需要
+                    return [l, l + duration]
+                # always move the one that ends earlier
+                if slots1[i][1] < slots2[j][1]:#交集不满足开会需要，2还有剩余
+                    i += 1
+                else:
+                    j += 1
+        return []
+``` 
+
+
+### 56. Merge Intervals  https://leetcode.com/problems/merge-intervals/
+
+Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
+
+```
+Example 1:
+
+Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
+Output: [[1,6],[8,10],[15,18]]
+Explanation: Since intervals [1,3] and [2,6] overlap, merge them into [1,6].
+Example 2:
+
+Input: intervals = [[1,4],[4,5]]
+Output: [[1,5]]
+Explanation: Intervals [1,4] and [4,5] are considered overlapping.
+```
+> 两种解法，多比较，这个题非常经典, 都排序了
+```python
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals.sort(key=lambda x: x[0]) # sorting o(nlogn)
+        merged = []
+        for interval in intervals:
+            # 如果列表为空，或者当前区间与上一区间不重合，直接添加
+            if not merged or merged[-1][1] < interval[0]:
+                merged.append(interval)
+            else:
+                # 否则的话，我们就可以与上一区间进行合并
+                merged[-1][1] = max(merged[-1][1], interval[1])
+        return merged
+
+
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals.sort(key = lambda i: i[0]) # sorting o(nlogn)
+        output = [intervals[0]]
+        
+        for start, end in intervals[1:]:
+            lastEnd = output[-1][1]
+            
+            if start <= lastEnd:
+                output[-1][1] = max(lastEnd, end)
+            else:
+                output.append([start,end])
+            
+        return output
+``` 
+
+
+### 57. Insert Interval  https://leetcode.com/problems/insert-interval/
+
+You are given an array of non-overlapping intervals intervals where intervals[i] = [starti, endi] represent the start and the end of the ith interval and intervals is sorted in ascending order by starti. You are also given an interval newInterval = [start, end] that represents the start and end of another interval.
+
+Insert newInterval into intervals such that intervals is still sorted in ascending order by starti and intervals still does not have any overlapping intervals (merge overlapping intervals if necessary).
+
+Return intervals after the insertion.
+```
+Example 1:
+
+Input: intervals = [[1,3],[6,9]], newInterval = [2,5]
+Output: [[1,5],[6,9]]
+Example 2:
+
+Input: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
+Output: [[1,2],[3,10],[12,16]]
+Explanation: Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10].
+```
+> 也是一个模拟，没用sorting
+```python
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        # 官方这个答案比较厉害，time o(n), space o(1), 这个不容易些感觉！
+        left, right = newInterval
+        placed = False
+        ans = list()
+        for li, ri in intervals:
+            if li > right:
+                # 在插入区间的右侧且无交集
+                if not placed:
+                    ans.append([left, right])
+                    placed = True
+                ans.append([li, ri])
+            elif ri < left:
+                # 在插入区间的左侧且无交集
+                ans.append([li, ri])
+            else:
+                # 与插入区间有交集，计算它们的并集
+                left = min(left, li)
+                right = max(right, ri)
+        
+        if not placed:
+            ans.append([left, right])
+        return ans
+
+# 作者：LeetCode-Solution
+# 链接：https://leetcode-cn.com/problems/insert-interval/solution/cha-ru-qu-jian-by-leetcode-solution/
+# 来源：力扣（LeetCode）
+# 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+````
