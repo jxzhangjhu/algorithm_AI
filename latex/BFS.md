@@ -884,7 +884,62 @@ class Solution:
         return numCourses == 0
 ```
 
+### 210. Course Schedule II https://leetcode.com/problems/course-schedule-ii/ 
 
+There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
+
+For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
+Return the ordering of courses you should take to finish all courses. If there are many valid answers, return any of them. If it is impossible to finish all courses, return an empty array.
+```
+Example 1:
+
+Input: numCourses = 2, prerequisites = [[1,0]]
+Output: [0,1]
+Explanation: There are a total of 2 courses to take. To take course 1 you should have finished course 0. So the correct course order is [0,1].
+Example 2:
+
+Input: numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]
+Output: [0,2,1,3]
+Explanation: There are a total of 4 courses to take. To take course 3 you should have finished both courses 1 and 2. Both courses 1 and 2 should be taken after you finished course 0.
+So one correct course order is [0,1,2,3]. Another correct ordering is [0,2,1,3].
+Example 3:
+
+Input: numCourses = 1, prerequisites = []
+Output: [0]
+```
+```python
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        # 存储有向图
+        edges = collections.defaultdict(list)
+        # 存储每个节点的入度
+        indeg = [0] * numCourses
+        # 存储答案
+        result = list()
+        for info in prerequisites:
+            edges[info[1]].append(info[0])
+            indeg[info[0]] += 1
+        # 将所有入度为 0 的节点放入队列中
+        q = collections.deque([u for u in range(numCourses) if indeg[u] == 0])
+        while q:
+            # 从队首取出一个节点
+            u = q.popleft()
+            # 放入答案中
+            result.append(u)
+            for v in edges[u]:
+                indeg[v] -= 1
+                # 如果相邻节点 v 的入度为 0，就可以选 v 对应的课程了
+                if indeg[v] == 0:
+                    q.append(v)
+        if len(result) != numCourses:
+            result = list()
+        return result
+    
+# 复杂度分析
+# 时间复杂度: O(n+m)O(n+m)，其中 nn 为课程数，mm 为先修课程的要求数。这其实就是对图进行广度优先搜索的时间复杂度。
+# 空间复杂度: O(n+m)O(n+m)。题目中是以列表形式给出的先修课程关系，为了对图进行广度优先搜索，我们需要存储成邻接表的形式，空间复杂度为 O(n+m)O(n+m)。在广度优先搜索的过程中，我们需要最多 O(n)O(n) 的队列空间（迭代）进行广度优先搜索，并且还需要若干个 O(n)O(n) 的空间存储节点入度、最终答案等。
+
+``` 
 
 
 

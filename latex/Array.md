@@ -1,6 +1,199 @@
 # General array
 
-## 很多题结合sorting，还有hashmap来做
+✅✅✅ 很多题结合sorting，双指针，hashmap ✅✅✅ 
+
+
+### 977. Squares of a Sorted Array https://leetcode.com/problems/squares-of-a-sorted-array/
+
+Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order.
+```
+Example 1:
+
+Input: nums = [-4,-1,0,3,10]
+Output: [0,1,9,16,100]
+Explanation: After squaring, the array becomes [16,1,0,9,100].
+After sorting, it becomes [0,1,9,16,100].
+Example 2:
+
+Input: nums = [-7,-3,2,3,11]
+Output: [4,9,9,49,121]
+```
+
+***Follow up: Squaring each element and sorting the new array is very trivial, could you find an O(n) solution using a different approach?***
+
+```python
+class Solution:
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        # way 1 暴力干，但是时间复杂度是o(nlogn) 取决于不同的内部算法implement details 这个需要了解一下！
+        # way 2 - double pointer 
+        # 这个题挺有意思，需要利用nums已经排序的信息，从大往小排，因为两端的应该最大，然后中间的可能比较小，如果传统的双指针，很难从小开始排
+        res = [-1]*len(nums)
+        left, right = 0, len(nums) - 1
+        k = len(nums) - 1
+        while left <= right: 
+            if abs(nums[left]) <= abs(nums[right]) and left <= right:
+                square = nums[right] ** 2
+                right -= 1
+            
+            elif left <= right:
+                square = nums[left] ** 2
+                left += 1
+        
+            res[k] = square
+            k -= 1
+            
+        return res     
+```
+
+### 88. Merge Sorted Array https://leetcode.com/problems/merge-sorted-array/ 
+
+You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n, representing the number of elements in nums1 and nums2 respectively.
+
+Merge nums1 and nums2 into a single array sorted in non-decreasing order.
+
+The final sorted array should not be returned by the function, but instead be stored inside the array nums1. To accommodate this, nums1 has a length of m + n, where the first m elements denote the elements that should be merged, and the last n elements are set to 0 and should be ignored. nums2 has a length of n.
+```
+Example 1:
+
+Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
+Output: [1,2,2,3,5,6]
+Explanation: The arrays we are merging are [1,2,3] and [2,5,6].
+The result of the merge is [1,2,2,3,5,6] with the underlined elements coming from nums1.
+Example 2:
+
+Input: nums1 = [1], m = 1, nums2 = [], n = 0
+Output: [1]
+Explanation: The arrays we are merging are [1] and [].
+The result of the merge is [1].
+Example 3:
+
+Input: nums1 = [0], m = 0, nums2 = [1], n = 1
+Output: [1]
+Explanation: The arrays we are merging are [] and [1].
+The result of the merge is [1].
+Note that because m = 0, there are no elements in nums1. The 0 is only there to ensure the merge result can fit in nums1.
+```
+***Follow up: Can you come up with an algorithm that runs in O(m + n) time?***
+
+```python
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
+        Output: [1,2,2,3,5,6]
+        """
+        # 暴力干，但不是要考的内容
+        # nums1[m:n+m] = nums2
+        # nums1.sort()
+        # time o(n+m),space o(1) 这是错的
+        # 实际上的时间复杂度o((n+m)log(n+m)), 所以这个题要求o(n+m), space o(log(n+m)) 快排的平均空间复杂度
+        
+        # double pointer  - small to big 
+        # 这个可以单独开一个空间，o(n+m)然后再赋值给nums1，开始以为只能在nums1上操作，就比较麻烦
+        # 充分利用nums1 and nums2 都已经排序的优点
+        
+#         p1, p2 = 0, 0
+#         res = []
+#         while p1 < m or p2 < n: # 两者必须都不满足才停下来
+#             if p1 == m:
+#                 res.append(nums2[p2])
+#                 p2 += 1
+#             elif p2 == n:
+#                 res.append(nums1[p1])
+#                 p1 += 1
+#             elif nums1[p1] < nums2[p2]: # 不能先判定这个，就会越界，这个多重比较的时候，如何选择判断条件，之前遇到过类似的问题！
+#                 res.append(nums1[p1])
+#                 p1 += 1
+#             else:
+#                 res.append(nums2[p2])
+#                 p2 += 1
+                
+#         nums1[:] = res
+        
+        # 这个时间复杂度是o(m+n)， 但是空间是o(m+n)， 因为需要重新开一个数组，然后再赋值，耗费空间了！
+        # 类似这个题Squares of a Sorted Array 
+        # double pointer from big to small 不需要开额外空间，之前也有这样一个技巧！
+        p1, p2 = m - 1, n - 1
+        tail = m + n - 1
+        while p1 >= 0 or p2 >= 0:
+            if p1 == -1:
+                nums1[tail] = nums2[p2]
+                p2 -= 1
+            elif p2 == -1:
+                nums1[tail] = nums1[p1]
+                p1 -= 1
+            elif nums1[p1] > nums2[p2]:
+                nums1[tail] = nums1[p1]
+                p1 -= 1
+            else:
+                nums1[tail] = nums2[p2]
+                p2 -= 1
+            tail -= 1
+        
+        # time o(m+n), 移动指针单调递减，最多移动m+n次
+        # space，因为是对数组原地修改，不需要额外空间o(1)
+```
+
+
+
+### 360. Sort Transformed Array https://leetcode.com/problems/sort-transformed-array/ 
+Given a sorted integer array nums and three integers a, b and c, apply a quadratic function of the form f(x) = ax2 + bx + c to each element nums[i] in the array, and return the array in a sorted order.
+```
+Example 1:
+
+Input: nums = [-4,-2,2,4], a = 1, b = 3, c = 5
+Output: [3,9,15,33]
+Example 2:
+
+Input: nums = [-4,-2,2,4], a = -1, b = 3, c = 5
+Output: [-23,-5,1,7]
+
+```
+***Follow up: Could you solve it in O(n) time?***
+
+```python
+# class Solution:
+#     def sortTransformedArray(self, nums: List[int], a: int, b: int, c: int) -> List[int]:
+#         # brute force, time o(nlogn), space o(n)
+#         res = []
+#         for num in nums:
+#             f = a*num**2 + b*num + c
+#             res.append(f)
+#         return sorted(res)
+class Solution:
+    def sortTransformedArray(self, nums: List[int], a: int, b: int, c: int) -> List[int]:
+        def quadratic(x):
+            return a*x*x + b*x + c 
+        n = len(nums)
+        index = 0 if a < 0 else n-1
+        l, r, ans = 0, n-1, [0] * n
+        while l <= r:
+            l_val, r_val = quadratic(nums[l]), quadratic(nums[r])
+            if a >= 0:
+                if l_val > r_val:
+                    ans[index] = l_val 
+                    l += 1
+                else:    
+                    ans[index] = r_val 
+                    r -= 1
+                index -= 1
+            else:
+                if l_val > r_val:
+                    ans[index] = r_val 
+                    r -= 1
+                else:    
+                    ans[index] = l_val 
+                    l += 1
+                index += 1
+        return ans
+``` 
+
+
+
+
+
+
 
 ### 628. Maximum Product of Three Numbers https://leetcode.com/problems/maximum-product-of-three-numbers/ 
 Given an integer array nums, find three numbers whose product is maximum and return the maximum product.
@@ -294,3 +487,113 @@ class Solution:
 # 来源：力扣（LeetCode）
 # 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 ````
+
+
+### 986. Interval List Intersections https://leetcode.com/problems/interval-list-intersections/ 
+
+You are given two lists of closed intervals, firstList and secondList, where firstList[i] = [starti, endi] and secondList[j] = [startj, endj]. Each list of intervals is pairwise disjoint and in sorted order.
+
+Return the intersection of these two interval lists.
+
+A closed interval [a, b] (with a <= b) denotes the set of real numbers x with a <= x <= b.
+
+The intersection of two closed intervals is a set of real numbers that are either empty or represented as a closed interval. For example, the intersection of [1, 3] and [2, 4] is [2, 3].
+ 
+```
+Example 1:
+Input: firstList = [[0,2],[5,10],[13,23],[24,25]], secondList = [[1,5],[8,12],[15,24],[25,26]]
+Output: [[1,2],[5,5],[8,10],[15,23],[24,24],[25,25]]
+Example 2:
+
+Input: firstList = [[1,3],[5,9]], secondList = []
+Output: []
+```
+
+```python
+class Solution:
+    def intervalIntersection(self, firstList: List[List[int]], secondList: List[List[int]]) -> List[List[int]]:
+        res = []
+        i = 0
+        j = 0
+        
+        while i < len(firstList) and j < len(secondList):
+               #有交集（ # Let's check if A[i] intersects B[j]）
+                l = max(firstList[i][0], secondList[j][0])
+                r = min(firstList[i][1], secondList[j][1])
+                # if r - l >= duration:#交集满足开会需要
+                if l <= r:
+                    res.append([l, r])
+                #always move the one that ends earlier
+                if firstList[i][1] < secondList[j][1]:#交集不满足开会需要，2还有剩余
+                    i += 1
+                else:
+                    j += 1
+        return res
+```
+
+### 1094. Car Pooling https://leetcode.com/problems/car-pooling/ 
+There is a car with capacity empty seats. The vehicle only drives east (i.e., it cannot turn around and drive west).
+
+You are given the integer capacity and an array trips where trips[i] = [numPassengersi, fromi, toi] indicates that the ith trip has numPassengersi passengers and the locations to pick them up and drop them off are fromi and toi respectively. The locations are given as the number of kilometers due east from the car's initial location.
+
+Return true if it is possible to pick up and drop off all passengers for all the given trips, or false otherwise.
+```
+Example 1:
+
+Input: trips = [[2,1,5],[3,3,7]], capacity = 4
+Output: false
+Example 2:
+
+Input: trips = [[2,1,5],[3,3,7]], capacity = 5
+Output: true 
+``` 
+> 和meeting room 2 很像，一类题
+
+```python
+class Solution:
+    def carPooling(self, trips: List[List[int]], capacity: int) -> bool:
+    
+        f = [0 for _ in range(1002)]
+        for x, L, R in trips:       #差分统计的思想   台阶，上下楼梯的思想
+            f[L] += x
+            f[R] -= x
+            
+        if f[0] > capacity:
+            return False
+        for i in range(1, 1002):
+            f[i] = f[i-1] + f[i]
+            if f[i] > capacity:
+                return False
+        
+        return True
+
+# 思路简单：
+# 差分统计每个站点的频次
+# 1.一个数组f记录每个点的变化，初始化为0
+# 2.遍历trips数组
+# 对于一个 （人数，上车点，下车点）
+# f[上车点] += 人数
+# f[下车点] -= 人数
+# 3.整理
+# f[i] 是在f[i-1]的基础上，
+# 在f[i-1]是在i-1这个点，车上有几个人 f[i]是记录i点的增减的人数
+# f[i-1] + f[i] 是此时i点的人数 赋给f[i]
+# 4.时时比较每个点（i）车上的人数，是否超过了capacity
+
+# 作者：QRhqcDD90G
+# 链接：https://leetcode-cn.com/problems/car-pooling/solution/cpython3java-chao-ji-qing-xi-jian-ji-cha-hnl1/
+# 来源：力扣（LeetCode）
+# 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+```
+
+
+### 要做的几个题 06292022 涉及interval 的
+
+### 452. Minimum Number of Arrows to Burst Balloons https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/
+### 435. Non-overlapping Intervals https://leetcode.com/problems/non-overlapping-intervals/ 
+### 495. Teemo Attacking https://leetcode.com/problems/teemo-attacking/ 
+
+### 616. Add Bold Tag in String https://leetcode.com/problems/add-bold-tag-in-string/ 
+### 763. Partition Labels https://leetcode.com/problems/partition-labels/ 
+
+

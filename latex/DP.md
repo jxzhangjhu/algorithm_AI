@@ -780,3 +780,189 @@ class Solution:
         return fn 
 # time o(n), space o(1)
 ````
+
+✅✅✅ Coin change 背包 ✅✅✅ 
+
+
+### 322. Coin Change https://leetcode.com/problems/coin-change/
+
+You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.
+
+Return the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
+
+You may assume that you have an infinite number of each kind of coin.
+
+```
+Example 1:
+
+Input: coins = [1,2,5], amount = 11
+Output: 3
+Explanation: 11 = 5 + 5 + 1
+Example 2:
+
+Input: coins = [2], amount = 3
+Output: -1
+Example 3:
+
+Input: coins = [1], amount = 0
+Output: 0
+```
+> 完全背包
+```python
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+         # 记整数数组 coins 的长度为 nn。为便于状态更新，减少对边界的判断，初始二维 dpdp 数组维度为 {(n+1) \times (*)}(n+1)×(∗)，其中第一维为 n+1n+1 也意味着：第 ii 种硬币为 coins[i-1]coins[i−1]，第 11 种硬币为 coins[0]coins[0]，第 00 种硬币为空。
+        n = len(coins)
+        dp = [[amount+1] * (amount+1) for _ in range(n+1)]    # 初始化为一个较大的值，如 +inf 或 amount+1
+        # 合法的初始化
+        dp[0][0] = 0    # 其他 dp[0][j]均不合法
+        # 完全背包：优化后的状态转移
+        for i in range(1, n+1):             # 第一层循环：遍历硬币
+            for j in range(amount+1):       # 第二层循环：遍历背包
+                if j < coins[i-1]:          # 容量有限，无法选择第i种硬币
+                    dp[i][j] = dp[i-1][j]
+                else:                       # 可选择第i种硬币
+                    dp[i][j] = min( dp[i-1][j], dp[i][j-coins[i-1]] + 1 )
+
+        ans = dp[n][amount] 
+        return ans if ans != amount+1 else -1
+```
+
+
+### 983. Minimum Cost For Tickets 
+You have planned some train traveling one year in advance. The days of the year in which you will travel are given as an integer array days. Each day is an integer from 1 to 365.
+
+Train tickets are sold in three different ways:
+
+a 1-day pass is sold for costs[0] dollars,
+a 7-day pass is sold for costs[1] dollars, and
+a 30-day pass is sold for costs[2] dollars.
+The passes allow that many days of consecutive travel.
+
+For example, if we get a 7-day pass on day 2, then we can travel for 7 days: 2, 3, 4, 5, 6, 7, and 8.
+Return the minimum number of dollars you need to travel every day in the given list of days.
+```
+Example 1:
+
+Input: days = [1,4,6,7,8,20], costs = [2,7,15]
+Output: 11
+Explanation: For example, here is one way to buy passes that lets you travel your travel plan:
+On day 1, you bought a 1-day pass for costs[0] = $2, which covered day 1.
+On day 3, you bought a 7-day pass for costs[1] = $7, which covered days 3, 4, ..., 9.
+On day 20, you bought a 1-day pass for costs[0] = $2, which covered day 20.
+In total, you spent $11 and covered all the days of your travel.
+Example 2:
+
+Input: days = [1,2,3,4,5,6,7,8,9,10,30,31], costs = [2,7,15]
+Output: 17
+Explanation: For example, here is one way to buy passes that lets you travel your travel plan:
+On day 1, you bought a 30-day pass for costs[2] = $15 which covered days 1, 2, ..., 30.
+On day 31, you bought a 1-day pass for costs[0] = $2 which covered day 31.
+In total, you spent $17 and covered all the days of your travel.
+```
+
+```python
+class Solution:
+    def mincostTickets(self, days: List[int], costs: List[int]) -> int:
+        dp = [0 for _ in range(days[-1] + 1)]  # dp数组，每个元素代表到当前天数最少钱数，为下标方便对应，多加一个 0 位置
+        days_idx = 0  # 设定一个days指标，标记应该处理 days 数组中哪一个元素
+        for i in range(1, len(dp)):
+            if i != days[days_idx]:  # 若当前天数不是待处理天数，则其花费费用和前一天相同
+                dp[i] = dp[i - 1]
+            else:
+                # 若 i 走到了待处理天数，则从三种方式中选一个最小的
+                dp[i] = min(dp[max(0, i - 1)] + costs[0],
+                            dp[max(0, i - 7)] + costs[1],
+                            dp[max(0, i - 30)] + costs[2])
+                days_idx += 1
+        return dp[-1]  # 返回最后一天对应的费用即可
+# time o(n), space o(n)
+    
+# 作者：LotusPanda
+# 链接：https://leetcode-cn.com/problems/minimum-cost-for-tickets/solution/xiong-mao-shua-ti-python3-dong-tai-gui-hua-yi-do-2/
+# 来源：力扣（LeetCode）
+# 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。 
+``` 
+
+
+✅✅✅ Paint house  ✅✅✅ 
+
+### 256. Paint House 
+
+There is a row of n houses, where each house can be painted one of three colors: red, blue, or green. The cost of painting each house with a certain color is different. You have to paint all the houses such that no two adjacent houses have the same color.
+
+The cost of painting each house with a certain color is represented by an n x 3 cost matrix costs.
+
+For example, costs[0][0] is the cost of painting house 0 with the color red; costs[1][2] is the cost of painting house 1 with color green, and so on...
+Return the minimum cost to paint all houses.
+```
+Example 1:
+
+Input: costs = [[17,2,17],[16,16,5],[14,3,19]]
+Output: 10
+Explanation: Paint house 0 into blue, paint house 1 into green, paint house 2 into blue.
+Minimum cost: 2 + 5 + 3 = 10.
+Example 2:
+
+Input: costs = [[7,6,2]]
+Output: 2
+```
+
+```python
+class Solution:
+    def minCost(self, costs: List[List[int]]) -> int:
+        
+        # 这个答案特别好，仔细看看！也可能多种情况考虑
+        for n in reversed(range(len(costs) - 1)):
+            # Total cost of painting nth house red.
+            costs[n][0] += min(costs[n + 1][1], costs[n + 1][2])
+            # Total cost of painting nth house green.
+            costs[n][1] += min(costs[n + 1][0], costs[n + 1][2])
+            # Total cost of painting nth house blue.
+            costs[n][2] += min(costs[n + 1][0], costs[n + 1][1])
+
+        if len(costs) == 0: return 0
+        return min(costs[0]) # Return the minimum in the first row.
+``` 
+
+
+### 265. Paint House II 
+There are a row of n houses, each house can be painted with one of the k colors. The cost of painting each house with a certain color is different. You have to paint all the houses such that no two adjacent houses have the same color.
+
+The cost of painting each house with a certain color is represented by an n x k cost matrix costs.
+
+For example, costs[0][0] is the cost of painting house 0 with color 0; costs[1][2] is the cost of painting house 1 with color 2, and so on...
+Return the minimum cost to paint all houses.
+
+```
+Example 1:
+
+Input: costs = [[1,5,3],[2,9,4]]
+Output: 5
+Explanation:
+Paint house 0 into color 0, paint house 1 into color 2. Minimum cost: 1 + 4 = 5; 
+Or paint house 0 into color 2, paint house 1 into color 0. Minimum cost: 3 + 2 = 5.
+Example 2:
+
+Input: costs = [[1,3],[2,4]]
+Output: 5
+``` 
+
+```python
+class Solution:
+    def minCostII(self, costs: List[List[int]]) -> int:   
+        # extend the 3 colors to k colors # 各种最优解，可能都需要看？
+        n = len(costs)
+        if n == 0: return 0
+        k = len(costs[0])
+        for house in range(1, n):
+            for color in range(k):
+                best = math.inf
+                for previous_color in range(k):
+                    if color == previous_color: continue
+                    best = min(best, costs[house - 1][previous_color])
+                costs[house][color] += best
+
+        return min(costs[-1])
+    # time o(n*k^2), space o(1) or o(k)？
+```

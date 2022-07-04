@@ -127,3 +127,35 @@ class Solution:
 # 来源：力扣（LeetCode）
 # 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 ``` 
+
+
+
+### 605. Can Place Flowers https://leetcode.com/problems/can-place-flowers/ 
+You have a long flowerbed in which some of the plots are planted, and some are not. However, flowers cannot be planted in adjacent plots.
+
+Given an integer array flowerbed containing 0's and 1's, where 0 means empty and 1 means not empty, and an integer n, return if n new flowers can be planted in the flowerbed without violating the no-adjacent-flowers rule.
+
+```
+Example 1:
+
+Input: flowerbed = [1,0,0,0,1], n = 1
+Output: true
+Example 2:
+
+Input: flowerbed = [1,0,0,0,1], n = 2
+Output: false
+``` 
+> greedy 策略
+
+```python
+class Solution:
+    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
+        # greey 连续3个0 就能种花, 贪心策略
+        count = 0 
+        flowerbed = [0] + flowerbed + [0]     
+        for i in range(1,len(flowerbed)-1):
+            if flowerbed[i] ==0 and flowerbed[i-1] !=1 and flowerbed[i+1] !=1:
+                count+=1
+                flowerbed[i] =1 # 要把中间的中上！
+        return count>=n
+```
